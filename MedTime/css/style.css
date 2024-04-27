@@ -1,0 +1,12 @@
+
+.btn-verde {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    text-align: center;
+}
+.btn-verde :hover {
+background-color: #00B19C;
+color: rgb(0, 0, 0);
+text-align: center;
+}
