@@ -1,0 +1,95 @@
+.btn-verde {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    text-align: center;
+}
+
+.btn-verde :hover {
+    background-color: #00B19C;
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+
+.conteudo {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.btn-purple {
+  background-color: #9470AF;
+}
+
+.btn-purple:hover {
+  background-color: #9470AF;
+  background-color: #17AF9B;
+}
+
+.fundo-cabecalho {
+    background-color: #b1f7ef;
+}
+
+.navbar-custom {
+
+    background-color: #01c0aa;
+}
+
+
+/* navbar */
+.navbar-nav .nav-link {
+    text-transform: uppercase;
+    color: white;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+}
+
+/* Estilo para o texto da barra de navegação quando em hover */
+.navbar-custom .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 0.25rem;
+}
+
+/* FONTES: */
+.bungee-spice-regular {
+    font-family: "Bungee Spice", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .nosifer-regular {
+    font-family: "Nosifer", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+  
+  .amatic-sc-regurla {
+    font-family: "Amatic SC", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .amatic-sc-bold {
+    font-family: "Amatic SC", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  .righteous-regular {
+    font-family: "Righteous", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .bungee-regular {
+    font-family: "Bungee", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .rubik-doodle-shadow-regular {
+    font-family: "Rubik Doodle Shadow", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+  /* fontes */
