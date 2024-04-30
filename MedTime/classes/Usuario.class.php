@@ -41,8 +41,7 @@ class Usuario {
 
     public function Cadastrar(){
 
-        $sql = "INSERT INTO usuarios(nome, email, senha, cpf, data_nascimento, id_categoria) 
-        VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "CALL cadastrar_usuario ('?', '?', '?', '?', '?', '?', '?')";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
