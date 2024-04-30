@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="pt-br">
 
@@ -7,15 +6,23 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="shortcut icon" type="image/png" href="../img/favico.png">
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <style>
         body {
-            background-color: #F4D03F;
-            background-image: linear-gradient(132deg, #3374FF 0%, #33F3FF 100%);
-            background-attachment: fixed;
-            background-size: cover;
+            background: radial-gradient(circle at 1%, #9470AF, #17AF9B, #1662AB);
+        }
+
+        .btn-purple {
+            background-color: #9470AF;
+        }
+
+        .btn-purple:hover {
+            background-color: #9470AF;
+            background-color: #17AF9B;
         }
 
         .conteudo {
@@ -36,13 +43,14 @@
         <div class="row justify-content-center mt-5">
             <div class="col-4">
                 <!-- Título da página de login -->
-                <h1 class="text-white" id="titulo">Login - "Nome do Projeto"</h1>
+                <img src="../../img/logo.png" width="200px" alt="Logo" class="img-fluid mx-auto d-block">
+                <h1 class="text-white text-" id="titulo">Login</h1>
             </div>
         </div>
         <div class="row justify-content-center mt-3">
             <div class="col-4 conteudo">
                 <!-- Forms de login -->
-                <form id="formLogin" action="#" method="POST">
+                <form id="formLogin" action="validar_login.php" method="POST">
                     <!-- Div de email -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -55,17 +63,18 @@
                     </div>
                     <!-- Botão de login -->
                     <div class="form-group">
-                        <button type="submit" id="btnEntrar" class="form-control btn btn-primary rounded submit px-3">Entrar</button>
+                        <button type="submit" id="btnEntrar" class="form-control btn btn-purple rounded text-white submit px-3">Entrar</button>
                     </div>
                     <div class="mb-3 mt-3">
-                        <p class="text-center">Não possui conta? 
+                        <p class="text-center">Não possui conta?
                             <!-- tag <a> que redirecionada para página de cadastro com JS -->
-                            <a href="#" id="btnCadastroToggle">Cadastre-se</a></p>
+                            <a href="#" id="btnCadastroToggle">Cadastre-se</a>
+                        </p>
                     </div>
                 </form>
 
                 <!-- Forms de cadastro -->
-                <form id="formCadastro" action="#" method="POST">
+                <form id="formCadastro" action="../usuario/cadastrar_usuario.php" method="POST">
                     <!-- Div de Nome -->
                     <div class="mb-3">
                         <label for="nomeCadastro" class="form-label">Nome Completo:</label>
@@ -76,14 +85,6 @@
                         <label for="emailCadastro" class="form-label">Email</label>
                         <input type="text" class="form-control" id="emailCadastro" name="email" placeholder="Digite o e-mail que você deseja cadastrar" required>
                     </div>
-                    <!-- Input de radio, caso de click irá executar um evento JS para mostrar os campos -->
-                        <input type="radio" id="simEmail" onclick="simOuNaoCheck()"> Desejo adicionar outro e-mail
-                            <!-- style: define a visibilidade dos campos, por padrão é ocultado(none) -->
-                            <!-- Div de email secundário -->
-                            <div class="mb-3 mt-2" id="simChecked" style="display:none"> 
-                                <label for="emailSecundario" class="form-label" >Email secundário<i> (Opcional)</i></label>
-                                <input type="text" class="form-control" id="emailSecundario" name="email" placeholder="Digite o e-mail que você deseja cadastrar">
-                            </div>
                     <!-- Div de senha -->
                     <div class="mb-3 py-3">
                         <label for="senhaCadastro" class="form-label">Senha</label>
@@ -100,8 +101,8 @@
                     <input type="radio" id="simTel" onclick="simOuNaoCheck()"> Desejo adicionar outro telefone
                     <!-- Div de telefone secundário -->
                     <div class="mb-3 mt-2" id="simTelChecked" style="display:none">
-                        <label for="telSecundario" class="form-label" >Telefone reserva<i> (Opcional)</i></label>
-                        <input type="tel" class="form-control" id="telSecundario" name="telefone" placeholder="Exemplo: (DD) 9 9999-9999">
+                        <label for="telSecundario" class="form-label">Telefone reserva<i> (Opcional)</i></label>
+                        <input type="tel" class="form-control" id="telSecundario" name="telefone2" placeholder="Exemplo: (DD) 9 9999-9999">
                     </div>
                     <!-- Div de CPF -->
                     <div class="mb-3 py-3">
@@ -115,12 +116,13 @@
                     </div>
                     <!-- Botão de cadastro -->
                     <div class="form-group">
-                        <button type="submit" class="form-control btn btn-primary rounded submit px-3" id="btnCadastrar">Cadastrar</button>
+                        <button type="submit" class="form-control btn btn-purple rounded text-white submit px-3" id="btnCadastrar">Cadastrar</button>
                     </div>
                     <div class="mb-3 mt-3">
-                        <p class="text-center">Já possui conta? 
+                        <p class="text-center">Já possui conta?
                             <!-- Caso clicado irá redirecionar para a página de login -->
-                            <a href="#" id="btnLoginToggle">Entrar</a></p>
+                            <a href="#" id="btnLoginToggle">Entrar</a>
+                        </p>
                     </div>
                 </form>
             </div>
@@ -148,9 +150,9 @@
 
         //Função para mostrar e ocultar a senha no campo de cadastro
         function mostrarSenha() {
-        var x = document.getElementById("senhaCadastro");
-        if (x.type === "password") {
-            x.type = "text";
+            var x = document.getElementById("senhaCadastro");
+            if (x.type === "password") {
+                x.type = "text";
             } else {
                 x.type = "password";
             }
@@ -158,19 +160,12 @@
 
         //Função para verificar se foi clicado a opção de email/telefone secundário
         function simOuNaoCheck() {
-        if (document.getElementById('simEmail').checked) { //Caso email tenha sido clicado
-            document.getElementById('simChecked').style.display = 'block'; //Block = visível
-        } else {
-            document.getElementById('simChecked').style.display = 'none'; //None = invisível
+            if (document.getElementById('simTel').checked) { //Caso telefone tenha sido clicado
+                document.getElementById('simTelChecked').style.display = 'block';
+            } else {
+                document.getElementById('simTelChecked').style.display = 'none';
+            }
         }
-
-        if (document.getElementById('simTel').checked){  //Caso telefone tenha sido clicado
-            document.getElementById('simTelChecked').style.display = 'block';
-        } else {
-            document.getElementById('simTelChecked').style.display = 'none';
-        }
-}
-        
     </script>
 
 </body>
