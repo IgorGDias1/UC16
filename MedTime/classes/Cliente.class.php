@@ -2,7 +2,7 @@
 
 require_once('Banco.class.php');
 
-class Usuario {
+class Cliente {
 
     public $id;
     public $nome;
@@ -10,13 +10,14 @@ class Usuario {
     public $senha;
     public $cpf;
     public $data_nascimento;
-    public $id_categoria;
-    public $telefone;
+    public $telefone_celular;
+    public $telefone_residencial;
+    public $id_localizacao;
+    public $id_convenio;
 
 
     public function Listar(){
-        // View_usuarios = id, nome, email, cpf, data_nascimento, telefone, categoria
-        $sql = "SELECT * FROM view_usuarios";
+        $sql = "SELECT * FROM clientes";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -29,9 +30,10 @@ class Usuario {
 
     public function ListarPorID(){
 
-        $sql = "SELECT * FROM view_usuarios WHERE id = ?";
+        $sql = "SELECT * FROM clientes WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
+
         $comando->execute([$this -> id]);
 
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
@@ -43,7 +45,8 @@ class Usuario {
 
     public function Cadastrar(){
 
-        $sql = "CALL cadastrar_usuario (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO clientes(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone residencial, id_localizacao, id_convenio) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -51,11 +54,11 @@ class Usuario {
         $hash = hash('sha256', $this->senha);
 
         try{
-        $comando->execute([$this->nome, $this->email, $hash, $this->cpf, $this->data_nascimento, $this->id_categoria, $this->telefone]);
+        $comando->execute([$this->nome, $this->email, $hash, $this->cpf, $this->data_nascimento, $this->telefone_celular, $this->telefone_residencial, $this->id_localizacao, $this->id_convenio]);
             
         Banco::desconectar();
 
-        return 1;
+        return $comando->rowCount();
         } catch(PDOEXCEPTION $e){
             Banco::desconectar();
             return 0;
@@ -64,7 +67,7 @@ class Usuario {
 
 
     public function Logar(){
-        $sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ?";
+        $sql = "SELECT * FROM clientes WHERE email = ? AND senha = ?";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -86,7 +89,7 @@ class Usuario {
 
     public function Deletar(){
 
-        $sql = "DELETE * FROM usuarios WHERE id = ?";
+        $sql = "DELETE * FROM clientes WHERE id = ?";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -98,12 +101,12 @@ class Usuario {
     }
 
     public function Editar(){
-        $sql = "UPDATE usuario SET nome = ?, email = ?, cpf = ?, data_nascimento = ?, id_categoria = ?  WHERE id = ?";
+        $sql = "UPDATE clientes SET nome = ?, email = ?, cpf = ?, data_nascimento = ?, telefone_celular = ?, telefone_residencial = ?, id_localizacao = ?, id_convenio = ?  WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-            $comando->execute([$this -> nome, $this -> email, $this -> cpf, $this -> data_nascimento, $this -> id_categoria]);
+            $comando->execute([$this -> nome, $this -> email, $this -> cpf, $this -> data_nascimento, $this -> telefone_celular, $this->telefone_residencial, $this->id_localizacao, $this->id_convenio]);
 
             Banco::desconectar();
 

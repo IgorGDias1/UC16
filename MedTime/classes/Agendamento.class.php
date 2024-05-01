@@ -5,16 +5,15 @@ require_once('Banco.class.php');
 class Agendamento {
 
     public $id;
+    public $id_cliente;
+    public $id_funcionario;
     public $id_convenio;
-    public $id_usuario;
-    public $id_profissional;
-    public $id_exame;
-    public $id_local_exame;
+    public $id_localizacao;
     public $data_agendado;
     public $situacao;
 
     public function Listar(){
-        $sql = "SELECT * FROM view_agendamentos" ;
+        $sql = "SELECT * FROM agendamentos" ;
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -28,7 +27,7 @@ class Agendamento {
 
     public function ListarPorID(){
 
-        $sql = "SELECT * FROM view_agendamentos WHERE id = ?";
+        $sql = "SELECT * FROM agendamentos WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute([$this -> id]);
@@ -41,18 +40,19 @@ class Agendamento {
 
     public function Agendar(){
 
-        $sql = "INSERT INTO agendamentos(id_convenio, id_usuario, id_profissional, id_exame, id_local_exame, data_agendado, situacao) 
+        $sql = "INSERT INTO agendamentos(id_cliente, id_funcionario, id_exame, id_convenio, id_localizacao, data_agendado, situacao) 
         VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-        $comando->execute([$this->id_convenio, $this->id_usuario, $this -> id_profissional, $this -> id_exame, $this -> id_local_exame, $this -> data_agendado, $this -> situacao]);
+        $comando->execute([$this->id_cliente, $this->id_funcionario, $this -> id_exame, $this -> id_convenio, $this -> id_localizacao, $this -> data_agendado, $this -> situacao]);
             
         Banco::desconectar();
 
         return $comando->rowCount();
+
         } catch(PDOEXCEPTION $e){
             Banco::desconectar();
             return 0;
@@ -60,12 +60,12 @@ class Agendamento {
     }
 
     public function Editar(){
-        $sql = "UPDATE agendamentos SET id_convenio = ?, id_usuario = ?, id_profissional = ?, id_exame = ?, id_local_exame = ?, data_agendado = ?, situacao = ?  WHERE id = ?";
+        $sql = "UPDATE agendamentos SET id_cliente = ?, id_funcionario = ?, id_exame = ?, id_convenio = ?, id_localizacao = ?, data_agendado = ?, situacao = ?  WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-            $comando->execute([$this -> id_convenio, $this -> id_usuario, $this -> id_profissional, $this -> id_exame, $this -> id_local_exame, $this -> data_agendado, $this -> situacao, $this -> id]);
+            $comando->execute([$this -> id_cliente, $this -> id_funcionario, $this -> id_exame, $this -> id_convenio, $this -> id_localizacao, $this -> data_agendado, $this -> situacao, $this -> id]);
 
             Banco::desconectar();
 

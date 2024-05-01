@@ -1,18 +1,14 @@
-
 <?php
 
 require_once('Banco.class.php');
 
-class Convenio {
+class Cargos {
 
     public $id;
     public $nome;
-    public $email;
-    public $telefone;
 
     public function Listar(){
-
-        $sql = "SELECT * FROM convenios";
+        $sql = "SELECT * FROM cargos";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -24,30 +20,16 @@ class Convenio {
 
     }
 
-    public function ListarPorID(){
-
-        $sql = "SELECT * FROM convenios WHERE id = ?";
-        $banco = Banco::conectar();
-        $comando = $banco->prepare($sql);
-        $comando->execute([$this -> id]);
-
-        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
-        Banco::desconectar();
-
-                return $resultado -> rowCount();
-
-    }
-
     public function Cadastrar(){
 
-        $sql = "INSERT INTO convenios(nome, email, telefone) 
-        VALUES (?, ?, ?)";
+        $sql = "INSERT INTO cargos(nome) 
+        VALUES (?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-        $comando->execute([$this->nome, $this->email, $this->telefone]);
+        $comando->execute([$this->nome]);
             
         Banco::desconectar();
 
@@ -60,17 +42,16 @@ class Convenio {
     }
 
     public function Deletar(){
-        $sql = "DELETE * FROM convenios WHERE id = ?";
-
+        $sql = "DELETE * FROM cargos WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco -> prepare($sql);
-
-        $comando -> execute ([$this -> id]);
+        $comando -> execute([$this -> id]);
 
         Banco::desconectar();
+
         return $comando -> rowCount();
-        
     }
+
 
 }
 

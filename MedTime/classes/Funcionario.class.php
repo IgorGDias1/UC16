@@ -2,16 +2,21 @@
 
 require_once('Banco.class.php');
 
-class Profissional {
+class Funcionario {
 
     public $id;
     public $nome;
-    public $id_especialidade;
+    public $email;
+    public $senha;
+    public $cpf;
+    public $telefone;
     public $id_localizacao;
+    public $id_cargo;
+    public $id_especialidade;
     public $situacao;
 
     public function Listar(){
-        $sql = "SELECT * FROM view_profissionais";
+        $sql = "SELECT * FROM funcionarios";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -25,7 +30,7 @@ class Profissional {
 
     public function ListarPorID(){
 
-        $sql = "SELECT * FROM view_profissionais WHERE id = ?";
+        $sql = "SELECT * FROM funcionarios WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute([$this -> id]);
@@ -39,14 +44,16 @@ class Profissional {
 
     public function Cadastrar(){
 
-        $sql = "INSERT INTO profissionais(nome, id_especialidade, id_localizacao, situacao) 
-        VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO clientes(nome, email, senha, cpf, telefone, id_localizacao, id_cargo, id_especialidade, situacao) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
+        $hash = hash('sha256', $this->senha);
+
         try{
-        $comando->execute([$this->nome, $this->id_especialidade,$this -> id_localizacao, $this -> situacao]);
+        $comando->execute([$this->nome, $this->email, $hash, $this->cpf, $this->telefone, $this->id_localizacao, $this->id_cargo, $this->id_especialidade, $this->situacao]);
             
         Banco::desconectar();
 
@@ -58,12 +65,13 @@ class Profissional {
     }
 
     public function Editar(){
-        $sql = "UPDATE profissionais SET nome = ?, id_especialidade = ?, id_localizacao = ?, situacao = ? WHERE id = ?";
+        $sql = "UPDATE funcionarios SET nome = ?, email = ?, cpf = ?, telefone = ?, id_localizacao = ?, id_cargo = ?, id_especialidade = ?, situacao = ?
+        WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-            $comando->execute([$this -> nome, $this -> id_especialidade, $this -> id_localizacao, $this -> situacao, $this -> id]);
+            $comando->execute([$this -> nome, $this -> email, $this -> cpf, $this -> telefone, $this -> id_localizacao, $this->id_cargo, $this->id_especialidade, $this->situacao, $this->id]);
 
             Banco::desconectar();
 
@@ -77,7 +85,7 @@ class Profissional {
 
     public function Deletar(){
 
-        $sql = "DELETE * FROM profissionais WHERE id = ?";
+        $sql = "DELETE * FROM funcionarios WHERE id = ?";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);

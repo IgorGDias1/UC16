@@ -12,9 +12,10 @@ class Localizacao {
     public $localidade;
     public $uf;
     public $ddd;
+    public $tipo;
 
     public function Listar(){
-        $sql = "SELECT * FROM localizacao";
+        $sql = "SELECT * FROM localizacoes";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -28,7 +29,7 @@ class Localizacao {
 
     public function ListarPorID(){
 
-        $sql = "SELECT * FROM localizacao WHERE id = ?";
+        $sql = "SELECT * FROM localizacoes WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute([$this -> id]);
@@ -42,18 +43,19 @@ class Localizacao {
 
     public function Cadastrar(){
 
-        $sql = "INSERT INTO localizacao(cep, logradouro, complemento, bairro, localidade, uf, ddd) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO localizacoes(cep, logradouro, complemento, bairro, localidade, uf, ddd, tipo) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-        $comando->execute([$this->cep, $this->logradouro,$this -> complemento, $this -> bairro, $this -> localidade, $this -> uf, $this -> ddd]);
+        $comando->execute([$this->cep, $this->logradouro,$this -> complemento, $this -> bairro, $this -> localidade, $this -> uf, $this -> ddd, $this->tipo]);
             
         Banco::desconectar();
 
         return $comando->rowCount();
+        
         } catch(PDOEXCEPTION $e){
             Banco::desconectar();
             return 0;

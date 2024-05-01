@@ -5,10 +5,11 @@ require_once('Banco.class.php');
 class Especialidade {
 
     public $id;
-    public $nome;
+    public $id_cargo;
+    public $especificacao;
 
     public function Listar(){
-        $sql = "SELECT * FROM especialidade";
+        $sql = "SELECT * FROM especialidades";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -22,19 +23,20 @@ class Especialidade {
 
     public function Cadastrar(){
 
-        $sql = "INSERT INTO especialidade(nome) 
-        VALUES (?)";
+        $sql = "INSERT INTO especialidades(id_cargo, especificacao) 
+        VALUES (?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
 
         try{
-        $comando->execute([$this->nome]);
+        $comando->execute([$this->id_cargo, $this->nome]);
             
         Banco::desconectar();
 
         return $comando->rowCount();
+
         } catch(PDOEXCEPTION $e){
             Banco::desconectar();
             return 0;
@@ -43,7 +45,7 @@ class Especialidade {
 
     public function Deletar(){
 
-        $sql = "DELETE * FROM especialidade WHERE id = ?";
+        $sql = "DELETE * FROM especialidades WHERE id = ?";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);

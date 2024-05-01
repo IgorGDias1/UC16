@@ -5,12 +5,15 @@ require_once('Banco.class.php');
 class Resultado {
 
     public $id;
-    public $id_usuario;
-    public $id_profissional;
+    public $id_cliente;
+    public $id_funcionario;
+    public $data_realizacao;
+    public $id_localizacao;
     public $resultado;
+    public $reagendamento;
 
     public function Listar(){
-        $sql = "SELECT * FROM view_resultado" ;
+        $sql = "SELECT * FROM resultados" ;
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -24,7 +27,7 @@ class Resultado {
 
     public function ListarPorID(){
 
-        $sql = "SELECT * FROM view_resultado WHERE id = ?";
+        $sql = "SELECT * FROM resultados WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute([$this -> id]);
@@ -37,18 +40,19 @@ class Resultado {
 
     public function Cadastrar(){
 
-        $sql = "INSERT INTO resultados(id_usuario, id_profissional, resultado) 
-        VALUES (?, ?, ?)";
+        $sql = "INSERT INTO resultados(id_cliente, id_funcionario, data_realizacao, id_localizacao, resultado, reagendamento) 
+        VALUES (?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-        $comando->execute([$this->id_usuario, $this -> id_profissional, $this -> resultado]);
+        $comando->execute([$this->id_cliente, $this->id_funcionario, $this->data_realizacao, $this->id_localizacao, $this->resultado, $this->reagendamento]);
             
         Banco::desconectar();
 
         return $comando->rowCount();
+
         } catch(PDOEXCEPTION $e){
             Banco::desconectar();
             return 0;
@@ -56,12 +60,12 @@ class Resultado {
     }
 
     public function Editar(){
-        $sql = "UPDATE resultados SET id_usuario = ?, id_profissional = ?, resultado = ? WHERE id = ?";
+        $sql = "UPDATE resultados SET id_cliente = ?, id_funcionario = ?, data_realizacao = ?, id_localizacao = ?, resultado = ?, reagendamento = ? WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-            $comando->execute([$this -> id_usuario, $this -> id_profissional, $this -> resultado]);
+            $comando->execute([$this -> id_cliente, $this->id_funcionario, $this->data_realizacao, $this->id_localizacao, $this->resultado, $this->reagendamento, $this->id]);
 
             Banco::desconectar();
 

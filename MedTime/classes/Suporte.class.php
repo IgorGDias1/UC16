@@ -5,13 +5,13 @@ require_once('Banco.class.php');
 class Suporte {
 
     public $id;
-    public $id_usuario;
+    public $id_cliente;
     public $assunto;
     public $mensagem;
     public $situacao;
 
     public function Listar(){
-        $sql = "SELECT * FROM view_suporte";
+        $sql = "SELECT * FROM suportes";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
@@ -25,7 +25,7 @@ class Suporte {
 
     public function ListarPorID(){
 
-        $sql = "SELECT * FROM view_suporte WHERE id = ?";
+        $sql = "SELECT * FROM suportes WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute([$this -> id]);
@@ -39,18 +39,19 @@ class Suporte {
 
     public function Solicitar(){
 
-        $sql = "INSERT INTO usuarios(id_usuario, assunto, mensagem, situacao) 
+        $sql = "INSERT INTO suportes(id_cliente, assunto, mensagem, situacao) 
         VALUES (?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-        $comando->execute([$this->id_usuario, $this->assunto,$this -> mensagem, $this -> situacao]);
+        $comando->execute([$this->id_cliente, $this->assunto,$this -> mensagem, $this -> situacao]);
             
         Banco::desconectar();
 
         return $comando->rowCount();
+
         } catch(PDOEXCEPTION $e){
             Banco::desconectar();
             return 0;
@@ -58,7 +59,7 @@ class Suporte {
     }
 
     public function Modificar_Situacao(){
-        $sql = "UPDATE suporte SET situacao = ? WHERE id = ?";
+        $sql = "UPDATE suportes SET situacao = ? WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
