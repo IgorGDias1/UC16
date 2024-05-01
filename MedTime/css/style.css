@@ -1,14 +1,9 @@
 .btn-verde {
-    background-color: white;
-    color: black;
-    padding: 10px;
-    text-align: center;
+    background-color: #00B19C;
 }
 
-.btn-verde :hover {
-    background-color: #00B19C;
-    color: rgb(0, 0, 0);
-    text-align: center;
+.btn-verde:hover {
+  background-color: #17AF9B;
 }
 
 .conteudo {

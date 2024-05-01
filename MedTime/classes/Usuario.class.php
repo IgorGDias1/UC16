@@ -11,6 +11,8 @@ class Usuario {
     public $cpf;
     public $data_nascimento;
     public $id_categoria;
+    public $telefone;
+
 
     public function Listar(){
         // View_usuarios = id, nome, email, cpf, data_nascimento, telefone, categoria
@@ -41,8 +43,7 @@ class Usuario {
 
     public function Cadastrar(){
 
-        $sql = "INSERT INTO usuarios(nome, email, senha, cpf, data_nascimento, id_categoria) 
-        VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "CALL cadastrar_usuario (?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -50,11 +51,11 @@ class Usuario {
         $hash = hash('sha256', $this->senha);
 
         try{
-        $comando->execute([$this->nome, $this->email, $hash, $this -> cpf, $this -> data_nascimento, $this -> id_categoria]);
+        $comando->execute([$this->nome, $this->email, $hash, $this->cpf, $this->data_nascimento, $this->id_categoria, $this->telefone]);
             
         Banco::desconectar();
 
-        return $comando->rowCount();
+        return 1;
         } catch(PDOEXCEPTION $e){
             Banco::desconectar();
             return 0;
@@ -63,7 +64,6 @@ class Usuario {
 
 
     public function Logar(){
-
         $sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ?";
 
         $banco = Banco::conectar();

@@ -107,12 +107,12 @@
                     <!-- Div de CPF -->
                     <div class="mb-3 py-3">
                         <label for="cpfCadastro" class="form-label">CPF</label>
-                        <input type="text" class="form-control" id="cpfCadastro" name="cpf" maxlength="11" placeholder="Exemplo: 000.000.000-00">
+                        <input type="text" class="form-control" id="cpfCadastro" name="cpf" maxlength="11" placeholder="Exemplo: 000.000.000-00" required>
                     </div>
                     <!-- Div de data de nascimento -->
                     <div class="mb-3">
                         <label for="data_nascimentoCadastro" class="form-label">Data de nascimento</label>
-                        <input type="date" class="form-control" id="data_nascimentoCadastro" name="data_nascimento">
+                        <input type="date" class="form-control" id="data_nascimentoCadastro" name="data_nascimento" required>
                     </div>
                     <!-- Botão de cadastro -->
                     <div class="form-group">
@@ -167,6 +167,8 @@
             }
         }
     </script>
+
+    <?php include_once('../../includes/alertas.include.php'); ?>
 
 </body>
 
