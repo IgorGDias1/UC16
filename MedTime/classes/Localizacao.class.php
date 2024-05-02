@@ -23,7 +23,7 @@ class Localizacao {
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
 
-        return $resultado -> rowCount();
+        return $resultado;
 
     }
 
@@ -60,6 +60,37 @@ class Localizacao {
             Banco::desconectar();
             return 0;
         }
+    }
+
+    public function Deletar(){
+
+        $sql = "DELETE FROM localizacoes WHERE id = ?";
+
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        
+        $comando->execute([$this->id]);
+
+        Banco::desconectar();
+        return $comando -> rowCount();
+    }
+
+    public function Editar(){
+        $sql = "UPDATE localizacoes SET cep = ?, logradouro = ?, complemento = ?, bairro = ?, localidade = ?, uf = ?, ddd = ?, tipo = ?  WHERE id = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        try{
+            $comando->execute([$this->cep, $this->logradouro, $this->complemento, $this->bairro, $this->localidade, $this->uf, $this->ddd, $this->tipo, $this->id]);
+
+            Banco::desconectar();
+
+            return $comando->rowCount();
+
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }   
     }
 
 }

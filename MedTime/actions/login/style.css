@@ -1,0 +1,22 @@
+body {
+    background: radial-gradient(circle at 1%, #9470AF, #17AF9B, #1662AB);
+}
+
+.btn-purple {
+    background-color: #9470AF;
+}
+
+.btn-purple:hover {
+    background-color: #9470AF;
+    background-color: #17AF9B;
+}
+
+.conteudo {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.form-label {
+    font-weight: bold;
+}

@@ -64,6 +64,28 @@ class Funcionario {
         }
     }
 
+    public function Logar(){
+        $sql = "SELECT * FROM funcionarios WHERE email = ? AND senha = ?";
+
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        
+        $hash = hash('sha256', $this->senha);
+
+        try{
+        $comando->execute([$this->email, $hash]);
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+        
+        } catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }
+    }
+
     public function Editar(){
         $sql = "UPDATE funcionarios SET nome = ?, email = ?, cpf = ?, telefone = ?, id_localizacao = ?, id_cargo = ?, id_especialidade = ?, situacao = ?
         WHERE id = ?";

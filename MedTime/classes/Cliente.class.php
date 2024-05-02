@@ -17,6 +17,7 @@ class Cliente {
 
 
     public function Listar(){
+
         $sql = "SELECT * FROM clientes";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -25,7 +26,7 @@ class Cliente {
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
 
-        return $resultado->rowCount();
+        return $resultado;
     }
 
     public function ListarPorID(){
@@ -45,7 +46,7 @@ class Cliente {
 
     public function Cadastrar(){
 
-        $sql = "INSERT INTO clientes(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone residencial, id_localizacao, id_convenio) 
+        $sql = "INSERT INTO clientes(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone_residencial, id_localizacao, id_convenio) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
@@ -59,6 +60,7 @@ class Cliente {
         Banco::desconectar();
 
         return $comando->rowCount();
+
         } catch(PDOEXCEPTION $e){
             Banco::desconectar();
             return 0;

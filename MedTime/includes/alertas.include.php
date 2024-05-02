@@ -1,18 +1,28 @@
 <?php
     $alertas_sucesso = [
-        //Usuario
-        "cadastrarusuario" => "Cadastro realizado com sucesso!",
-        "removerusuario" => "Usuário removido!",
-        "editarusuario" => "Usuário editado!",
+        //Cliente
+        "cadastrarcliente" => "Cadastro realizado com sucesso!",
+        "removercliente" => "Usuário removido!",
+        "editarcliente" => "Usuário editado!",
+
+        //Funcionarios
+        "cadastrarfuncionario" => "Cadastro realizado com sucesso!",
+        "removerfuncionario" => "Funcionário removido!",
+        "editarfuncionario" => "Funcionário editado!",
+
+        //Localização
+        "cadastrarlocalizacao" => "Localização Cadastrada!",
+        "removerlocalizacao" => "Localização removido!",
+        "editarlocalizacao" => "Localização editada!",
 
         //Agendamento
         "cadastraragendamento" => "Agendamento realizado!",
         "removeragendamento" => "Agendamento deletado",
         "editaragendamento" => "Informações editadas",
 
-        //Categoria
-        "cadastrarcategoria" => "Categoria cadastrada",
-        "removercategoria" => "Categoria removida!",
+        //Cargos
+        "cadastrarcargo" => "Cargo cadastrado",
+        "removercargo" => "Cargo removido!",
 
         //Convenio
         "cadastrarconvenio" => "Cadastro realizado",
@@ -35,16 +45,29 @@
     ];
 
     $alertas_falha = [
-        //Usuario
-        "cadastrarusuario" => "Falha ao cadastrar!",
-        "editarusuario" => "Falha ao ao editar!",
+        //Cliente
+        "cadastrarcliente" => "Ocorreu um erro!",
+        "removercliente" => "Erro ao remover!",
+        "editarcliente" => "Erro ao editar usuario",
+
+        //Funcionarios
+        "cadastrarfuncionario" => "Erro! Tente novamente",
+        "removerfuncionario" => "Ocorreu um erro!",
+        "editarfuncionario" => "Erro! Verifique as informações!",
+
+        //Localização
+        "cadastrarlocalizacao" => "Erro!",
+        "removerlocalizacao" => "Erro ao remover localização",
+        "editarlocalizacao" => "Erro!",
 
         //Agendamento
-        "cadastraragendamento" => "Ocorreu um erro!",
-        "editaragendamento" => "Falha ao editar",
+        "cadastraragendamento" => "Erro ao cadastrar agendamento",
+        "removeragendamento" => "Erro!",
+        "editaragendamento" => "Erro ao editar agendamento",
 
-        //Categoria
-        "cadastrarcategoria" => "Erro ao cadastrar categoria",
+        //Cargos
+        "cadastrarcargo" => "Erro!",
+        "removercargo" => "Erro ao remover cargo",
 
         //Convenio
         "cadastrarconvenio" => "Erro ao cadastrar convenio",

@@ -55,8 +55,6 @@ Class Exame {
 
         return $comando->rowCount();
     }
-
-
 }
 
 
