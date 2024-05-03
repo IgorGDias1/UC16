@@ -2,11 +2,11 @@
 
 session_start();
 
-if(!isset($_SESSION['usuario'])){
-    //Retornar a tela de login
-    header('Location: ../login/index.php');
-    die();
-  }
+if (!isset($_SESSION['usuario'])) {
+  //Retornar a tela de login
+  header('Location: ../login/index.php');
+  die();
+}
 
 require_once('../../classes/Cliente.class.php');
 $cliente = new Cliente();
@@ -24,7 +24,7 @@ $lista_convenios = $convenio->Listar();
 
 ?>
 <!DOCTYPE html>
-<html lang="pt-br"> 
+<html lang="pt-br">
 
 <head>
   <meta charset="UTF-8">
@@ -39,18 +39,18 @@ $lista_convenios = $convenio->Listar();
 
   <link rel="shortcut icon" type="image/png" href="../img/favico.png">
 
-<!-- Removendo a setinha do imput number -->
-<style> 
+  <!-- Removendo a setinha do imput number -->
+  <style>
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     input[type=number] {
-    -moz-appearance: textfield;
+      -moz-appearance: textfield;
     }
-</style>
+  </style>
 
 
 </head>
@@ -61,91 +61,93 @@ $lista_convenios = $convenio->Listar();
   <div class="container-fluid mt-5">
     <!-- Navbar geral -->
     <nav class="navbar navbar-expand-lg navbar-custom righteous-regular">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-center py-2" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item px-3 mx-3">
-                                <a class="nav-link active" href="#">
-                                    <img src="../../img/logo.png" alt="logo" width="100px">
-                                </a>
-                            </li>
-                            <li class="nav-item px-3 mt-4">
-                                <a class="nav-link active" aria-current="page" href="#">Página Inicial</a>
-                            </li>
-                            <li class="nav-item px-3 mt-4">
-                                <a class="nav-link" href="#">Consultas</a>
-                            </li>
-                            <li class="nav-item px-3 mt-4">
-                                <a class="nav-link" href="#">Exames disponíveis</a>
-                            </li>
-                            <li class="nav-item px-3 mt-4">
-                                <a class="nav-link" href="#">Agendamentos</a>
-                            </li>
-                            <li class="nav-item px-3 mt-4">
-                                <a class="nav-link" href="#">Contate-nós</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end mx-5">
-                    <a class="btn btn-danger mx-1 text-white" href="logout.php">
-                        <i class="bi bi-box-arrow-right"></i>
-                    </a>
-                </div>
-            </nav>
-
-      </div>
-
-    <!-- Container de gerenciamento -->
-    <div class="container mt-5">
-      <h2 class="text-center mb-4">Gerenciamento de Clientes</h2>
-      <div class="row mb-3">
-        <div class="col d-flex justify-content-end">
-          <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus-circle"></i> Cadastrar Usuário</button>
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center py-2" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item px-3 mx-3">
+              <a class="nav-link active" href="#">
+                <img src="../../img/logo.png" alt="logo" width="100px">
+              </a>
+            </li>
+            <li class="nav-item px-3 mt-4">
+              <a class="nav-link active" aria-current="page" href="#">Página Inicial</a>
+            </li>
+            <li class="nav-item px-3 mt-4">
+              <a class="nav-link" href="#">Consultas</a>
+            </li>
+            <li class="nav-item px-3 mt-4">
+              <a class="nav-link" href="#">Exames disponíveis</a>
+            </li>
+            <li class="nav-item px-3 mt-4">
+              <a class="nav-link" href="#">Agendamentos</a>
+            </li>
+            <li class="nav-item px-3 mt-4">
+              <a class="nav-link" href="#">Contate-nós</a>
+            </li>
+          </ul>
         </div>
       </div>
-      <table class="table table-striped table-hover table-primary ">
-        <thead>
-          <tr>
-            <th hidden>ID</th>
-            <th>Nome</th>
-            <th>E-mail</th>
-            <th hidden>Senha</th>
-            <th>CPF</th>
-            <th>Data de Nascimento</th>
-            <th>Telefone Celular</th>
-            <th>Telefone Residencial</th>
-            <th>CEP</th>
-            <th>Convênio</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-            <?php foreach($lista_clientes as $cliente){?>
-                <tr>
-                    <td hidden class="table-primary"><?=$cliente['id'];?></td>
-                    <td><?=$cliente['nome'];?></td>
-                    <td><?=$cliente['email'];?></td>
-                    <td hidden><?=$cliente['senha'];?></td>
-                    <td><?=$cliente['cpf'];?></td>
-                    <td><?=$cliente['data_nascimento'];?></td>
-                    <td><?=$cliente['telefone_celular'];?></td>
-                    <td><?=$cliente['telefone_residencial'];?></td>
-                    <td><?=$cliente['id_localizacao'];?></td>
-                    <td><?=$cliente['id_convenio'];?></td>
-                    <td><a href="#" class="btn btn-success">Editar</a></td>
-                    <td><a href="#" class="btn btn-success" onclick="excluir(<?=$cliente['id'];?>)">Apagar</a></td>
-                </tr>
-                <?php } ?>
-        </tbody>
-      </table>
+      <div class="d-flex justify-content-end mx-5">
+        <a class="btn btn-danger mx-1 text-white" href="logout.php">
+          <i class="bi bi-box-arrow-right"></i>
+        </a>
+      </div>
+    </nav>
 
+  </div>
+
+  <!-- Container de gerenciamento -->
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Gerenciamento de Clientes</h2>
+    <div class="row mb-3">
+      <div class="col d-flex justify-content-end">
+        <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus-circle"></i> Cadastrar Usuário</button>
+      </div>
     </div>
+    <table class="table table-striped table-hover table-primary ">
+      <thead>
+        <tr>
+          <th hidden>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th hidden>Senha</th>
+          <th>CPF</th>
+          <th>Data de Nascimento</th>
+          <th>Telefone Celular</th>
+          <th>Telefone Residencial</th>
+          <th>CEP</th>
+          <th>Convênio</th>
+          <th>Tipo</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($lista_clientes as $cliente) { ?>
+          <tr>
+            <td hidden class="table-primary"><?= $cliente['id']; ?></td>
+            <td><?= $cliente['nome']; ?></td>
+            <td><?= $cliente['email']; ?></td>
+            <td hidden><?= $cliente['senha']; ?></td>
+            <td><?= $cliente['cpf']; ?></td>
+            <td><?= $cliente['data_nascimento']; ?></td>
+            <td><?= $cliente['telefone_celular']; ?></td>
+            <td><?= $cliente['telefone_residencial']; ?></td>
+            <td><?= $cliente['id_localizacao']; ?></td>
+            <td><?= $cliente['id_convenio']; ?></td>
+            <td><?= $cliente['tipo'];?></td>
+            <td><button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" data-id="<?= $cliente['id']; ?>" data-nome="<?= $cliente['nome']; ?>" data-email="<?= $cliente['email']; ?>" data-cpf="<?= $cliente['cpf']; ?>" data-data_nascimento="<?= $cliente['data_nascimento']; ?>" data-telefone_celular="<?= $cliente['telefone_celular']; ?>" data-telefone_residencial="<?= $cliente['telefone_residencial']; ?>" data-id_localizacao="<?= $cliente['id_localizacao']; ?>" data-id_convenio="<?= $cliente['id_convenio']; ?>">
+                <i class="bi bi-pencil-square"></i> Editar</button></td>
+            <td><a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $cliente['id']; ?>)"><i class="bi bi-file-earmark-x"></i> Excluir</a></td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+
+  </div>
   </div>
 
   <!-- Modal de cadastro -->
@@ -155,8 +157,8 @@ $lista_convenios = $convenio->Listar();
         <form action="cadastrar_cliente.php" method="POST">
           <div class="modal-header d-flex justify-content-end">
             <h5 class="modal-title" id="modalCadastroLabel">Cadastrar novo cliente</h5>
-            <button type="button" class="btn btn-danger mx-5 data-dismiss="modal" aria-label="Fechar">
-              <span aria-hidden="true">&times;</span> 
+            <button type="button" class="btn btn-danger mx-5" data-dismiss="modal" aria-label="Fechar">
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
@@ -167,6 +169,11 @@ $lista_convenios = $convenio->Listar();
             <div class="form-group mt-3">
               <label for="fotoProduto">Email</label>
               <input type="email" class="form-control" id="emailUsuario" name="email" placeholder="email@email.com" required>
+            </div>
+            <div class="form-group mt-3">
+              <label for="fotoProduto">Senha</label>
+              <input type="password" class="form-control" id="senha" name="senha" required>
+              <input class="mt-3" type="checkbox" class="form-check-input" onclick="mostrarSenha()"> Mostrar Senha
             </div>
             <div class="form-group mt-3">
               <label for="descricaoProduto">CPF</label>
@@ -184,54 +191,111 @@ $lista_convenios = $convenio->Listar();
               <label for="telresUsuario">Telefone Residencial</label>
               <input type="tel" class="form-control" id="telresUsuario" maxlenght="14" placeholder="(DDD) 9 9999-9999" name="telefone_residencial">
             </div>
-            <br><hr>
+            <br>
+            <hr>
             <div class="form-group mt-2">
               <label for="cepUsuario">CEP</label>
               <select class="form-control" name="id_localizacao" id="cep">
-              <?php foreach($lista_localizacao as $local){?>
-                <option value="<?=$local['id'];?>"><?=$local['cep'];?></option>
+                <?php foreach ($lista_localizacao as $local) { ?>
+                  <option value="<?= $local['id']; ?>"><?= $local['cep']; ?></option>
                 <?php } ?>
               </select><br>
             </div>
             <div class="form-group">
-              <label for="convenioUsuario">Convenio</label>
+              <label for="convenioUsuario">Convênio</label>
               <select class="form-control" name="id_convenio" id="convenio">
-              <?php foreach($lista_convenios as $convenio){?>
-                <option value="<?=$convenio['id'];?>"><?=$convenio['nome'];?></option>
+                <?php foreach ($lista_convenios as $convenio) { ?>
+                  <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
                 <?php } ?>
               </select><br>
             </div>
-              <div class="modal-footer mt-5">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                <button type="submit" class="btn btn-success">Salvar</button>
-                <a class="btn btn-primary mx-2" href="../enderecos/gerenciamento_enderecos.php" target="blank">Cadastrar endereço</a>
-              </div>
-        </div>
+            <div class="form-group">
+              <label for="tipoEdi">Tipo</label>
+              <select name="tipo" id="tipoEdi" class="form-control">
+                <option value="Cliente">Cliente</option>
+                <option value="Funcionario">Funcionario</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer mt-5">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a class="btn btn-primary mx-2" href="../enderecos/gerenciamento_enderecos.php" target="blank">Cadastrar endereço</a>
+          </div>
+      </div>
+      </form>
     </div>
+  </div>
+  </div>
+  </div>
+
+  <!-- Modal de edição -->
+  <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="editar_cliente.php" method="POST">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
+            </button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" class="id" name="id">
+            <div class="form-group">
+              <label for="nomeEdit">Nome</label>
+              <input type="text" class="form-control nome" id="nomeEdit" name="nome">
+            </div>
+            <div class="form-group mt-3">
+              <label for="emailEdit">Email</label>
+              <input type="text" class="form-control email" id="emailEdit" name="email">
+            </div>
+            <div class="form-group mt-3">
+              <label for="cpfEdit">Cpf</label>
+              <input type="text" class="form-control cpf" id="cpfEdit" name="cpf">
+            </div>
+            <div class="form-group mt-3">
+              <label for="data_nascimentoEdit">Data de Nascimento</label>
+              <input type="text" class="form-control data_nascimento" id="data_nascimentoEdit" name="data_nascimento">
+            </div>
+            <div class="form-group mt-3">
+              <label for="telefone_celularEdit">Telefone Celular</label>
+              <input type="text" class="form-control telefone_celular" id="telefone_celularEdit" name="telefone_celular">
+            </div>
+            <div class="form-group mt-3">
+              <label for="telefone_residencialEdit">Telefone Residencial</label>
+              <input type="text" class="form-control telefone_residencial" id="telefone_residencialEdit" name="telefone_residencial">
+            </div>
+            <div class="form-group mt-2">
+              <label for="id_localizacaoEdit">Localização</label>
+              <select class="form-control id_localizacao" name="id_localizacao" id="id_localizacaoEdit">
+                <?php foreach ($lista_localizacao as $local) { ?>
+                  <option value="<?= $local['id']; ?>"><?= $local['cep']; ?></option>
+                <?php } ?>
+              </select><br>
+            </div>
+            <div class="form-group">
+              <label for="id_convenioEdit">Convênio</label>
+              <select class="form-control id_convenio" name="id_convenio" id="convenioEdit">
+                <?php foreach ($lista_convenios as $convenio) { ?>
+                  <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
+                <?php } ?>
+              </select><br>
+            </div>
+            <div class="form-group mt-3">
+              <label for="tipoEdit">Tipo</label>
+              <select name="tipo" id="tipoEdit" class="form-control tipo">
+                <option value="Cliente">Cliente</option>
+                <option value="Funcionario">Funcionario</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+              <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
         </form>
-         </div>  
       </div>
     </div>
   </div>
 
-<!-- Modal de endereço -->
-<div class="modal fade" id="modalEndereco" tabindex="-1" aria-labelledby="modalEnderecoLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Endereço</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
   <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
@@ -240,7 +304,8 @@ $lista_convenios = $convenio->Listar();
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
-  <?php include_once('../../includes/alertas.include.php');?>
+  <?php include_once('../../includes/alertas.include.php'); ?>
+  <script src="script.js"></script>
 
 </body>
 

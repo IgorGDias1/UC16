@@ -28,7 +28,7 @@
         <div class="row justify-content-center mt-3">
             <div class="col-4 conteudo">
                 <!-- Forms de login -->
-                <form class="was-validated" id="formLogin" action="validar_login.php" method="POST">
+                <form class="" id="formLogin" action="validar_login.php" method="POST">
                     <!-- Div de email -->
                     <div class="mb-3">
                         <label for="email" class="form-label">Email - Funcionário</label>

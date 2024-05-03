@@ -183,7 +183,8 @@ include_once('validar_cep.php');
                         <div class="form-group mt-3">
                             <label for="tipoEdi">Tipo</label>
                             <select name="tipo" id="tipoEdi" class="form-control">
-                              <option value="Residencial">Residencial</option>                              <option value="Comercial">Comercial</option>
+                              <option value="Residencial">Residencial</option>
+                              <option value="Comercial">Comercial</option>
                               <option value="Clinica">Clinica</option>
                             </select>
                         </div>
