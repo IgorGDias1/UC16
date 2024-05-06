@@ -4,6 +4,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     require_once('../../classes/Cliente.class.php');
 
     $cliente = new cliente();
+
     $cliente -> nome = strip_tags($_POST['nome']);
     $cliente -> email = strip_tags($_POST['email']);
     $cliente -> senha = strip_tags($_POST['senha']);
@@ -14,7 +15,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $cliente -> id_localizacao = strip_tags($_POST['id_localizacao']);
     $cliente -> id_convenio = strip_tags($_POST['id_convenio']);
     $cliente -> tipo = strip_tags($_POST['tipo']);
-    
+
 
     if($cliente -> Cadastrar() == 1){
         header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');

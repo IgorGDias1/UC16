@@ -139,9 +139,24 @@ $lista_convenios = $convenio->Listar();
             <td><?= $cliente['id_localizacao']; ?></td>
             <td><?= $cliente['id_convenio']; ?></td>
             <td><?= $cliente['tipo'];?></td>
-            <td><button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" data-id="<?= $cliente['id']; ?>" data-nome="<?= $cliente['nome']; ?>" data-email="<?= $cliente['email']; ?>" data-cpf="<?= $cliente['cpf']; ?>" data-data_nascimento="<?= $cliente['data_nascimento']; ?>" data-telefone_celular="<?= $cliente['telefone_celular']; ?>" data-telefone_residencial="<?= $cliente['telefone_residencial']; ?>" data-id_localizacao="<?= $cliente['id_localizacao']; ?>" data-id_convenio="<?= $cliente['id_convenio']; ?>">
-                <i class="bi bi-pencil-square"></i> Editar</button></td>
-            <td><a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $cliente['id']; ?>)"><i class="bi bi-file-earmark-x"></i> Excluir</a></td>
+            <td>
+            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal"            data-target="#modalEdicao" 
+            data-id="<?= $cliente['id']; ?>" 
+            data-nome="<?= $cliente['nome']; ?>" 
+            data-email="<?= $cliente['email']; ?>" 
+            data-cpf="<?= $cliente['cpf']; ?>" 
+            data-data_nascimento="<?= $cliente['data_nascimento']; ?>" 
+            data-telefone_celular="<?= $cliente['telefone_celular']; ?>" 
+            data-telefone_residencial="<?= $cliente['telefone_residencial']; ?>" 
+            data-id_localizacao="<?= $cliente['id_localizacao']; ?>" 
+            data-id_convenio="<?= $cliente['id_convenio']; ?>">
+            <i class="bi bi-pencil-square"></i> Editar</button>
+          </td>
+            <td>
+              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $cliente['id']; ?>)">
+              <i class="bi bi-file-earmark-x"></i> Excluir
+            </a>
+          </td>
           </tr>
         <?php } ?>
       </tbody>
@@ -155,10 +170,8 @@ $lista_convenios = $convenio->Listar();
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form action="cadastrar_cliente.php" method="POST">
-          <div class="modal-header d-flex justify-content-end">
+          <div class="modal-header d-flex justify-content-center">
             <h5 class="modal-title" id="modalCadastroLabel">Cadastrar novo cliente</h5>
-            <button type="button" class="btn btn-danger mx-5" data-dismiss="modal" aria-label="Fechar">
-              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
@@ -194,14 +207,30 @@ $lista_convenios = $convenio->Listar();
             <br>
             <hr>
             <div class="form-group mt-2">
-              <label for="cepUsuario">CEP</label>
-              <select class="form-control" name="id_localizacao" id="cep">
-                <?php foreach ($lista_localizacao as $local) { ?>
-                  <option value="<?= $local['id']; ?>"><?= $local['cep']; ?></option>
-                <?php } ?>
-              </select><br>
+              <label>CEP
+              <input name="cep" class="form-control" type="text" id="cep" size="10" maxlength="9"
+              onblur="pesquisacep(this.value);" required/></label>
+              <label hidden id="ruaLabel">Rua
+              <input name="rua" class="form-control" type="text" id="rua" size="60" hidden/></label>
+              <label hidden id="complementoLabel">Complemento
+              <input name="complemento" class="form-control" type="text" id="complemento" size="60" /></label>
+              <label hidden id="bairroLabel">Bairro
+              <input name="bairro" class="form-control" type="text" id="bairro" size="40" hidden/></label>
+              <label hidden id="cidadeLabel">Cidade
+              <input name="cidade" class="form-control" type="text" id="cidade" size="40" hidden/></label><br>
+              <label hidden id="ufLabel">Estado
+              <input name="uf" class="form-control" type="text" id="uf" size="2" hidden/></label>
+              <label hidden id="dddLabel">DDD
+              <input name="ddd" class="form-control" type="text" id="ddd" size="8" hidden/></label>
+              <label hidden id="tipoLabel">Tipo
+              <select name="tipoLocal" id="tipo" class="form-control"  hidden>
+                <option value="residencial">Residencial</option>
+                <option value="comercial">Comercial</option>
+                <option value="clinica">Clinica</option>
+              </select></label>
             </div>
-            <div class="form-group">
+        <br><hr>
+            <div class="form-group mt-2">
               <label for="convenioUsuario">Convênio</label>
               <select class="form-control" name="id_convenio" id="convenio">
                 <?php foreach ($lista_convenios as $convenio) { ?>
@@ -211,7 +240,7 @@ $lista_convenios = $convenio->Listar();
             </div>
             <div class="form-group">
               <label for="tipoEdi">Tipo</label>
-              <select name="tipo" id="tipoEdi" class="form-control">
+              <select name="tipo" id="tipoUsuario" class="form-control">
                 <option value="Cliente">Cliente</option>
                 <option value="Funcionario">Funcionario</option>
               </select>
@@ -220,7 +249,7 @@ $lista_convenios = $convenio->Listar();
           <div class="modal-footer mt-5">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
             <button type="submit" class="btn btn-success">Salvar</button>
-            <a class="btn btn-primary mx-2" href="../enderecos/gerenciamento_enderecos.php" target="blank">Cadastrar endereço</a>
+            <a class="btn btn-warning mx-2" href="../enderecos/gerenciamento_enderecos.php" target="blank">Gerenciar Endereços</a>
           </div>
       </div>
       </form>
@@ -229,72 +258,48 @@ $lista_convenios = $convenio->Listar();
   </div>
   </div>
 
-  <!-- Modal de edição -->
-  <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <form action="editar_cliente.php" method="POST">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
-            </button>
-          </div>
-          <div class="modal-body">
-            <input type="hidden" class="id" name="id">
-            <div class="form-group">
-              <label for="nomeEdit">Nome</label>
-              <input type="text" class="form-control nome" id="nomeEdit" name="nome">
-            </div>
-            <div class="form-group mt-3">
-              <label for="emailEdit">Email</label>
-              <input type="text" class="form-control email" id="emailEdit" name="email">
-            </div>
-            <div class="form-group mt-3">
-              <label for="cpfEdit">Cpf</label>
-              <input type="text" class="form-control cpf" id="cpfEdit" name="cpf">
-            </div>
-            <div class="form-group mt-3">
-              <label for="data_nascimentoEdit">Data de Nascimento</label>
-              <input type="text" class="form-control data_nascimento" id="data_nascimentoEdit" name="data_nascimento">
-            </div>
-            <div class="form-group mt-3">
-              <label for="telefone_celularEdit">Telefone Celular</label>
-              <input type="text" class="form-control telefone_celular" id="telefone_celularEdit" name="telefone_celular">
-            </div>
-            <div class="form-group mt-3">
-              <label for="telefone_residencialEdit">Telefone Residencial</label>
-              <input type="text" class="form-control telefone_residencial" id="telefone_residencialEdit" name="telefone_residencial">
-            </div>
-            <div class="form-group mt-2">
-              <label for="id_localizacaoEdit">Localização</label>
-              <select class="form-control id_localizacao" name="id_localizacao" id="id_localizacaoEdit">
-                <?php foreach ($lista_localizacao as $local) { ?>
-                  <option value="<?= $local['id']; ?>"><?= $local['cep']; ?></option>
-                <?php } ?>
-              </select><br>
-            </div>
-            <div class="form-group">
-              <label for="id_convenioEdit">Convênio</label>
-              <select class="form-control id_convenio" name="id_convenio" id="convenioEdit">
-                <?php foreach ($lista_convenios as $convenio) { ?>
-                  <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
-                <?php } ?>
-              </select><br>
-            </div>
-            <div class="form-group mt-3">
-              <label for="tipoEdit">Tipo</label>
-              <select name="tipo" id="tipoEdit" class="form-control tipo">
-                <option value="Cliente">Cliente</option>
-                <option value="Funcionario">Funcionario</option>
-              </select>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-              <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
-        </form>
+<!-- Modal de Cep -->
+  <div class="modal fade" id="modalCep" tabindex="-1" role="dialog" aria-labelledby="modalCepLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <form action="../enderecos/cadastrar_endereco.php" method="POST">
+      <div class="modal-header d-flex justify-content-center">
+        <h5 class="modal-title" id="modalCepLabel">Cadastrar Endereço</h5>
       </div>
+      <div class="modal-body">
+        <div class="form-group mt-2">
+          <label>CEP
+          <input name="cep" class="form-control" type="text" id="cep" value="" size="10" maxlength="9"
+          onblur="pesquisacep(this.value);" required/></label>
+          <label>Rua
+          <input name="rua" class="form-control" type="text" id="rua" size="60" /></label>
+          <label>Complemento
+          <input name="complemento" class="form-control" type="text" id="complemento" size="60" /></label>
+          <label>Bairro
+          <input name="bairro" class="form-control" type="text" id="bairro" size="40" /></label>
+          <label>Cidade
+          <input name="cidade" class="form-control" type="text" id="cidade" size="40" /></label><br>
+          <label>Estado
+          <input name="uf" class="form-control" type="text" id="uf" size="2" /></label>
+          <label>DDD
+          <input name="ddd" class="form-control" type="text" id="ddd" size="8" /></label>
+          <label>Tipo
+          <select name="tipo" id="tipo" class="form-control">
+            <option value="residencial">Residencial</option>
+            <option value="comercial">Comercial</option>
+            <option value="clinica">Clinica</option>
+          </select></label>
+        </div>
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-warning" onclick="limpar_formulario_inteiro();">Limpar campos</button>
+      <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpar_formulario_inteiro();">Fechar</button>
+        <button type="submit" class="btn btn-success">Salvar</button>
+      </div>
+      </form>
     </div>
   </div>
+</div>
 
 
   <!-- Bootstrap -->

@@ -16,6 +16,15 @@ class Cliente {
     public $id_convenio;
     public $tipo;
 
+    public $cep;
+    public $logradouro;
+    public $complemento;
+    public $bairro;
+    public $localidade;
+    public $uf;
+    public $ddd;
+    public $tipoLocal;
+
 
     public function Listar(){
 
@@ -80,6 +89,35 @@ class Cliente {
             Banco::desconectar();
             return 0;
         }
+    }
+
+    public function Teste(){
+        $sql = "CALL cadastrar_usuario_localizacao(?, ?, ?, ?, ?, ?, ?, ?, ?
+        ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        $hash = hash('sha256', $this->senha);
+        $formato_data = date_format(date_create($this->data_nascimento),"Y/m/d");
+
+        try{
+            $comando->execute([
+                // Parametros para a localizacao
+                $this->cep, $this->logradouro, $this->complemento, $this->bairro, $this->localidade, $this->uf, $this->ddd, $this->tipoLocal, 
+                
+                // Parametros para o usuario
+                $this->nome, $this->email, $hash, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_localizacao, $this->id_convenio, $this->tipo]);
+
+                Banco::desconectar();
+
+                return 1;
+
+            } catch(PDOEXCEPTION $e){
+                Banco::desconectar();
+                return 0;
+            }
+
     }
 
 
