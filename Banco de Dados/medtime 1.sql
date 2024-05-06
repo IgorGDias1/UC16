@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/05/2024 às 04:46
+-- Tempo de geração: 06/05/2024 às 20:44
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Banco de dados: `medtime`
 --
+
+DELIMITER $$
+--
+-- Procedimentos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_usuario_localizacao` (IN `nomeCad` VARCHAR(300), IN `emailCad` VARCHAR(300), IN `senhaCad` VARCHAR(300), IN `cpfCad` VARCHAR(11), IN `data_nascimentoCad` DATE, IN `telefone_celularCad` VARCHAR(10), IN `telefone_residencialCad` VARCHAR(10), IN `id_convenioCad` INT(11), IN `tipoCad` VARCHAR(15), IN `cepCad` VARCHAR(10), IN `logradouroCad` VARCHAR(300), IN `complementoCad` VARCHAR(300), IN `bairroCad` VARCHAR(300), IN `localidadeCad` VARCHAR(300), IN `ufCad` VARCHAR(300), IN `dddCad` VARCHAR(300), IN `tipoLocal` VARCHAR(15))   BEGIN
+#Declarando a variaval para armazenar o id do insert
+DECLARE ultimo_id INT;
+#Cadastrando uma nova localização
+INSERT INTO localizacoes(cep, logradouro, complemento, bairro, localidade, uf, ddd, tipo)
+VALUES (cepCad, logradouroCad, complementoCad, bairroCad, localidadeCad, ufCad, dddCad, tipoLocal);
+
+#Armazenando o id na variavel
+SET ultimo_id = LAST_INSERT_ID();
+
+#Cadastrando um novo usuário
+INSERT INTO clientes(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone_residencial, id_localizacao, id_convenio, tipo)
+VALUES (nomeCad, emailCad, senhaCad, cpfCad, data_nascimentoCad, telefone_celularCad, telefone_residencialCad, ultimo_id, id_convenioCad, tipoCad);
+ 
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -74,19 +96,21 @@ CREATE TABLE `clientes` (
   `telefone_celular` varchar(10) DEFAULT NULL,
   `telefone_residencial` varchar(10) DEFAULT NULL,
   `id_localizacao` int(11) DEFAULT NULL,
-  `id_convenio` int(11) DEFAULT NULL
+  `id_convenio` int(11) DEFAULT NULL,
+  `tipo` varchar(15) NOT NULL DEFAULT 'Cliente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Despejando dados para a tabela `clientes`
 --
 
-INSERT INTO `clientes` (`id`, `nome`, `email`, `senha`, `cpf`, `data_nascimento`, `telefone_celular`, `telefone_residencial`, `id_localizacao`, `id_convenio`) VALUES
-(17, 'Administrador Oliveira', 'admin@admin.com', '202cb962ac59075b964b07152d234b70', '1234512345', '2001-01-01', NULL, NULL, NULL, NULL),
-(19, 'dagoberto', 'daga@dg.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '13812738217', '0000-00-00', '', '', 3, 1),
-(20, 'teste', 'teste@teste.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '23132713817', '1000-01-01', '', '', 15, 1),
-(22, 'dwadwa', 'dwadw@dwad.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '23413421313', '0000-00-00', '', '', 3, 1),
-(23, 'Guilherme Rodrigues', 'gui@gui.com', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', '45066017852', '0000-00-00', '', '', 3, 1);
+INSERT INTO `clientes` (`id`, `nome`, `email`, `senha`, `cpf`, `data_nascimento`, `telefone_celular`, `telefone_residencial`, `id_localizacao`, `id_convenio`, `tipo`) VALUES
+(17, 'Administrador Oliveira', 'admin@admin.com', '202cb962ac59075b964b07152d234b70', '1234512345', '2001-01-01', NULL, NULL, NULL, NULL, 'Cliente'),
+(19, 'dagoberto', 'daga@dg.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '13812738217', '0000-00-00', '', '', 3, 1, 'Cliente'),
+(20, 'teste', 'teste@teste.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '23132713817', '1000-01-01', '', '', 15, 1, 'Cliente'),
+(22, 'dwadwa', 'dwadw@dwad.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '23413421313', '0000-00-00', '', '', 3, 1, 'Cliente'),
+(23, 'Guilherme Rodrigues', 'gui@gui.com', 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855', '45066017852', '0000-00-00', '', '', 3, 1, 'Cliente'),
+(28, '[value-2]', '[value-3]', '[value-4]', '[value-5]', '2001-01-01', '[value-7]', '[value-8]', 3, 1, '[value-11]');
 
 -- --------------------------------------------------------
 
@@ -181,7 +205,7 @@ INSERT INTO `funcionarios` (`id`, `nome`, `email`, `senha`, `cpf`, `telefone`, `
 
 CREATE TABLE `localizacoes` (
   `id` int(11) NOT NULL,
-  `cep` varchar(9) NOT NULL,
+  `cep` varchar(10) NOT NULL,
   `logradouro` varchar(300) NOT NULL,
   `complemento` varchar(300) DEFAULT NULL,
   `bairro` varchar(300) NOT NULL,
@@ -334,7 +358,7 @@ ALTER TABLE `cargos`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de tabela `convenios`
@@ -364,7 +388,7 @@ ALTER TABLE `funcionarios`
 -- AUTO_INCREMENT de tabela `localizacoes`
 --
 ALTER TABLE `localizacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Restrições para tabelas despejadas
