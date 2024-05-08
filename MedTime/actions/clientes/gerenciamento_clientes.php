@@ -207,9 +207,9 @@ $lista_convenios = $convenio->Listar();
             <br>
             <hr>
             <div class="form-group mt-2">
-              <label>CEP
+              <label id="cepLabel">CEP
               <input name="cep" class="form-control" type="text" id="cep" size="10" maxlength="9"
-              onblur="pesquisacep(this.value);" required/></label>
+              onblur="pesquisacep(this.value);"/></label>
               <label hidden id="ruaLabel">Rua
               <input name="rua" class="form-control" type="text" id="rua" size="60" hidden/></label>
               <label hidden id="complementoLabel">Complemento
@@ -228,6 +228,9 @@ $lista_convenios = $convenio->Listar();
                 <option value="comercial">Comercial</option>
                 <option value="clinica">Clinica</option>
               </select></label>
+            </div>
+            <div class="mt-2">
+            <button type="button" class="btn btn-warning" id="btn_limpar" onclick="limpar_formulario_inteiro();" disabled hidden>Limpar campos</button>
             </div>
         <br><hr>
             <div class="form-group mt-2">
@@ -257,49 +260,6 @@ $lista_convenios = $convenio->Listar();
   </div>
   </div>
   </div>
-
-<!-- Modal de Cep -->
-  <div class="modal fade" id="modalCep" tabindex="-1" role="dialog" aria-labelledby="modalCepLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <form action="../enderecos/cadastrar_endereco.php" method="POST">
-      <div class="modal-header d-flex justify-content-center">
-        <h5 class="modal-title" id="modalCepLabel">Cadastrar Endereço</h5>
-      </div>
-      <div class="modal-body">
-        <div class="form-group mt-2">
-          <label>CEP
-          <input name="cep" class="form-control" type="text" id="cep" value="" size="10" maxlength="9"
-          onblur="pesquisacep(this.value);" required/></label>
-          <label>Rua
-          <input name="rua" class="form-control" type="text" id="rua" size="60" /></label>
-          <label>Complemento
-          <input name="complemento" class="form-control" type="text" id="complemento" size="60" /></label>
-          <label>Bairro
-          <input name="bairro" class="form-control" type="text" id="bairro" size="40" /></label>
-          <label>Cidade
-          <input name="cidade" class="form-control" type="text" id="cidade" size="40" /></label><br>
-          <label>Estado
-          <input name="uf" class="form-control" type="text" id="uf" size="2" /></label>
-          <label>DDD
-          <input name="ddd" class="form-control" type="text" id="ddd" size="8" /></label>
-          <label>Tipo
-          <select name="tipo" id="tipo" class="form-control">
-            <option value="residencial">Residencial</option>
-            <option value="comercial">Comercial</option>
-            <option value="clinica">Clinica</option>
-          </select></label>
-        </div>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-warning" onclick="limpar_formulario_inteiro();">Limpar campos</button>
-      <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpar_formulario_inteiro();">Fechar</button>
-        <button type="submit" class="btn btn-success">Salvar</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
 
 
   <!-- Bootstrap -->

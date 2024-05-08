@@ -92,8 +92,8 @@ class Cliente {
     }
 
     public function Teste(){
-        $sql = "CALL cadastrar_usuario_localizacao(?, ?, ?, ?, ?, ?, ?, ?, ?
-        ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "CALL cadastrar_usuario_localizacao(?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -107,7 +107,7 @@ class Cliente {
                 $this->cep, $this->logradouro, $this->complemento, $this->bairro, $this->localidade, $this->uf, $this->ddd, $this->tipoLocal, 
                 
                 // Parametros para o usuario
-                $this->nome, $this->email, $hash, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_localizacao, $this->id_convenio, $this->tipo]);
+                $this->nome, $this->email, $hash, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_convenio, $this->tipo]);
 
                 Banco::desconectar();
 

@@ -73,8 +73,6 @@ $('#modalEdicao').on('show.bs.modal', function (event) {
         document.getElementById('cidade').value=("");
         document.getElementById('uf').value=("");
         document.getElementById('ddd').value=("");
-
-        document.getElementById('cep').disabled=false;
     }
 
     function meu_callback(conteudo) {
@@ -89,8 +87,8 @@ $('#modalEdicao').on('show.bs.modal', function (event) {
         } //end if.
         else {
             //CEP não Encontrado.
-            limpa_formulário_cep();
-            alert("CEP não encontrado.");
+            limpa_formulario_cep();
+            window.location.href='gerenciamento_clientes?falha=cadastrarcliente';
         }
     }
 
@@ -125,8 +123,7 @@ $('#modalEdicao').on('show.bs.modal', function (event) {
                 //Insere script no documento e carrega o conteúdo.
                 document.body.appendChild(script);
 
-                document.getElementById('cep').disabled=true;
-
+                //Mostrando os inputs
                 document.getElementById('rua').hidden=false;
                 document.getElementById('complemento').hidden=false;
                 document.getElementById('bairro').hidden=false;
@@ -134,6 +131,8 @@ $('#modalEdicao').on('show.bs.modal', function (event) {
                 document.getElementById('uf').hidden=false;
                 document.getElementById('ddd').hidden=false;
                 document.getElementById('tipo').hidden=false;
+
+                //Mostrando os labels
                 document.getElementById('ruaLabel').hidden=false;
                 document.getElementById('complementoLabel').hidden=false;
                 document.getElementById('bairroLabel').hidden=false;
@@ -145,8 +144,8 @@ $('#modalEdicao').on('show.bs.modal', function (event) {
             }
             else {
                 //cep é inválido.
-                limpa_formulário_cep();
-                alert("Formato de CEP inválido.");
+                limpa_formulario_cep();
+                window.location.href='gerenciamento_clientes?falha=cadastrarcliente';
             }
         } //end if.
         else {
