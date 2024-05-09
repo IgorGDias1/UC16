@@ -1,6 +1,7 @@
 <?php
 
 require_once('Banco.class.php');
+require_once('Localizacao.class.php');
 
 class Cliente {
 
@@ -15,15 +16,6 @@ class Cliente {
     public $id_localizacao;
     public $id_convenio;
     public $tipo;
-
-    public $cep;
-    public $logradouro;
-    public $complemento;
-    public $bairro;
-    public $localidade;
-    public $uf;
-    public $ddd;
-    public $tipoLocal;
 
 
     public function Listar(){
@@ -91,9 +83,9 @@ class Cliente {
         }
     }
 
-    public function Teste(){
-        $sql = "CALL cadastrar_usuario_localizacao(?, ?, ?, ?, ?, ?, ?, ?, ?
-        ?, ?, ?, ?, ?, ?, ?, ?)";
+    public function CadastrarUsuarioLocalizacao(){
+        $sql = "CALL cadastrar_usuario_localizacao(?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -107,7 +99,7 @@ class Cliente {
                 $this->cep, $this->logradouro, $this->complemento, $this->bairro, $this->localidade, $this->uf, $this->ddd, $this->tipoLocal, 
                 
                 // Parametros para o usuario
-                $this->nome, $this->email, $hash, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_localizacao, $this->id_convenio, $this->tipo]);
+                $this->nome, $this->email, $hash, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_convenio, $this->tipo]);
 
                 Banco::desconectar();
 
@@ -117,9 +109,7 @@ class Cliente {
                 Banco::desconectar();
                 return 0;
             }
-
     }
-
 
     public function Logar(){
         $sql = "SELECT * FROM clientes WHERE email = ? AND senha = ?";

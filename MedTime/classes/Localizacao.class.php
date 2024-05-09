@@ -41,6 +41,20 @@ class Localizacao {
 
     }
 
+    public function VerificarSeExiste(){
+
+        $sql = "SELECT * FROM localizacoes WHERE cep = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute([$this -> cep]);
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+
+    }
+
     public function Cadastrar(){
 
         $sql = "INSERT INTO localizacoes(cep, logradouro, complemento, bairro, localidade, uf, ddd, tipo) 
