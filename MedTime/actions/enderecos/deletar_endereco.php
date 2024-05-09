@@ -15,10 +15,10 @@ if(isset($_GET['id'])){
 
         header('Location: gerenciamento_enderecos.php?sucesso=removerlocalizacao');
     }else{
-        header('Location: ../painel.php?falha=removerlocalizacao');
+        header('Location: gerenciamento_enderecos.php?falha=removerlocalizacao');
     }
 }else{
-    header('Location: ../painel.php?falha=removerlocalizacao');
+    header('Location: gerenciamento_enderecos.php?falha=removerlocalizacao');
 }
 
 

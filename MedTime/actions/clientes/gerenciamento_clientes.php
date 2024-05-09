@@ -141,15 +141,15 @@ $lista_convenios = $convenio->Listar();
             <td><?= $cliente['tipo'];?></td>
             <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal"            data-target="#modalEdicao" 
-            data-id="<?= $cliente['id']; ?>" 
-            data-nome="<?= $cliente['nome']; ?>" 
-            data-email="<?= $cliente['email']; ?>" 
-            data-cpf="<?= $cliente['cpf']; ?>" 
-            data-data_nascimento="<?= $cliente['data_nascimento']; ?>" 
-            data-telefone_celular="<?= $cliente['telefone_celular']; ?>" 
-            data-telefone_residencial="<?= $cliente['telefone_residencial']; ?>" 
-            data-id_localizacao="<?= $cliente['id_localizacao']; ?>" 
-            data-id_convenio="<?= $cliente['id_convenio']; ?>">
+              data-id="<?= $cliente['id']; ?>" 
+              data-nome="<?= $cliente['nome']; ?>" 
+              data-email="<?= $cliente['email']; ?>" 
+              data-cpf="<?= $cliente['cpf']; ?>" 
+              data-data_nascimento="<?= $cliente['data_nascimento']; ?>" 
+              data-telefone_celular="<?= $cliente['telefone_celular']; ?>" 
+              data-telefone_residencial="<?= $cliente['telefone_residencial']; ?>" 
+              data-id_localizacao="<?= $cliente['id_localizacao']; ?>" 
+              data-id_convenio="<?= $cliente['id_convenio']; ?>">
             <i class="bi bi-pencil-square"></i> Editar</button>
           </td>
             <td>
@@ -207,9 +207,11 @@ $lista_convenios = $convenio->Listar();
             <br>
             <hr>
             <div class="form-group mt-2">
+
               <label id="cepLabel">CEP
               <input name="cep" class="form-control" type="text" id="cep" size="10" maxlength="9"
               onblur="pesquisacep(this.value);"/></label>
+
               <label hidden id="ruaLabel">Rua
               <input name="rua" class="form-control" type="text" id="rua" size="60" hidden/></label>
               <label hidden id="complementoLabel">Complemento
@@ -224,13 +226,13 @@ $lista_convenios = $convenio->Listar();
               <input name="ddd" class="form-control" type="text" id="ddd" size="8" hidden/></label>
               <label hidden id="tipoLabel">Tipo
               <select name="tipoLocal" id="tipo" class="form-control"  hidden>
-                <option value="residencial">Residencial</option>
-                <option value="comercial">Comercial</option>
-                <option value="clinica">Clinica</option>
+                <option value="Residencial">Residencial</option>
+                <option value="Comercial">Comercial</option>
+                <option value="Clinica">Clinica</option>
               </select></label>
             </div>
             <div class="mt-2">
-            <button type="button" class="btn btn-warning" id="btn_limpar" onclick="limpar_formulario_inteiro();" disabled hidden>Limpar campos</button>
+            <button type="button" class="btn btn-warning" id="btn_limpar" onclick="limpar_formulario_inteiro();" hidden>Limpar campos</button>
             </div>
         <br><hr>
             <div class="form-group mt-2">

@@ -15,10 +15,10 @@ if(isset($_GET['id'])){
 
         header('Location: gerenciamento_clientes.php?sucesso=removercliente');
     }else{
-        header('Location: ../painel.php?falha=removercliente');
+        header('Location: gerenciamento_clientes.php?falha=removercliente');
     }
 }else{
-    header('Location: ../painel.php?falha=removercliente');
+    header('Location: gerenciamento_clientes.php?falha=removercliente');
 }
 
 

@@ -55,8 +55,48 @@ $('#modalEdicao').on('show.bs.modal', function (event) {
         }
 
 
+    function mostrarCampos(){
+        document.getElementById('rua').hidden=false;
+        document.getElementById('complemento').hidden=false;
+        document.getElementById('bairro').hidden=false;
+        document.getElementById('cidade').hidden=false;
+        document.getElementById('uf').hidden=false;
+        document.getElementById('ddd').hidden=false;
+        document.getElementById('tipo').hidden=false;
+        
+        document.getElementById('ruaLabel').hidden=false;
+        document.getElementById('complementoLabel').hidden=false;
+        document.getElementById('bairroLabel').hidden=false;
+        document.getElementById('cidadeLabel').hidden=false;
+        document.getElementById('ufLabel').hidden=false;
+        document.getElementById('dddLabel').hidden=false;
+        document.getElementById('tipoLabel').hidden=false;
+
+        document.getElementById('btn_limpar').hidden=false;
+    }
+
+    function esconderCampos(){
+       document.getElementById('rua').hidden=true;
+       document.getElementById('complemento').hidden=true;
+       document.getElementById('bairro').hidden=true;
+       document.getElementById('cidade').hidden=true;
+       document.getElementById('uf').hidden=true;
+       document.getElementById('ddd').hidden=true;
+       document.getElementById('tipo').hidden=true;
+       
+       document.getElementById('ruaLabel').hidden=true;
+       document.getElementById('complementoLabel').hidden=true;
+       document.getElementById('bairroLabel').hidden=true;
+       document.getElementById('cidadeLabel').hidden=true;
+       document.getElementById('ufLabel').hidden=true;
+       document.getElementById('dddLabel').hidden=true;
+       document.getElementById('tipoLabel').hidden=true;
+
+       document.getElementById('btn_limpar').hidden=true;
+   }
+
     function limpar_formulario_cep() {
-        //Limpa valores do formulário de cep.
+        //Limpa valores do formulário mas mantem o cep
         document.getElementById('rua').value=("");
         document.getElementById('complemento').value=("");
         document.getElementById('bairro').value=("");
@@ -73,6 +113,8 @@ $('#modalEdicao').on('show.bs.modal', function (event) {
         document.getElementById('cidade').value=("");
         document.getElementById('uf').value=("");
         document.getElementById('ddd').value=("");
+        
+        esconderCampos();
     }
 
     function meu_callback(conteudo) {
@@ -87,7 +129,7 @@ $('#modalEdicao').on('show.bs.modal', function (event) {
         } //end if.
         else {
             //CEP não Encontrado.
-            limpa_formulario_cep();
+            limpar_formulario_cep();
             window.location.href='gerenciamento_clientes?falha=cadastrarcliente';
         }
     }
@@ -123,33 +165,18 @@ $('#modalEdicao').on('show.bs.modal', function (event) {
                 //Insere script no documento e carrega o conteúdo.
                 document.body.appendChild(script);
 
-                //Mostrando os inputs
-                document.getElementById('rua').hidden=false;
-                document.getElementById('complemento').hidden=false;
-                document.getElementById('bairro').hidden=false;
-                document.getElementById('cidade').hidden=false;
-                document.getElementById('uf').hidden=false;
-                document.getElementById('ddd').hidden=false;
-                document.getElementById('tipo').hidden=false;
-
-                //Mostrando os labels
-                document.getElementById('ruaLabel').hidden=false;
-                document.getElementById('complementoLabel').hidden=false;
-                document.getElementById('bairroLabel').hidden=false;
-                document.getElementById('cidadeLabel').hidden=false;
-                document.getElementById('ufLabel').hidden=false;
-                document.getElementById('dddLabel').hidden=false;
-                document.getElementById('tipoLabel').hidden=false;
+                mostrarCampos();
 
             }
             else {
                 //cep é inválido.
-                limpa_formulario_cep();
-                window.location.href='gerenciamento_clientes?falha=cadastrarcliente';
+                limpar_formulario_cep();
+                esconderCampos();
             }
         } //end if.
         else {
             //cep sem valor, limpa formulário.
-            limpa_formulario_cep();
+            limpar_formulario_cep();
+            esconderCampos();
         }
     };
