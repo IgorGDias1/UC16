@@ -140,7 +140,7 @@ $lista_convenios = $convenio->Listar();
             <td><?= $cliente['id_convenio']; ?></td>
             <td><?= $cliente['tipo'];?></td>
             <td>
-            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal"            data-target="#modalEdicao" 
+            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
             data-id="<?= $cliente['id']; ?>" 
             data-nome="<?= $cliente['nome']; ?>" 
             data-email="<?= $cliente['email']; ?>" 
