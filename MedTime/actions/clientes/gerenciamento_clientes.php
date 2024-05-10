@@ -128,7 +128,7 @@ $lista_convenios = $convenio->Listar();
       <tbody>
         <?php foreach ($lista_clientes as $cliente) { ?>
           <tr>
-            <td hidden class="table-primary"><?= $cliente['id']; ?></td>
+            <td hidden><?= $cliente['id']; ?></td>
             <td><?= $cliente['nome']; ?></td>
             <td><?= $cliente['email']; ?></td>
             <td hidden><?= $cliente['senha']; ?></td>
@@ -141,15 +141,15 @@ $lista_convenios = $convenio->Listar();
             <td><?= $cliente['tipo'];?></td>
             <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
-            data-id="<?= $cliente['id']; ?>" 
-            data-nome="<?= $cliente['nome']; ?>" 
-            data-email="<?= $cliente['email']; ?>" 
-            data-cpf="<?= $cliente['cpf']; ?>" 
-            data-data_nascimento="<?= $cliente['data_nascimento']; ?>" 
-            data-telefone_celular="<?= $cliente['telefone_celular']; ?>" 
-            data-telefone_residencial="<?= $cliente['telefone_residencial']; ?>" 
-            data-id_localizacao="<?= $cliente['id_localizacao']; ?>" 
-            data-id_convenio="<?= $cliente['id_convenio']; ?>">
+            data-id="<?=$cliente['id'];?>" 
+            data-nome="<?=$cliente['nome'];?>" 
+            data-email="<?=$cliente['email'];?>" 
+            data-cpf="<?=$cliente['cpf'];?>" 
+            data-data_nascimento="<?=$cliente['data_nascimento'];?>" 
+            data-telefone_celular="<?=$cliente['telefone_celular'];?>" 
+            data-telefone_residencial="<?=$cliente['telefone_residencial'];?>" 
+            data-id_convenio="<?=$cliente['id_convenio'];?>"
+            data-id_localizacao="<?=$cliente['id_localizacao'];?>">
             <i class="bi bi-pencil-square"></i> Editar</button>
           </td>
             <td>
@@ -176,20 +176,20 @@ $lista_convenios = $convenio->Listar();
           </div>
           <div class="modal-body">
             <div class="form-group mt-3">
-              <label for="nomeProduto">Nome</label>
+              <label for="nomeUsuario">Nome</label>
               <input type="text" class="form-control" id="nomeUsuario" placeholder="Digite o nome do cliente" name="nome" required>
             </div>
             <div class="form-group mt-3">
-              <label for="fotoProduto">Email</label>
+              <label for="emailUsuario">Email</label>
               <input type="email" class="form-control" id="emailUsuario" name="email" placeholder="email@email.com" required>
             </div>
             <div class="form-group mt-3">
-              <label for="fotoProduto">Senha</label>
+              <label for="senha">Senha</label>
               <input type="password" class="form-control" id="senha" name="senha" required>
               <input class="mt-3" type="checkbox" class="form-check-input" onclick="mostrarSenha()"> Mostrar Senha
             </div>
             <div class="form-group mt-3">
-              <label for="descricaoProduto">CPF</label>
+              <label for="cpfUsuario">CPF</label>
               <input type="text" maxlength="11" class="form-control" id="cpfUsuario" name="cpf"></input required>
             </div>
             <div class="form-group mt-3">
@@ -224,14 +224,15 @@ $lista_convenios = $convenio->Listar();
               <input name="ddd" class="form-control" type="text" id="ddd" size="8" hidden/></label>
               <label hidden id="tipoLabel">Tipo
               <select name="tipoLocal" id="tipo" class="form-control"  hidden>
-                <option value="residencial">Residencial</option>
-                <option value="comercial">Comercial</option>
-                <option value="clinica">Clinica</option>
+                <option value="Residencial">Residencial</option>
+                <option value="Comercial">Comercial</option>
+                <option value="Clinica">Clinica</option>
               </select></label>
             </div>
+            <button type="button" class="btn btn-warning mt-3" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
         <br><hr>
             <div class="form-group mt-2">
-              <label for="convenioUsuario">Convênio</label>
+              <label for="convenio">Convênio</label>
               <select class="form-control" name="id_convenio" id="convenio">
                 <?php foreach ($lista_convenios as $convenio) { ?>
                   <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
@@ -239,7 +240,7 @@ $lista_convenios = $convenio->Listar();
               </select><br>
             </div>
             <div class="form-group">
-              <label for="tipoEdi">Tipo</label>
+              <label for="tipo">Tipo</label>
               <select name="tipo" id="tipoUsuario" class="form-control">
                 <option value="Cliente">Cliente</option>
                 <option value="Funcionario">Funcionario</option>
@@ -258,48 +259,64 @@ $lista_convenios = $convenio->Listar();
   </div>
   </div>
 
-<!-- Modal de Cep -->
-  <div class="modal fade" id="modalCep" tabindex="-1" role="dialog" aria-labelledby="modalCepLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-    <form action="../enderecos/cadastrar_endereco.php" method="POST">
-      <div class="modal-header d-flex justify-content-center">
-        <h5 class="modal-title" id="modalCepLabel">Cadastrar Endereço</h5>
-      </div>
-      <div class="modal-body">
-        <div class="form-group mt-2">
-          <label>CEP
-          <input name="cep" class="form-control" type="text" id="cep" value="" size="10" maxlength="9"
-          onblur="pesquisacep(this.value);" required/></label>
-          <label>Rua
-          <input name="rua" class="form-control" type="text" id="rua" size="60" /></label>
-          <label>Complemento
-          <input name="complemento" class="form-control" type="text" id="complemento" size="60" /></label>
-          <label>Bairro
-          <input name="bairro" class="form-control" type="text" id="bairro" size="40" /></label>
-          <label>Cidade
-          <input name="cidade" class="form-control" type="text" id="cidade" size="40" /></label><br>
-          <label>Estado
-          <input name="uf" class="form-control" type="text" id="uf" size="2" /></label>
-          <label>DDD
-          <input name="ddd" class="form-control" type="text" id="ddd" size="8" /></label>
-          <label>Tipo
-          <select name="tipo" id="tipo" class="form-control">
-            <option value="residencial">Residencial</option>
-            <option value="comercial">Comercial</option>
-            <option value="clinica">Clinica</option>
-          </select></label>
+<!-- Modal de edição -->
+<div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="editar_cliente.php" method="POST">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" class="id" name="id">
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" class="form-control nome" id="nome" name="nome">
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control email" id="email" name="email"> 
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="cpf">CPF</label>
+                        <input type="text" class="form-control cpf" id="cpf" name="cpf"> 
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="data_nascimento">Data de Nascimento</label>
+                        <input type="date" class="form-control data_nascimento" id="data_nascimento" name="data_nascimento"> 
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="telefone_celular">Telefone Celular</label>
+                        <input type="tel" class="form-control telefone_celular" id="telefone_celular" name="telefone_celular"> 
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="telefone_residencial">Telefone Residencial</label>
+                        <input type="tel" class="form-control telefone_residencial" id="telefone_residencial" name="telefone_residencial"> 
+                    </div>
+                    <div class="form-group mt-2">
+                      <label for="id_convenio">Convênio</label>
+                      <select class="form-control id_convenio" name="id_convenio" id="id_convenio">
+                      <?php foreach ($lista_convenios as $convenio) { ?>
+                        <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
+                      <?php } ?>
+                      </select><br>
+                    </div>
+                    <div class="form-group">
+                      <label for="tipo">Tipo</label>
+                      <select name="tipo" id="tipo" class="form-control">
+                        <option value="Cliente">Cliente</option>
+                        <option value="Funcionario">Funcionario</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
+                </div>
+            </form>
+            </div>
         </div>
-      </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-warning" onclick="limpar_formulario_inteiro();">Limpar campos</button>
-      <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpar_formulario_inteiro();">Fechar</button>
-        <button type="submit" class="btn btn-success">Salvar</button>
-      </div>
-      </form>
     </div>
-  </div>
-</div>
 
 
   <!-- Bootstrap -->
@@ -310,7 +327,40 @@ $lista_convenios = $convenio->Listar();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
   <?php include_once('../../includes/alertas.include.php'); ?>
+
   <script src="script.js"></script>
+  <!-- API ViaCEP -->
+  <script src="../enderecos/viacep/script.js"></script>
+
+  <script>
+  $('#modalEdicao').on('show.bs.modal', function (event) {
+
+  var button = $(event.relatedTarget) 
+
+  var id = button.data('id')
+  var nome = button.data('nome')
+  var email = button.data('email')
+  var cpf = button.data('cpf')
+  var data_nascimento = button.data('data_nascimento')
+  var telefone_celular = button.data('telefone_celular')
+  var telefone_residencial = button.data('telefone_residencial')
+  var id_convenio = button.data('id_convenio')
+  var id_localizacao = button.data('id_localizacao')
+
+  var modal = $(this)
+
+  modal.find('.id').val(id)
+  modal.find('.nome').val(nome)
+  modal.find('.email').val(email)
+  modal.find('.cpf').val(cpf)
+  modal.find('.data_nascimento').val(data_nascimento)
+  modal.find('.telefone_celular').val(telefone_celular)
+  modal.find('.telefone_residencial').val(telefone_residencial)
+  modal.find('.id_convenio').val(id_convenio)
+  modal.find('.id_localizacao').val(id_localizacao)
+
+  })
+  </script>
 
 </body>
 

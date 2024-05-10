@@ -39,6 +39,19 @@ class Cliente {
         return $resultado;
     }
 
+    public function View(){
+
+        $sql = "SELECT * FROM view_clientes";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+    }
+
     public function ListarPorID(){
 
         $sql = "SELECT * FROM clientes WHERE id = ?";
@@ -154,12 +167,12 @@ class Cliente {
     }
 
     public function Editar(){
-        $sql = "UPDATE clientes SET nome = ?, email = ?, cpf = ?, data_nascimento = ?, telefone_celular = ?, telefone_residencial = ?, id_localizacao = ?, id_convenio = ?, tipo = ?  WHERE id = ?";
+        $sql = "UPDATE clientes SET nome = ?, email = ?, cpf = ?, data_nascimento = ?, telefone_celular = ?, telefone_residencial = ?, id_convenio = ?, tipo = ?  WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-            $comando->execute([$this -> nome, $this -> email, $this -> cpf, $this -> data_nascimento, $this -> telefone_celular, $this->telefone_residencial, $this->id_localizacao, $this->id_convenio, $this->tipo, $this->id]);
+            $comando->execute([$this -> nome, $this -> email, $this -> cpf, $this -> data_nascimento, $this -> telefone_celular, $this->telefone_residencial, $this->id_convenio, $this->tipo, $this->id]);
 
             Banco::desconectar();
 

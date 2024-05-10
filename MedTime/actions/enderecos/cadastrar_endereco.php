@@ -11,16 +11,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $localizacao -> localidade = strip_tags($_POST['cidade']);
     $localizacao -> uf = strip_tags($_POST['uf']);
     $localizacao -> ddd = strip_tags($_POST['ddd']);
-    $localizacao -> tipo = 'Residencial';
+    $localizacao -> tipo = strip_tags($_POST['tipoLocal']);
 
     if($localizacao -> Cadastrar() == 1){
-        header('Location: ../clientes/gerenciamento_clientes.php?sucesso=cadastrarlocalizacao');
+        header('Location: gerenciamento_enderecos.php?sucesso=cadastrarlocalizacao');
     }else{
-        header('Location: ../clientes/gerenciamento_clientes.php?falha=cadastrarlocalizacao');
+        header('Location: gerenciamento_enderecos.php?falha=cadastrarlocalizacao');
     }
 
 }else{
-    header('Location: gerenciamento_clientes.php?falha=cadastrarcliente');
+    header('Location: gerenciamento_enderecos.php?falha=cadastrarlocalizacao');
 }
 
 

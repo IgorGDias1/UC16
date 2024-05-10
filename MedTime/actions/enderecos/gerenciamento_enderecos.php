@@ -231,28 +231,11 @@ $lista_localizacao = $localizacao->Listar();
                 <option value="Clinica">Clinica</option>
               </select></label>
             </div>
-            <button type="button" class="btn btn-warning" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
-        <br><hr>
-            <div class="form-group mt-2">
-              <label for="convenioUsuario">Convênio</label>
-              <select class="form-control" name="id_convenio" id="convenio">
-                <?php foreach ($lista_convenios as $convenio) { ?>
-                  <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
-                <?php } ?>
-              </select><br>
-            </div>
-            <div class="form-group">
-              <label for="tipoEdi">Tipo</label>
-              <select name="tipo" id="tipoUsuario" class="form-control">
-                <option value="Cliente">Cliente</option>
-                <option value="Funcionario">Funcionario</option>
-              </select>
-            </div>
+            <button type="button" class="btn btn-warning mt-3" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
           </div>
           <div class="modal-footer mt-5">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
             <button type="submit" class="btn btn-success">Salvar</button>
-            <a class="btn btn-warning mx-2" href="../enderecos/gerenciamento_enderecos.php" target="blank">Gerenciar Endereços</a>
           </div>
       </div>
       </form>
@@ -270,6 +253,7 @@ $lista_localizacao = $localizacao->Listar();
 <?php include_once('../../includes/alertas.include.php')?>
 
 <script src="script.js"></script>
+<script src="viacep/script.js"></script>
 
 </body>
 </html>
