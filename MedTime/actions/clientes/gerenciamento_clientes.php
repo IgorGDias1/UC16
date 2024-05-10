@@ -209,7 +209,7 @@ $lista_convenios = $convenio->Listar();
             <div class="form-group mt-2">
               <label>CEP
               <input name="cep" class="form-control" type="text" id="cep" size="10" maxlength="9"
-              onblur="pesquisacep(this.value);" required/></label>
+              onblur="pesquisacep(this.value);"/></label>
               <label hidden id="ruaLabel">Rua
               <input name="rua" class="form-control" type="text" id="rua" size="60" hidden/></label>
               <label hidden id="complementoLabel">Complemento

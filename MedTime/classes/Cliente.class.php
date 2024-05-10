@@ -17,6 +17,14 @@ class Cliente {
     public $id_convenio;
     public $tipo;
 
+    public $cep;
+    public $logradouro;
+    public $complemento;
+    public $bairro;
+    public $localidade;
+    public $uf;
+    public $ddd;
+    public $tipoLocal;
 
     public function Listar(){
 
