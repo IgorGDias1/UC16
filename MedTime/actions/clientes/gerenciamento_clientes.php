@@ -8,9 +8,9 @@ if (!isset($_SESSION['usuario'])) {
   die();
 }
 
-require_once('../../classes/Cliente.class.php');
-$cliente = new Cliente();
-$lista_clientes = $cliente->Listar();
+require_once('../../classes/Usuario.class.php');
+$usuario = new Usuario();
+$lista_usuarios = $usuario->Listar();
 
 require_once('../../classes/Localizacao.class.php');
 $localizacao = new Localizacao();
@@ -20,9 +20,8 @@ require_once('../../classes/Convenio.class.php');
 $convenio = new Convenio();
 $lista_convenios = $convenio->Listar();
 
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -75,17 +74,24 @@ $lista_convenios = $convenio->Listar();
             <li class="nav-item px-3 mt-4">
               <a class="nav-link active" aria-current="page" href="#">Página Inicial</a>
             </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Consultas</a>
+            <li class="nav-item dropdown px-3 mt-4">
+              <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Gerenciamentos
+              </button>
+              <ul class="dropdown-menu dropdown-menu px-2">
+                <li><a class="dropdown-item" href="../enderecos/gerenciamento_enderecos.php">Endereços</a></li>
+                <li><a class="dropdown-item" href="#">Convenios</a></li>
+                <li><a class="dropdown-item" href="#">Resultados</a></li>
+              </ul>
             </li>
             <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Exames disponíveis</a>
+              <a class="nav-link" href="#">Exames</a>
             </li>
             <li class="nav-item px-3 mt-4">
               <a class="nav-link" href="#">Agendamentos</a>
             </li>
             <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Contate-nós</a>
+              <a class="nav-link" href="#">Suporte</a>
             </li>
           </ul>
         </div>
@@ -120,40 +126,38 @@ $lista_convenios = $convenio->Listar();
           <th>Telefone Residencial</th>
           <th>CEP</th>
           <th>Convênio</th>
-          <th>Tipo</th>
           <th></th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($lista_clientes as $cliente) { ?>
+        <?php foreach ($lista_usuarios as $usuario) { ?>
           <tr>
-            <td hidden><?= $cliente['id']; ?></td>
-            <td><?= $cliente['nome']; ?></td>
-            <td><?= $cliente['email']; ?></td>
-            <td hidden><?= $cliente['senha']; ?></td>
-            <td><?= $cliente['cpf']; ?></td>
-            <td><?= $cliente['data_nascimento']; ?></td>
-            <td><?= $cliente['telefone_celular']; ?></td>
-            <td><?= $cliente['telefone_residencial']; ?></td>
-            <td><?= $cliente['id_localizacao']; ?></td>
-            <td><?= $cliente['id_convenio']; ?></td>
-            <td><?= $cliente['tipo'];?></td>
+            <td hidden><?= $usuario['id']; ?></td>
+            <td><?= $usuario['nome']; ?></td>
+            <td><?= $usuario['email']; ?></td>
+            <td hidden><?= $usuario['senha']; ?></td>
+            <td><?= $usuario['cpf']; ?></td>
+            <td><?= $usuario['data_nascimento']; ?></td>
+            <td><?= $usuario['telefone_celular']; ?></td>
+            <td><?= $usuario['telefone_residencial']; ?></td>
+            <td><?= $usuario['id_localizacao']; ?></td>
+            <td><?= $usuario['id_convenio']; ?></td>
             <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
-            data-id="<?=$cliente['id'];?>" 
-            data-nome="<?=$cliente['nome'];?>" 
-            data-email="<?=$cliente['email'];?>" 
-            data-cpf="<?=$cliente['cpf'];?>" 
-            data-data_nascimento="<?=$cliente['data_nascimento'];?>" 
-            data-telefone_celular="<?=$cliente['telefone_celular'];?>" 
-            data-telefone_residencial="<?=$cliente['telefone_residencial'];?>" 
-            data-id_convenio="<?=$cliente['id_convenio'];?>"
-            data-id_localizacao="<?=$cliente['id_localizacao'];?>">
+            data-id="<?=$usuario['id'];?>" 
+            data-nome="<?=$usuario['nome'];?>" 
+            data-email="<?=$usuario['email'];?>" 
+            data-cpf="<?=$usuario['cpf'];?>" 
+            data-data_nascimento="<?=$usuario['data_nascimento'];?>" 
+            data-telefone_celular="<?=$usuario['telefone_celular'];?>" 
+            data-telefone_residencial="<?=$usuario['telefone_residencial'];?>" 
+            data-id_convenio="<?=$usuario['id_convenio'];?>"
+            data-id_localizacao="<?=$usuario['id_localizacao'];?>">
             <i class="bi bi-pencil-square"></i> Editar</button>
           </td>
             <td>
-              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $cliente['id']; ?>)">
+              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $usuario['id']; ?>)">
               <i class="bi bi-file-earmark-x"></i> Excluir
             </a>
           </td>
@@ -165,7 +169,7 @@ $lista_convenios = $convenio->Listar();
   </div>
   </div>
 
-  <!-- Modal de cadastro -->
+  <!-- Modal de cadastro de usuário -->
   <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -239,14 +243,6 @@ $lista_convenios = $convenio->Listar();
                 <?php } ?>
               </select><br>
             </div>
-            <div class="form-group">
-              <label for="tipo">Tipo</label>
-              <select name="tipo" id="tipoUsuario" class="form-control">
-                <option value="Cliente">Cliente</option>
-                <option value="Funcionario">Funcionario</option>
-              </select>
-            </div>
-          </div>
           <div class="modal-footer mt-5">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
             <button type="submit" class="btn btn-success">Salvar</button>

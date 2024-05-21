@@ -2,7 +2,7 @@
 
 require_once('Banco.class.php');
 
-class Cliente {
+class Usuario {
 
     public $id;
     public $nome;

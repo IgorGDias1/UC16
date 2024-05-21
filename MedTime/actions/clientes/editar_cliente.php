@@ -2,26 +2,25 @@
 
 session_start();
 if(!isset($_SESSION['usuario'])){
-    echo "Falha";
+    header('Location: ../login/validar_login.php?falha=removercliente');
     die();
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    require_once('../../classes/Cliente.class.php');
+    require_once('../../classes/Usuario.class.php');
 
-    $cliente = new Cliente();
-    $cliente -> id = strip_tags($_POST['id']);
+    $usuario = new Usuario();
+    $usuario->id = strip_tags($_POST['id']);
 
-    $cliente -> nome = strip_tags($_POST['nome']);
-    $cliente -> email = strip_tags($_POST['email']);
-    $cliente -> cpf = strip_tags($_POST['cpf']);
-    $cliente -> data_nascimento = strip_tags($_POST['data_nascimento']);
-    $cliente -> telefone_celular = strip_tags($_POST['telefone_celular']);
-    $cliente -> telefone_residencial = strip_tags($_POST['telefone_residencial']);
-    $cliente -> id_convenio = strip_tags($_POST['id_convenio']);
-    $cliente -> tipo = strip_tags($_POST['tipo']);
+    $usuario->nome = strip_tags($_POST['nome']);
+    $usuario->email = strip_tags($_POST['email']);
+    $usuario->cpf = strip_tags($_POST['cpf']);
+    $usuario->data_nascimento = strip_tags($_POST['data_nascimento']);
+    $usuario->telefone_celular = strip_tags($_POST['telefone_celular']);
+    $usuario->telefone_residencial = strip_tags($_POST['telefone_residencial']);
+    $usuario->id_convenio = strip_tags($_POST['id_convenio']);
 
-    if($cliente->Editar() == 1){
+    if($usuario->Editar() == 1){
         header('Location: gerenciamento_clientes.php?sucesso=editarcliente');
     }else{
         header('Location: gerenciamento_clientes.php?falha=editarcliente');

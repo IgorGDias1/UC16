@@ -2,13 +2,13 @@
 
 // Verificar se a pagina foi carregada por POST:
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
-        require_once('../../classes/Cliente.class.php');
+        require_once('../../classes/Usuario.class.php');
 
-        $cliente = new Cliente();
-        $cliente->email = $_POST['email'];
-        $cliente->senha = $_POST['senha'];
+        $usuario = new Usuario();
+        $usuario->email = $_POST['email'];
+        $usuario->senha = $_POST['senha'];
 
-        $resultado = $cliente -> Logar();
+        $resultado = $usuario->Logar();
 
         if(count($resultado) == 1){
             session_start();

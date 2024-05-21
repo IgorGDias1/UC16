@@ -4,21 +4,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     // Caso o campo cep esteja vazio -> executar um cadastrar sem endereço
     if($_POST['cep'] === ''){
-        require_once('../../classes/Cliente.class.php');
+        require_once('../../classes/Usuario.class.php');
 
-        $cliente = new cliente();    
+        $usuario = new Usuario();    
     
-        $cliente -> nome = strip_tags($_POST['nome']);
-        $cliente -> email = strip_tags($_POST['email']);
-        $cliente -> senha = strip_tags($_POST['senha']);
-        $cliente -> cpf = strip_tags($_POST['cpf']);
-        $cliente -> data_nascimento = strip_tags($_POST['data_nascimento']);
-        $cliente -> telefone_celular = strip_tags($_POST['telefone_celular']);
-        $cliente -> telefone_residencial = strip_tags($_POST['telefone_residencial']);
-        $cliente -> id_convenio = strip_tags($_POST['id_convenio']);
-        $cliente -> tipo = strip_tags($_POST['tipo']);
+        $usuario->nome = strip_tags($_POST['nome']);
+        $usuario->email = strip_tags($_POST['email']);
+        $usuario->senha = strip_tags($_POST['senha']);
+        $usuario->cpf = strip_tags($_POST['cpf']);
+        $usuario->data_nascimento = strip_tags($_POST['data_nascimento']);
+        $usuario->telefone_celular = strip_tags($_POST['telefone_celular']);
+        $usuario->telefone_residencial = strip_tags($_POST['telefone_residencial']);
+        $usuario->id_convenio = strip_tags($_POST['id_convenio']);
 
-        if($cliente -> Cadastrar() == 1){
+        if($usuario -> Cadastrar() == 1){
             header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');
         
         }else{
@@ -33,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $localizacao -> cep = strip_tags($_POST['cep']);
 
         // Verificando seo O CEP já está cadastrado
-        $resultado = $localizacao -> VerificarSeExiste();
+        $resultado = $localizacao->VerificarSeExiste();
 
         // Obtendo od ID do CEP
         foreach($resultado as $r){
@@ -42,22 +41,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         // Verificando se o CEP já está cadastrado
         if(count($resultado) == 1){
-            require_once('../../classes/Cliente.class.php');
-            $cliente = new cliente();    
+            require_once('../../classes/Usuario.class.php');
+            $usuario = new Usuario();    
     
-            $cliente -> nome = strip_tags($_POST['nome']);
-            $cliente -> email = strip_tags($_POST['email']);
-            $cliente -> senha = strip_tags($_POST['senha']);
-            $cliente -> cpf = strip_tags($_POST['cpf']);
-            $cliente -> data_nascimento = strip_tags($_POST['data_nascimento']);
-            $cliente -> telefone_celular = strip_tags($_POST['telefone_celular']);
-            $cliente -> telefone_residencial = strip_tags($_POST['telefone_residencial']);
-            $cliente -> id_convenio = strip_tags($_POST['id_convenio']);
+            $usuario->nome = strip_tags($_POST['nome']);
+            $usuario->email = strip_tags($_POST['email']);
+            $usuario->senha = strip_tags($_POST['senha']);
+            $usuario->cpf = strip_tags($_POST['cpf']);
+            $usuario->data_nascimento = strip_tags($_POST['data_nascimento']);
+            $usuario->telefone_celular = strip_tags($_POST['telefone_celular']);
+            $usuario->telefone_residencial = strip_tags($_POST['telefone_residencial']);
+            $usuario->id_convenio = strip_tags($_POST['id_convenio']);
             // Atribuindo o ID do CEP ao usuário
-            $cliente -> id_localizacao = $r['id'];
-            $cliente -> tipo = strip_tags($_POST['tipo']);
+            $usuario->id_localizacao = $r['id'];
+            $usuario->tipo = strip_tags($_POST['tipo']);
 
-            if($cliente -> Cadastrar() == 1){
+            if($usuario -> Cadastrar() == 1){
                 header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');
             
             }else{
@@ -65,30 +64,30 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
         // Caso CEP não esteja cadastrado
         } else {
-            require_once('../../classes/Cliente.class.php');
+            require_once('../../classes/Usuario.class.php');
 
-            $cliente = new cliente();    
+            $usuario = new Usuario();    
         
-            $cliente -> nome = strip_tags($_POST['nome']);
-            $cliente -> email = strip_tags($_POST['email']);
-            $cliente -> senha = strip_tags($_POST['senha']);
-            $cliente -> cpf = strip_tags($_POST['cpf']);
-            $cliente -> data_nascimento = strip_tags($_POST['data_nascimento']);
-            $cliente -> telefone_celular = strip_tags($_POST['telefone_celular']);
-            $cliente -> telefone_residencial = strip_tags($_POST['telefone_residencial']);
-            $cliente -> id_convenio = strip_tags($_POST['id_convenio']);
-            $cliente -> tipo = strip_tags($_POST['tipo']);
+            $usuario -> nome = strip_tags($_POST['nome']);
+            $usuario -> email = strip_tags($_POST['email']);
+            $usuario -> senha = strip_tags($_POST['senha']);
+            $usuario -> cpf = strip_tags($_POST['cpf']);
+            $usuario -> data_nascimento = strip_tags($_POST['data_nascimento']);
+            $usuario -> telefone_celular = strip_tags($_POST['telefone_celular']);
+            $usuario -> telefone_residencial = strip_tags($_POST['telefone_residencial']);
+            $usuario -> id_convenio = strip_tags($_POST['id_convenio']);
+            $usuario -> tipo = strip_tags($_POST['tipo']);
         
-            $cliente -> cep = strip_tags($_POST['cep']);
-            $cliente -> logradouro = strip_tags($_POST['rua']);
-            $cliente -> complemento = strip_tags($_POST['complemento']);
-            $cliente -> bairro = strip_tags($_POST['bairro']);
-            $cliente -> localidade = strip_tags($_POST['cidade']);
-            $cliente -> uf = strip_tags($_POST['uf']);
-            $cliente -> ddd = strip_tags($_POST['ddd']);
-            $cliente -> tipoLocal = strip_tags($_POST['tipoLocal']);
+            $usuario -> cep = strip_tags($_POST['cep']);
+            $usuario -> logradouro = strip_tags($_POST['rua']);
+            $usuario -> complemento = strip_tags($_POST['complemento']);
+            $usuario -> bairro = strip_tags($_POST['bairro']);
+            $usuario -> localidade = strip_tags($_POST['cidade']);
+            $usuario -> uf = strip_tags($_POST['uf']);
+            $usuario -> ddd = strip_tags($_POST['ddd']);
+            $usuario -> tipoLocal = strip_tags($_POST['tipoLocal']);
         
-            if($cliente -> CadastrarUsuarioLocalizacao() == 1){
+            if($usuario -> CadastrarUsuarioLocalizacao() == 1){
                 header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');
             
             }else{
