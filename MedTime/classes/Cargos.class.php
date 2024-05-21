@@ -16,7 +16,7 @@ class Cargos {
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
 
-        return $resultado -> rowCount();
+        return $resultado;
 
     }
 
@@ -43,8 +43,10 @@ class Cargos {
 
     public function Deletar(){
         $sql = "DELETE * FROM cargos WHERE id = ?";
+
         $banco = Banco::conectar();
         $comando = $banco -> prepare($sql);
+
         $comando -> execute([$this -> id]);
 
         Banco::desconectar();

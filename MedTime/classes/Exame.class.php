@@ -6,7 +6,7 @@ Class Exame {
 
     public $id;
     public $nome;
-    public $id_funcionario;
+    public $id_responsavel;
 
     public function Listar(){
         $sql = "SELECT * FROM exames";
@@ -18,19 +18,19 @@ Class Exame {
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
 
-        return $resultado->rowCount();
+        return $resultado;
     }
 
     public function Cadastrar(){
 
-        $sql = "INSERT INTO exames(nome, id_funcionario) 
+        $sql = "INSERT INTO exames(nome, id_responsavel) 
         VALUES (?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
         try{
-        $comando->execute([$this->nome, $this->id_funcionario]);
+        $comando->execute([$this->nome, $this->id_responsavel]);
             
         Banco::desconectar();
 

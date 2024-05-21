@@ -17,7 +17,7 @@ class Especialidade {
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
 
-        return $resultado -> rowCount();
+        return $resultado;
 
     }
 

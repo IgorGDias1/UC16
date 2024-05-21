@@ -19,7 +19,7 @@ class Suporte {
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
 
-        return $resultado->rowCount();
+        return $resultado;
 
     }
 
@@ -28,12 +28,12 @@ class Suporte {
         $sql = "SELECT * FROM suportes WHERE id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $comando->execute([$this -> id]);
+        $comando->execute([$this->id]);
 
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
 
-        return $resultado -> rowCount();
+        return $resultado;
 
     }
 
@@ -46,7 +46,7 @@ class Suporte {
         $comando = $banco->prepare($sql);
 
         try{
-        $comando->execute([$this->id_cliente, $this->assunto,$this -> mensagem, $this -> situacao]);
+        $comando->execute([$this->id_cliente, $this->assunto,$this->mensagem, $this->situacao]);
             
         Banco::desconectar();
 
@@ -64,7 +64,7 @@ class Suporte {
         $comando = $banco->prepare($sql);
 
         try{
-            $comando->execute([$this -> situacao, $this -> id]);
+            $comando->execute([$this->situacao, $this->id]);
 
             Banco::desconectar();
 

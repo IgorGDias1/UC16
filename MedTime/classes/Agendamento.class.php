@@ -7,6 +7,7 @@ class Agendamento {
     public $id;
     public $id_cliente;
     public $id_funcionario;
+    public $id_exame;
     public $id_convenio;
     public $id_localizacao;
     public $data_agendado;
@@ -21,7 +22,7 @@ class Agendamento {
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
 
-        return $resultado -> rowCount();
+        return $resultado;
 
     }
 
@@ -47,7 +48,7 @@ class Agendamento {
         $comando = $banco->prepare($sql);
 
         try{
-        $comando->execute([$this->id_cliente, $this->id_funcionario, $this -> id_exame, $this -> id_convenio, $this -> id_localizacao, $this -> data_agendado, $this -> situacao]);
+        $comando->execute([$this->id_cliente, $this->id_funcionario, $this->id_exame, $this->id_convenio, $this->id_localizacao, $this->data_agendado, $this->situacao]);
             
         Banco::desconectar();
 
@@ -65,7 +66,7 @@ class Agendamento {
         $comando = $banco->prepare($sql);
 
         try{
-            $comando->execute([$this -> id_cliente, $this -> id_funcionario, $this -> id_exame, $this -> id_convenio, $this -> id_localizacao, $this -> data_agendado, $this -> situacao, $this -> id]);
+            $comando->execute([$this->id_cliente, $this->id_funcionario, $this->id_exame, $this->id_convenio, $this->id_localizacao, $this->data_agendado, $this->situacao, $this->id]);
 
             Banco::desconectar();
 

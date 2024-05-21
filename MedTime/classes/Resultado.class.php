@@ -21,7 +21,7 @@ class Resultado {
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
 
-        return $resultado -> rowCount();
+        return $resultado;
 
     }
 
@@ -35,7 +35,7 @@ class Resultado {
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
         
-        return $resultado -> rowCount();
+        return $resultado;
     }
 
     public function Cadastrar(){
@@ -65,7 +65,7 @@ class Resultado {
         $comando = $banco->prepare($sql);
 
         try{
-            $comando->execute([$this -> id_cliente, $this->id_funcionario, $this->data_realizacao, $this->id_localizacao, $this->resultado, $this->reagendamento, $this->id]);
+            $comando->execute([$this->id_cliente, $this->id_funcionario, $this->data_realizacao, $this->id_localizacao, $this->resultado, $this->reagendamento, $this->id]);
 
             Banco::desconectar();
 
