@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $usuario->telefone_residencial = strip_tags($_POST['telefone_residencial']);
         $usuario->id_convenio = strip_tags($_POST['id_convenio']);
 
-        if($usuario -> Cadastrar() == 1){
+        if($usuario -> CadastrarCliente() == 1){
             header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');
         
         }else{
@@ -54,9 +54,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $usuario->id_convenio = strip_tags($_POST['id_convenio']);
             // Atribuindo o ID do CEP ao usuário
             $usuario->id_localizacao = $r['id'];
-            $usuario->tipo = strip_tags($_POST['tipo']);
 
-            if($usuario -> Cadastrar() == 1){
+            if($usuario -> CadastrarCliente() == 1){
                 header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');
             
             }else{
@@ -76,7 +75,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $usuario -> telefone_celular = strip_tags($_POST['telefone_celular']);
             $usuario -> telefone_residencial = strip_tags($_POST['telefone_residencial']);
             $usuario -> id_convenio = strip_tags($_POST['id_convenio']);
-            $usuario -> tipo = strip_tags($_POST['tipo']);
         
             $usuario -> cep = strip_tags($_POST['cep']);
             $usuario -> logradouro = strip_tags($_POST['rua']);

@@ -11,7 +11,7 @@ if(isset($_GET['id'])){
     // Obtendo o id da URL:
     $usuario->id = $_GET['id'];
 
-    if($c->Deletar() == 1){
+    if($usuario->Deletar() == 1){
 
         header('Location: gerenciamento_clientes.php?sucesso=removercliente');
     }else{

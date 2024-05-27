@@ -86,7 +86,7 @@ class Usuario {
     //Método para cadastrar um cliente - Obs: Sem parâmetros como id_cargo, id_especialidade, situacao
     public function CadastrarCliente(){
 
-        $sql = "INSERT INTO clientes(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone_residencial, id_localizacao, id_convenio) 
+        $sql = "INSERT INTO usuarios(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone_residencial, id_localizacao, id_convenio) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
