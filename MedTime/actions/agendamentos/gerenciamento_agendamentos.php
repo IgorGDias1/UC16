@@ -8,9 +8,9 @@ if (!isset($_SESSION['usuario'])) {
   die();
 }
 
-require_once('../../classes/Cliente.class.php');
-$cliente = new Cliente();
-$lista_clientes = $cliente->Listar();
+require_once('../../classes/Usuario.class.php');
+$usuario = new Usuario();
+$lista_usuarios= $usuario->Listar();
 
 require_once('../../classes/Localizacao.class.php');
 $localizacao = new Localizacao();
@@ -124,32 +124,32 @@ $lista_convenios = $convenio->Listar();
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($lista_clientes as $cliente) { ?>
+        <?php foreach ($lista_usuarios as $usuarios) { ?>
           <tr>
-            <td hidden><?= $cliente['id']; ?></td>
-            <td><?= $cliente['nome']; ?></td>
-            <td><?= $cliente['email']; ?></td>
-            <td hidden><?= $cliente['senha']; ?></td>
-            <td><?= $cliente['cpf']; ?></td>
-            <td><?= $cliente['data_nascimento']; ?></td>
-            <td><?= $cliente['telefone_celular']; ?></td>
-            <td><?= $cliente['telefone_residencial']; ?></td>
-            <td><?= $cliente['id_localizacao']; ?></td>
+            <td hidden><?= $usuarios['id']; ?></td>
+            <td><?= $usuarios['nome']; ?></td>
+            <td><?= $usuarios['email']; ?></td>
+            <td hidden><?= $usuarios['senha']; ?></td>
+            <td><?= $usuarios['cpf']; ?></td>
+            <td><?= $usuarios['data_nascimento']; ?></td>
+            <td><?= $usuarios['telefone_celular']; ?></td>
+            <td><?= $usuarios['telefone_residencial']; ?></td>
+            <td><?= $usuarios['id_localizacao']; ?></td>
             <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
-            data-id="<?=$cliente['id'];?>" 
-            data-nome="<?=$cliente['nome'];?>" 
-            data-email="<?=$cliente['email'];?>" 
-            data-cpf="<?=$cliente['cpf'];?>" 
-            data-data_nascimento="<?=$cliente['data_nascimento'];?>" 
-            data-telefone_celular="<?=$cliente['telefone_celular'];?>" 
-            data-telefone_residencial="<?=$cliente['telefone_residencial'];?>" 
-            data-id_convenio="<?=$cliente['id_convenio'];?>"
-            data-id_localizacao="<?=$cliente['id_localizacao'];?>">
+            data-id="<?=$usuarios['id'];?>" 
+            data-nome="<?=$usuarios['nome'];?>" 
+            data-email="<?=$usuarios['email'];?>" 
+            data-cpf="<?=$usuarios['cpf'];?>" 
+            data-data_nascimento="<?=$usuarios['data_nascimento'];?>" 
+            data-telefone_celular="<?=$usuarios['telefone_celular'];?>" 
+            data-telefone_residencial="<?=$usuarios['telefone_residencial'];?>" 
+            data-id_convenio="<?=$usuarios['id_convenio'];?>"
+            data-id_localizacao="<?=$usuarios['id_localizacao'];?>">
             <i class="bi bi-pencil-square"></i> Editar</button>
           </td>
             <td>
-              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $cliente['id']; ?>)">
+              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $usuarios['id']; ?>)">
               <i class="bi bi-file-earmark-x"></i> Excluir
             </a>
           </td>

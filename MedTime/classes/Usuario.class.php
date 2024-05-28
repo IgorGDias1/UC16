@@ -83,6 +83,7 @@ class Usuario {
 
     }
 
+
     //Método para cadastrar um cliente - Obs: Sem parâmetros como id_cargo, id_especialidade, situacao
     public function CadastrarCliente(){
 
@@ -176,11 +177,13 @@ class Usuario {
         Banco::desconectar();
 
         return $resultado;
+        
         } catch(PDOException $e){
             Banco::desconectar();
             return 0;
         }
     }
+
 
     public function Deletar(){
 
