@@ -2,7 +2,7 @@
 
 session_start();
 
-if (!isset($_SESSION['usuario'])) {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['id_cargo'] == "") {
   //Retornar a tela de login
   header('Location: ../login/index.php');
   die();
@@ -10,7 +10,8 @@ if (!isset($_SESSION['usuario'])) {
 
 require_once('../../classes/Usuario.class.php');
 $usuario = new Usuario();
-$lista_usuarios = $usuario->Listar();
+$lista_usuarios = $usuario->ListarClientes();
+$lista_funcionarios = $usuario->ListarFuncionarios();
 
 require_once('../../classes/Localizacao.class.php');
 $localizacao = new Localizacao();
@@ -22,7 +23,7 @@ $lista_convenios = $convenio->Listar();
 
 ?>
 
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-br">
 
 <head>
@@ -88,7 +89,7 @@ $lista_convenios = $convenio->Listar();
               <a class="nav-link" href="#">Exames</a>
             </li>
             <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Agendamentos</a>
+              <a class="nav-link" href="../agendamentos/gerenciamento_agendamentos.php">Agendamentos</a>
             </li>
             <li class="nav-item px-3 mt-4">
               <a class="nav-link" href="#">Suporte</a>
@@ -169,6 +170,70 @@ $lista_convenios = $convenio->Listar();
   </div>
   </div>
 
+  <br><br><br><hr>
+
+  <?php 
+  if($_SESSION['usuario']['id_cargo'] == 5){ ?>
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Gerenciamento de Funcionarios</h2>
+    <div class="row mb-3">
+      <div class="col d-flex justify-content-end">
+        <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus-circle"></i> Cadastrar Funcionário</button>
+      </div>
+    </div>
+    <table class="table table-striped table-hover table-primary ">
+      <thead>
+        <tr>
+          <th hidden>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th hidden>Senha</th>
+          <th>CPF</th>
+          <th>Data de Nascimento</th>
+          <th>Telefone Celular</th>
+          <th>Telefone Residencial</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($lista_funcionarios as $funcionario) { ?>
+          <tr>
+            <td hidden><?= $funcionario['id']; ?></td>
+            <td><?= $funcionario['nome']; ?></td>
+            <td><?= $funcionario['email']; ?></td>
+            <td hidden><?= $funcionario['senha']; ?></td>
+            <td><?= $funcionario['cpf']; ?></td>
+            <td><?= $funcionario['data_nascimento']; ?></td>
+            <td><?= $funcionario['telefone_celular']; ?></td>
+            <td><?= $funcionario['telefone_residencial']; ?></td>
+            <td>
+            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
+            data-id="<?=$funcionario['id'];?>" 
+            data-nome="<?=$funcionario['nome'];?>" 
+            data-email="<?=$funcionario['email'];?>" 
+            data-cpf="<?=$funcionario['cpf'];?>" 
+            data-data_nascimento="<?=$funcionario['data_nascimento'];?>" 
+            data-telefone_celular="<?=$funcionario['telefone_celular'];?>" 
+            data-telefone_residencial="<?=$funcionario['telefone_residencial'];?>">
+            <i class="bi bi-pencil-square"></i> Editar</button>
+          </td>
+            <td>
+              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $funcionario['id']; ?>)">
+              <i class="bi bi-file-earmark-x"></i> Excluir
+            </a>
+          </td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+
+  </div>
+  </div>
+
+  <?php }?>
+
   <!-- Modal de cadastro de usuário -->
   <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -243,6 +308,83 @@ $lista_convenios = $convenio->Listar();
                 <?php } ?>
               </select><br>
             </div>
+          <div class="modal-footer mt-5">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-success">Salvar</button>
+            <a class="btn btn-warning mx-2" href="../enderecos/gerenciamento_enderecos.php" target="blank">Gerenciar Endereços</a>
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  </div>
+  </div>
+
+   <!-- Modal de cadastro de funcionario -->
+   <div class="modal fade" id="modalCadastroFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalCadastroFuncionario" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="cadastrar_cliente.php" method="POST">
+          <div class="modal-header d-flex justify-content-center">
+            <h5 class="modal-title" id="modalCadastroFuncionario">Cadastrar novo funcionario</h5>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group mt-3">
+              <label for="nomeFuncionario">Nome</label>
+              <input type="text" class="form-control" id="nomeUsuario" placeholder="Digite o nome do cliente" name="nome" required>
+            </div>
+            <div class="form-group mt-3">
+              <label for="emailFuncionario">Email</label>
+              <input type="email" class="form-control" id="emailUsuario" name="email" placeholder="email@email.com" required>
+            </div>
+            <div class="form-group mt-3">
+              <label for="senhaFuncionario">Senha</label>
+              <input type="password" class="form-control" id="senha" name="senhaFuncionario" required>
+              <input class="mt-3" type="checkbox" class="form-check-input" onclick="mostrarSenha()"> Mostrar Senha
+            </div>
+            <div class="form-group mt-3">
+              <label for="cpfFuncionario">CPF</label>
+              <input type="text" maxlength="11" class="form-control" id="cpfUsuario" name="cpf"></input required>
+            </div>
+            <div class="form-group mt-3">
+              <label for="data_nasciFuncionario">Data de Nascimento</label>
+              <input type="date" class="form-control" id="datanasciUsuario" name="data_nascimento"></input>
+            </div required>
+            <div class="form-group mt-3">
+              <label for="telcelFuncionario">Telefone Celular</label>
+              <input type="tel" class="form-control" id="telcelUsuario" maxlenght="14" placeholder="(DDD) 9 9999-9999" name="telefone_celular">
+            </div>
+            <div class="form-group mt-3">
+              <label for="telresFuncionario">Telefone Residencial</label>
+              <input type="tel" class="form-control" id="telresUsuario" maxlenght="14" placeholder="(DDD) 9 9999-9999" name="telefone_residencial">
+            </div>
+            <br>
+            <hr>
+            <div class="form-group mt-2">
+              <label>CEP
+              <input name="cep" class="form-control" type="text" id="cep" size="10" maxlength="9"
+              onblur="pesquisacep(this.value);"/></label>
+              <label hidden id="ruaLabel">Rua
+              <input name="rua" class="form-control" type="text" id="rua" size="60" hidden/></label>
+              <label hidden id="complementoLabel">Complemento
+              <input name="complemento" class="form-control" type="text" id="complemento" size="60" /></label>
+              <label hidden id="bairroLabel">Bairro
+              <input name="bairro" class="form-control" type="text" id="bairro" size="40" hidden/></label>
+              <label hidden id="cidadeLabel">Cidade
+              <input name="cidade" class="form-control" type="text" id="cidade" size="40" hidden/></label><br>
+              <label hidden id="ufLabel">Estado
+              <input name="uf" class="form-control" type="text" id="uf" size="2" hidden/></label>
+              <label hidden id="dddLabel">DDD
+              <input name="ddd" class="form-control" type="text" id="ddd" size="8" hidden/></label>
+              <label hidden id="tipoLabel">Tipo
+              <select name="tipoLocal" id="tipo" class="form-control"  hidden>
+                <option value="Residencial">Residencial</option>
+                <option value="Comercial">Comercial</option>
+                <option value="Clinica">Clinica</option>
+              </select></label>
+            </div>
+            <button type="button" class="btn btn-warning mt-3" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
           <div class="modal-footer mt-5">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
             <button type="submit" class="btn btn-success">Salvar</button>

@@ -10,22 +10,23 @@
 
         $resultado = $usuario->Logar();
 
-        if($resultado[0]['id_cargo'] == NULL){
-            if(count($resultado) == 1){
-                session_start();
+        if($resultado[0]['id_cargo'] == NULL && count($resultado) == 1){
+            session_start();
 
-                $_SESSION['usuario'] = $resultado[0];
-                header('Location: ../../paginainicial.htm?sucesso=login');
-            }
+            $_SESSION['usuario'] = $resultado[0];
+            header('Location: ../../paginainicial.htm?sucesso=login');
+            die();
         } else {
             session_start();
 
-            $_SESSSION['funcionario'] = $resultado[0];
-            header('Location: ../clientes/gerenciamento_clientes.php');
+            $_SESSION['usuario'] = $resultado[0];
+            header('Location: ../clientes/gerenciamento_clientes.php?sucesso=login');
+            die();
         }
             
     }else{
         header('Location: ../../paginainicial.htm?falha=post');
+        die();
     }
 
 ?>

@@ -30,45 +30,178 @@
 </head>
 
 <body>
-    <!-- Linha do cabeçalho -->
-    <div class="row fundo-cabecalho">
-        <!-- Logotipo -->
-        <div class="colv-md-3 ms-4 col-12 "><img src="img/logo.png" width="200px" alt="Logo"
-                class="img-fluid mx-auto d-block">
+
+    <div class="row pt-2 corsi">
+        <div class="col-1 col-3">
+
+            <!-- Logotipo -->
+            <div class="colv-md-3 col-12"><img src="img/logo.png" width="100px" alt="Logo"
+                    class="img-fluid mx-auto d-block">
+                    <p class="container-fluid text-center mt-1 righteous-regular">MedTime - Perfil</p>
+            </div>
+
+            
+            
         </div>
-        <div>
-            <p>
-            <h4 class="text-center text-primary-emphasis">MedTime</h2>
-                </p>
-                <p>
-                <h5 class="text-center text-primary">Agendamentos Online</h3>
-                    </p>
+
+        <div class="col-5 col- pt-5">
+            <div class="input-group mb-3 d-flex">
+
+                <!-- Barra de pesquisa -->
+                <input type="text" class="form-control" placeholder="Pesquisar..." aria-label="Buscar..."
+                    aria-describedby="button-addon2">
+                <!-- Botão de busca -->
+                <button type="button" class="btn btn-purple">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+
+
+    <!-- Usuário -->
+    <div class="col-8 col-12">
+        <!-- login -->
+        <div class="d-flex">
+            <button class="btn me-md-2" type="button">
+
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <div class=""><i class="bi bi-person-circle text-light fs-1"></i>
+                    </div>
         </div>
     </div>
+</div>
 
-   
-   <div class="container-fluid">
-    <div class="row mt-3 ms-4">
-        <div class="col-4">
-            <img src="img/profile.png" class="rounded-circle border" alt="...">
-            <h1 class="mt-4 ms-4 text-center">Coelho da Silva</h1>
-        </div>
-        <div class="col-8 border me-4 mt-4 ms-5">
-            <p class="h2 text-center">Perfil</p>
-            <input class="form-control form-control-lg" type="text" placeholder="data de nascimento: 00/00/00" aria-label=".form-control-lg example">
-            <input class="form-control form-control-lg" type="text" placeholder="data de nascimento: 00/00/00" aria-label=".form-control-lg example">
-            <input class="form-control form-control-lg" type="text" placeholder="data de nascimento: 00/00/00" aria-label=".form-control-lg example">
-        </div>
-        </div>
+ <!-- Linha do menu -->
+ <div class="row">
+    <div class="col">
+        <nav class="navbar navbar-expand-lg navbar-custom righteous-regular ">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-3">
+                            <a class="nav-link" aria-current="page" href="paginainicial.htm">Página
+                                Inicial</a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link" href="consultas.htm">Consultas</a>
+                        </li>
+
+                        <li class="nav-item px-3">
+                            <a class="nav-link" href="agendamentos.htm">Agendamentos</a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="nav-link" href="contate_nos.htm">Contate-nós</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+</div>
+
+
+        <div class="container-fluid">
+            <div class="row mt-3 ms-4 me-3">
+                <div class="col-md-4">
+                    <img src="img/profile.png" class="rounded-circle border border-5 img-fluid mx-auto d-block" alt="...">
+                    <div class="d-grid gap-2 me-3">
+                        <div class="btn-group-vertical mt-3" role="group" aria-label="Vertical button group">
+                            <button type="button" class="btn btn-primary ">Meus agendamentos</button>
+                        </div>
+                        <div class="btn-group-vertical " role="group" aria-label="Vertical button group">
+                            <button type="button" class="btn btn-primary ">Meus resultados</button>
+                        </div>
+                        <div class="btn-group-vertical mb-3" role="group" aria-label="Vertical button group">
+                            <button type="button" class="btn btn-primary ">Meus exames</button>
+                        </div>
+                      </div>
+                   
+
+                </div>
+                <div class="col-md-8 rounded-3 border border-3 mb-2" hidden>
+                    <p class="h2 text-center">Meus Agendamentos</p>
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome do exame"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Convênio"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Data"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Local"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Situação"
+                        aria-label=".form-control-lg example">
+                </div>
+
+                <div class="col-md-8 rounded-3 border border-3 mb-2" hidden>
+                    <p class="h2 text-center">Meus Exames</p>
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome do exame"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="data da realização"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Médico responsável"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Resultado"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Situação"
+                        aria-label=".form-control-lg example">
+                </div>
+
+                <div class="col-md-8 rounded-3 border border-3 mb-2" hidden>
+                    <p class="h2 text-center">Meus Resultados</p>
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome do exame"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Data da realização"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Localização realizada"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Resultado"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Reagendamento"
+                        aria-label=".form-control-lg example">
+                </div>
+
+                <div class="col-md-8 rounded-3 border border-3 mb-2">
+                    <p class="h2 text-center">Dados pessoais</p>
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome Completo"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Email"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="data de nascimento"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Telefone"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Estado"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Bairro"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Rua"
+                        aria-label=".form-control-lg example">
+                    <input class="form-control form-control-lg mb-2 w-25" type="text" placeholder="N°"
+                        aria-label=".form-control-lg example">
+                </div>
+            </div>
         </div>
     </div>
-   </div>
-   
+    </div>
 
 
 
 
 
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>

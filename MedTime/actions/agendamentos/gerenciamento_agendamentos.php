@@ -2,15 +2,15 @@
 
 session_start();
 
-if (!isset($_SESSION['usuario'])) {
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['id_cargo'] == "") {
   //Retornar a tela de login
   header('Location: ../login/index.php');
   die();
 }
 
-require_once('../../classes/Usuario.class.php');
-$usuario = new Usuario();
-$lista_usuarios= $usuario->Listar();
+require_once('../../classes/Agendamento.class.php');
+$a = new Agendamento();
+$listar_agendamentos = $a->Listar();
 
 require_once('../../classes/Localizacao.class.php');
 $localizacao = new Localizacao();
@@ -19,8 +19,6 @@ $lista_localizacao = $localizacao->Listar();
 require_once('../../classes/Convenio.class.php');
 $convenio = new Convenio();
 $lista_convenios = $convenio->Listar();
-
-
 
 ?>
 <!DOCTYPE html>
@@ -71,21 +69,28 @@ $lista_convenios = $convenio->Listar();
               <a class="nav-link active" href="#">
                 <img src="../../img/logo.png" alt="logo" width="100px">
               </a>
-            </li>
+              </li>
             <li class="nav-item px-3 mt-4">
               <a class="nav-link active" aria-current="page" href="#">Página Inicial</a>
             </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Consultas</a>
+            <li class="nav-item dropdown px-3 mt-4">
+              <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Gerenciamentos
+              </button>
+              <ul class="dropdown-menu dropdown-menu px-2">
+                <li><a class="dropdown-item" href="../enderecos/gerenciamento_enderecos.php">Endereços</a></li>
+                <li><a class="dropdown-item" href="#">Convenios</a></li>
+                <li><a class="dropdown-item" href="#">Resultados</a></li>
+              </ul>
             </li>
             <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Exames disponíveis</a>
+              <a class="nav-link" href="#">Exames</a>
             </li>
             <li class="nav-item px-3 mt-4">
               <a class="nav-link" href="#">Agendamentos</a>
             </li>
             <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Contate-nós</a>
+              <a class="nav-link" href="#">Suporte</a>
             </li>
           </ul>
         </div>
@@ -124,32 +129,32 @@ $lista_convenios = $convenio->Listar();
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($lista_usuarios as $usuarios) { ?>
+        <?php foreach ($listar_agendamentos as $agendamento) { ?>
           <tr>
-            <td hidden><?= $usuarios['id']; ?></td>
-            <td><?= $usuarios['nome']; ?></td>
-            <td><?= $usuarios['email']; ?></td>
-            <td hidden><?= $usuarios['senha']; ?></td>
-            <td><?= $usuarios['cpf']; ?></td>
-            <td><?= $usuarios['data_nascimento']; ?></td>
-            <td><?= $usuarios['telefone_celular']; ?></td>
-            <td><?= $usuarios['telefone_residencial']; ?></td>
-            <td><?= $usuarios['id_localizacao']; ?></td>
+            <td hidden><?= $agendamentos['id']; ?></td>
+            <td><?= $agendamentos['nome']; ?></td>
+            <td><?= $agendamentos['email']; ?></td>
+            <td hidden><?= $agendamentos['senha']; ?></td>
+            <td><?= $agendamentos['cpf']; ?></td>
+            <td><?= $agendamentos['data_nascimento']; ?></td>
+            <td><?= $agendamentos['telefone_celular']; ?></td>
+            <td><?= $agendamentos['telefone_residencial']; ?></td>
+            <td><?= $agendamentos['id_localizacao']; ?></td>
             <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
-            data-id="<?=$usuarios['id'];?>" 
-            data-nome="<?=$usuarios['nome'];?>" 
-            data-email="<?=$usuarios['email'];?>" 
-            data-cpf="<?=$usuarios['cpf'];?>" 
-            data-data_nascimento="<?=$usuarios['data_nascimento'];?>" 
-            data-telefone_celular="<?=$usuarios['telefone_celular'];?>" 
-            data-telefone_residencial="<?=$usuarios['telefone_residencial'];?>" 
-            data-id_convenio="<?=$usuarios['id_convenio'];?>"
-            data-id_localizacao="<?=$usuarios['id_localizacao'];?>">
+            data-id="<?=$agendamentos['id'];?>" 
+            data-nome="<?=$agendamentos['nome'];?>" 
+            data-email="<?=$agendamentos['email'];?>" 
+            data-cpf="<?=$agendamentos['cpf'];?>" 
+            data-data_nascimento="<?=$agendamentos['data_nascimento'];?>" 
+            data-telefone_celular="<?=$agendamentos['telefone_celular'];?>" 
+            data-telefone_residencial="<?=$agendamentos['telefone_residencial'];?>" 
+            data-id_convenio="<?=$agendamentos['id_convenio'];?>"
+            data-id_localizacao="<?=$agendamentos['id_localizacao'];?>">
             <i class="bi bi-pencil-square"></i> Editar</button>
           </td>
             <td>
-              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $usuarios['id']; ?>)">
+              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $agendamentos['id']; ?>)">
               <i class="bi bi-file-earmark-x"></i> Excluir
             </a>
           </td>
@@ -172,36 +177,25 @@ $lista_convenios = $convenio->Listar();
           </div>
           <div class="modal-body">
             <div class="form-group mt-3">
-              <label for="nomeUsuario">Nome</label>
-              <input type="text" class="form-control" id="nomeUsuario" placeholder="Digite o nome do cliente" name="nome" required>
+              <label for="nomePaciente">Paciente</label>
+              <input type="text" class="form-control" id="nomePaciente" placeholder="Digite o nome do paciente" name="nome" required>
             </div>
             <div class="form-group mt-3">
-              <label for="emailUsuario">Email</label>
-              <input type="email" class="form-control" id="emailUsuario" name="email" placeholder="email@email.com" required>
+              <label for="nomeMedico">Médico</label>
+              <input type="text" class="form-control" id="nomeMedico" name="nomemed" placeholder="Digite o nome do Médico" required>
             </div>
             <div class="form-group mt-3">
-              <label for="senha">Senha</label>
-              <input type="password" class="form-control" id="senha" name="senha" required>
-              <input class="mt-3" type="checkbox" class="form-check-input" onclick="mostrarSenha()"> Mostrar Senha
+              <label for="exame">Exame</label>
+              <input type="text" class="form-control" id="exame" name="exame"></input required>
             </div>
-            <div class="form-group mt-3">
-              <label for="cpfUsuario">CPF</label>
-              <input type="text" maxlength="11" class="form-control" id="cpfUsuario" name="cpf"></input required>
+            <div class="form-group mt-2">
+              <label for="convenio">Convênio</label>
+              <select class="form-control" name="id_convenio" id="convenio">
+                <?php foreach ($lista_convenios as $convenio) { ?>
+                  <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
+                <?php } ?>
+              </select><br>
             </div>
-            <div class="form-group mt-3">
-              <label for="data_nasciUsuario">Data de Nascimento</label>
-              <input type="date" class="form-control" id="datanasciUsuario" name="data_nascimento"></input>
-            </div required>
-            <div class="form-group mt-3">
-              <label for="telcelUsuario">Telefone Celular</label>
-              <input type="tel" class="form-control" id="telcelUsuario" maxlenght="14" placeholder="(DDD) 9 9999-9999" name="telefone_celular">
-            </div>
-            <div class="form-group mt-3">
-              <label for="telresUsuario">Telefone Residencial</label>
-              <input type="tel" class="form-control" id="telresUsuario" maxlenght="14" placeholder="(DDD) 9 9999-9999" name="telefone_residencial">
-            </div>
-            <br>
-            <hr>
             <div class="form-group mt-2">
               <label>CEP
               <input name="cep" class="form-control" type="text" id="cep" size="10" maxlength="9"
@@ -225,22 +219,15 @@ $lista_convenios = $convenio->Listar();
                 <option value="Clinica">Clinica</option>
               </select></label>
             </div>
+            <div class="form-group mt-3">
+              <label for="data_consPaciente">Data da Consulta</label>
+              <input type="date" class="form-control" id="data_consPaciente" name="data_consulta"></input>
+            </div required>
+            <br>
+            
             <button type="button" class="btn btn-warning mt-3" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
-        <br><hr>
-            <div class="form-group mt-2">
-              <label for="convenio">Convênio</label>
-              <select class="form-control" name="id_convenio" id="convenio">
-                <?php foreach ($lista_convenios as $convenio) { ?>
-                  <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
-                <?php } ?>
-              </select><br>
-            </div>
-            <div class="form-group">
-              <label for="tipo">Tipo</label>
-              <select name="tipo" id="tipoUsuario" class="form-control">
-                <option value="Cliente">Cliente</option>
-                <option value="Funcionario">Funcionario</option>
-              </select>
+        <br>
+           
             </div>
           </div>
           <div class="modal-footer mt-5">

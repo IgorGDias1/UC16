@@ -27,9 +27,9 @@ class Usuario {
     public $ddd;
     public $tipoLocal;
 
-    public function Listar(){
+    public function ListarClientes(){
 
-        $sql = "SELECT * FROM usuarios";
+        $sql = "SELECT * FROM usuarios WHERE id_cargo IS NULL";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -40,9 +40,22 @@ class Usuario {
         return $resultado;
     }
 
-    public function View(){
+    public function ViewClientes(){
 
         $sql = "SELECT * FROM view_usuarios";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+    }
+
+    public function ViewFuncionarios(){
+
+        $sql = "SELECT * FROM view_funcionarios";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -70,11 +83,11 @@ class Usuario {
 
     public function ListarFuncionarios(){
 
-        $sql = "SELECT * FROM usuarios WHERE id_cargo = ?";
+        $sql = "SELECT * FROM usuarios WHERE id_cargo IS NOT NULL";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
-        $comando->execute([$this -> id_cargo]);
+        $comando->execute();
 
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();

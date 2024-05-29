@@ -2,7 +2,7 @@
 
 session_start();
 
-if(!isset($_SESSION['usuario'])){
+if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['id_cargo'] == "") {
     //Retornar a tela de login
     header('Location: ../login/index.php');
     die();

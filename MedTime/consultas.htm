@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,67 +10,58 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <link rel="shortcut icon" type="image/png" href="img/favico.png">
-
     <!-- Link para o arquivo CSS externo -->
     <link rel="stylesheet" href="css/style.css">
-
-
     <!-- api google fontes-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Amatic+SC:wght@400;700&family=Bungee&family=Bungee+Spice&family=Press+
     Start+2P&family=Righteous&family=Rubik+Doodle+Shadow&family=Uchen&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-    <!-- Linha do cabeçalho -->
-    <div class="row fundo-cabecalho">
-        <!-- Logotipo -->
-        <div class="colv-md-3 col-12 "><img src="img/logo.png" width="200px" alt="Logo"
-                class="img-fluid mx-auto d-block">
-        </div>
-        <div>
-            <p>
-            <h4 class="text-center text-primary-emphasis">MedTime</h2>
-                </p>
-                <p>
-                <h5 class="text-center text-primary">Consultas</h3>
-                </p>
+    <div class="container-fluid align-items-center text-center justify-content-center">
+    <div class="row pt-2 corsi">
+        <div class="col-1 col-3">
+
+            <!-- Logotipo -->
+            <div class="colv-md-3 col-12"><img src="img/logo.png" width="100px" alt="Logo"
+                    class="img-fluid mx-auto d-block">
+                <p class="container-fluid text-center mt-1 righteous-regular">MedTime - Consultas</p>
+            </div>
+
+
+
         </div>
 
-        <div class="row pt-2 justify-content-center align-items-center">
-            <div class="col-md-6 col-12">
-                <div class="input-group mb-3 d-flex justify-content-center align-items-center">
-                    <!-- Barra de pesquisa -->
-                    <input type="text" class="form-control" placeholder="Buscar..." aria-label="Buscar..."
-                        aria-describedby="button-addon2">
-                    <!-- Botão de busca -->
-                    <button type="button" class="btn btn-black">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
+        <div class="col-5 pt-5">
+            <div class="input-group mb-3 d-flex">
+
+                <!-- Barra de pesquisa -->
+                <input type="text" class="form-control" placeholder="Pesquisar..." aria-label="Buscar..."
+                    aria-describedby="button-addon2">
+                <!-- Botão de busca -->
+                <button type="button" class="btn btn-purple">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+
+
+        <!-- Usuário -->
+        <div class="col-3 col-3 ms-4 mt-4">
+            <!-- login -->
+            <div class="d-flex">
+                <a href="paginainicial.htm"> <i class="bi bi-person-circle text-light fs-1"></i></a>
+
             </div>
         </div>
     </div>
-
-     <!-- Usuário -->
-     <div class="col-md-3 col-12">
-        <!-- login -->
-        <div class="d-flex justify-content-center align-items-center">
-            <button class="btn me-md-2" type="button">
-
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    <div class="position-absolute top-0 end-0"><i class="bi bi-person-circle text-light fs-1"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-     <!-- Linha do menu -->
-     <div class="row">
+</div>
+    <!-- Linha do menu -->
+    <div class="row">
         <div class="col">
             <nav class="navbar navbar-expand-lg navbar-custom righteous-regular ">
                 <div class="container-fluid">
@@ -80,7 +72,7 @@
                     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item px-3">
-                                <a class="nav-link" href="paginainicial.htm">Página
+                                <a class="nav-link" aria-current="page" href="paginainicial.htm">Página
                                     Inicial</a>
                             </li>
                             <li class="nav-item px-3">
@@ -100,7 +92,19 @@
 
         </div>
     </div>
-                    
+
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+        integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
+
 </html>

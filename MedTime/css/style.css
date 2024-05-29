@@ -1,3 +1,9 @@
+body {
+  background: beige;
+  background-repeat: no-repeat;
+}
+
+
 .btn-verde {
     background-color: #00B19C;
 }
@@ -12,6 +18,11 @@
     border-radius: 10px;
 }
 
+/* cor do fundo do cabeçalho*/
+.corsi {
+  background-color: rgba(22, 39, 136, 0.623);
+}
+
 .btn-purple {
   background-color: #9470AF;
 }
@@ -21,9 +32,7 @@
   background-color: #17AF9B;
 }
 
-.fundo-cabecalho {
-    background-color: #b1f7ef;
-}
+
 
 .navbar-custom {
 
@@ -45,7 +54,7 @@
     border-radius: 0.25rem;
 }
 
-
+.titulo
 
 
 

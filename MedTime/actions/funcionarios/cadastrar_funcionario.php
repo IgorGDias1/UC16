@@ -61,11 +61,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }else{
                 header('Location: gerenciamento_clientes.php?falha=cadastrarcliente');
             }
-        // Caso CEP não esteja cadastrado -> cadastrar usuario e localizacao
+        // Caso CEP não esteja cadastrado
         } else {
             require_once('../../classes/Usuario.class.php');
 
-            $usuario = new Usuario();
+            $usuario = new Usuario();    
         
             $usuario -> nome = strip_tags($_POST['nome']);
             $usuario -> email = strip_tags($_POST['email']);
@@ -93,25 +93,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             }
         }
     }
-
-    //Cadastrando um funcionário
-
-    $usuario = new Usuario();
-
-    $usuario->nome = strip_tags($_POST['nomeFuncionario']);
-    $usuario->email = strip_tags($_POST['emailFuncionario']);
-    $usuario->senha = strip_tags($_POST['senhaFuncionario']);
-    $usuario->cpf = strip_tags($_POST['cpfFuncionario']);
-    $usuario->data_nascimento = strip_tags($_POST['data_nascimentoFuncionario']);
-    $usuario->telefone_celular = strip_tags($_POST['telefone_celularFuncionario']);
-    $usuario->telefone_residencial = strip_tags($_POST['telefone_residencialFuncionario']);
-    $usuario->id_localizacao = strip_tags($_POST['id_localizacaoFuncionario']);
-    $usuario->id_convenio = strip_tags($_POST['id_convenioFuncionario']);
-    $usuario->id_cargo = strip_tags($_POST['id_cargoFuncionario']);
-    $usuario->id_especialidade = strip_tags($_POST['id_especialidadeFuncionario']);
-    $usuario->situacao = 1;
-
-
 
 }else{
     header('Location: gerenciamento_clientes.php?falha=cadastrarcliente');
