@@ -8,6 +8,7 @@ if(!isset($_SESSION['usuario'])){
 
 require_once('classes/Usuario.class.php');
 $usuario = new Usuario();
+$usuario->id=$_SESSION['usuario']['id'];
 $info = $usuario->ListarPorId();
 
 ?>
@@ -181,14 +182,18 @@ $info = $usuario->ListarPorId();
 
                 <div class="col-md-8 rounded-3 border border-3 mb-2">
                     <p class="h2 text-center">Dados pessoais</p>
+                    <?php foreach($info as $i){?>
                     <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome Completo"
-                        aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Email"
-                        aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="data de nascimento"
-                        aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Telefone"
-                        aria-label=".form-control-lg example">
+                        aria-label=".form-control-lg example" value="<?=$i['nome'];?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="email" placeholder="Email"
+                        aria-label=".form-control-lg example" value="<?=$i['email'];?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="date" placeholder="data de nascimento"
+                        aria-label=".form-control-lg example" value="<?=$i['data_nascimento'];?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Celular"
+                        aria-label=".form-control-lg example" value="<?=$i['telefone_celular'];?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Residencial"
+                        aria-label=".form-control-lg example" value="<?=$i['telefone_residencial'];?>">    
+                    <?php } ?>
 
                         <br><hr><br>
                     <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Estado"
