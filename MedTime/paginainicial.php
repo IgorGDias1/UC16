@@ -1,6 +1,11 @@
+<?php 
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +33,7 @@
         }
     </style>
 </head>
+
 <body>
 
 
@@ -61,124 +67,33 @@
         </div>
 
 
-
         <!-- Usuário -->
         <div class="col-md-3 col-12">
             <!-- login -->
-            <div class="d-flex justify-content-center align-items-center">
+            <?php if(!isset($_SESSION['usuario'])){ ?>
+                <div class="d-flex justify-content-center align-items-center">
                 <button class="btn me-md-2" type="button">
-
-                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        <div class="position-absolute top-0 end-0"><i class="bi bi-person-circle text-light fs-1"></i>
+                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="botaoLogin" name="botaoLogin">
+                        <div class="position-absolute top-0 end-0"><i class="bi bi-person-circle text-dark fs-1"></i>
                         </div>
+                </div>
+                <?php } ?>
 
-                    </button>
-                    <div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="row justify-content-center mt-3">
-                                        <div class="col-10 conteudo ">
-                                            <!-- Forms de login -->
-                                            <form id="formLogin" action="actions/login/validar_login.php" method="POST">
-                                                <!-- Div de email -->
-                                                <div class="mb-3">
-                                                    <label for="email" class="form-label">Email</label>
-                                                    <input type="email" class="form-control" id="email" name="email">
-                                                </div>
-                                                <!-- Div de senha -->
-                                                <div class="mb-3">
-                                                    <label for="senha" class="form-label">Senha</label>
-                                                    <input type="password" class="form-control" id="senha" name="senha">
-                                                </div>
-                                                <!-- Botão de login -->
-                                                <div class="form-group">
-                                                    <button type="submit" id="btnEntrar"
-                                                        class="form-control btn btn-purple rounded text-white submit px-3">Entrar</button>
-                                                </div>
-                                                <div class="mb-3 mt-3">
-                                                    <p class="text-center">Não possui conta?
-                                                        <!-- tag <a> que redirecionada para página de cadastro com JS -->
-                                                        <a href="#" id="btnCadastroToggle">Cadastre-se</a>
-                                                    </p>
-                                                </div>
-                                            </form>
-
-                                            <!-- Forms de cadastro -->
-                                            <form id="formCadastro" action="actions/usuario/cadastrar_usuario.php"
-                                                method="POST">
-                                                <!-- Div de Nome -->
-                                                <div class="mb-3">
-                                                    <label for="nomeCadastro" class="form-label">Nome
-                                                        Completo:</label>
-                                                    <input type="text" class="form-control" id="nomeCadastro"
-                                                        name="nome" placeholder="Digite seu nome completo" required>
-                                                </div>
-                                                <!-- Div de Email Principal -->
-                                                <div class="mb-3 py-2">
-                                                    <label for="emailCadastro" class="form-label">Email</label>
-                                                    <input type="text" class="form-control" id="emailCadastro"
-                                                        name="email"
-                                                        placeholder="Digite o e-mail que você deseja cadastrar"
-                                                        required>
-                                                </div>
-                                                <!-- Div de senha -->
-                                                <div class="mb-3 py-3">
-                                                    <label for="senhaCadastro" class="form-label">Senha</label>
-                                                    <input type="password" class="form-control" id="senhaCadastro"
-                                                        name="senha">
-                                                    <!-- Checkbocx se clicado ele executára um evento JS que mostra senha -->
-                                                    <input type="checkbox" id="senhaCheckBox" onclick="mostrarSenha()">
-                                                    Mostrar Senha
-                                                </div>
-                                                <!-- Div de telefone -->
-                                                <div class="mb-3">
-                                                    <label for="telefoneCadastro" class="form-label">Telefone para
-                                                        contato</label>
-                                                    <input type="tel" class="form-control" id="telefoneCadastro"
-                                                        name="telefone" maxlength="11"
-                                                        placeholder="Exemplo: (DD) 9 9999-9999">
-                                                </div>
-                                                <!-- Div de CPF -->
-                                                <div class="mb-3 py-3">
-                                                    <label for="cpfCadastro" class="form-label">CPF</label>
-                                                    <input type="text" class="form-control" id="cpfCadastro" name="cpf"
-                                                        maxlength="11" placeholder="Exemplo: 000.000.000-00">
-                                                </div>
-                                                <!-- Div de data de nascimento -->
-                                                <div class="mb-3">
-                                                    <label for="data_nascimentoCadastro" class="form-label">Data de
-                                                        nascimento</label>
-                                                    <input type="date" class="form-control" id="data_nascimentoCadastro"
-                                                        name="data_nascimento">
-                                                </div>
-                                                <!-- Botão de cadastro -->
-                                                <div class="form-group">
-                                                    <button type="submit"
-                                                        class="form-control btn btn-purple rounded text-white submit px-3"
-                                                        id="btnCadastrar">Cadastrar</button>
-                                                </div>
-                                                <div class="mb-3 mt-3">
-                                                    <p class="text-center">Já possui conta?
-                                                        <!-- Caso clicado irá redirecionar para a página de login -->
-                                                        <a href="#" id="btnLoginToggle">Entrar</a>
-                                                    </p>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <?php if(isset($_SESSION['usuario'])){?>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="position-absolute top-0 end-0 dropdown">
+                            <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle text-dark fs-5"> <?php echo'Olá! ' . $_SESSION['usuario']['nome'] ?></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item text-center" type="button" href="perfil.php">Meu Perfil</a></li>
+                                <li><a class="dropdown-item text-center" type="button" href="perfil.php">Resultados</a></li>
+                                <li><a class="dropdown-item text-center" type="button" href="agendamentos.htm">Agendamentos</a></li>
+                                <li class="mt-3 border border-danger py-1"><a class="bi bi-box-arrow-left fs-6 ms-5 text-danger" href="actions/login/logout.php"> Sair</a></li>
+                            </ul>
                         </div>
-                    </div>
-
-                </button>
+                    </div>      
+               <?php } ?>
             </div>
         </div>
     </div>
@@ -352,6 +267,114 @@
         </div>
     </div>
     </div>
+
+    <!-- Modais -->
+    <div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row justify-content-center mt-3">
+                                        <div class="col-10 conteudo ">
+                                            <!-- Forms de login -->
+                                            <form id="formLogin" action="actions/login/validar_login.php" method="POST">
+                                                <!-- Div de email -->
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Email</label>
+                                                    <input type="email" class="form-control" id="email" name="email">
+                                                </div>
+                                                <!-- Div de senha -->
+                                                <div class="mb-3">
+                                                    <label for="senha" class="form-label">Senha</label>
+                                                    <input type="password" class="form-control" id="senha" name="senha">
+                                                </div>
+                                                <!-- Botão de login -->
+                                                <div class="form-group">
+                                                    <button type="submit" id="btnEntrar"
+                                                        class="form-control btn btn-purple rounded text-white submit px-3">Entrar</button>
+                                                </div>
+                                                <div class="mb-3 mt-3">
+                                                    <p class="text-center">Não possui conta?
+                                                        <!-- tag <a> que redirecionada para página de cadastro com JS -->
+                                                        <a href="#" id="btnCadastroToggle">Cadastre-se</a>
+                                                    </p>
+                                                </div>
+                                            </form>
+
+                                            <!-- Forms de cadastro -->
+                                            <form id="formCadastro" action="actions/clientes/cadastrar_cliente.php"
+                                                method="POST">
+                                                <!-- Div de Nome -->
+                                                <div class="mb-3">
+                                                    <label for="nomeCadastro" class="form-label">Nome
+                                                        Completo:</label>
+                                                    <input type="text" class="form-control" id="nomeCadastro"
+                                                        name="nome" placeholder="Digite seu nome completo" required>
+                                                </div>
+                                                <!-- Div de Email Principal -->
+                                                <div class="mb-3 py-2">
+                                                    <label for="emailCadastro" class="form-label">Email</label>
+                                                    <input type="text" class="form-control" id="emailCadastro"
+                                                        name="email"
+                                                        placeholder="Digite o e-mail que você deseja cadastrar"
+                                                        required>
+                                                </div>
+                                                <!-- Div de senha -->
+                                                <div class="mb-3 py-3">
+                                                    <label for="senhaCadastro" class="form-label">Senha</label>
+                                                    <input type="password" class="form-control" id="senhaCadastro"
+                                                        name="senha">
+                                                    <!-- Checkbocx se clicado ele executára um evento JS que mostra senha -->
+                                                    <input type="checkbox" id="senhaCheckBox" onclick="mostrarSenha()">
+                                                    Mostrar Senha
+                                                </div>
+                                                <!-- Div de telefone -->
+                                                <div class="mb-3">
+                                                    <label for="telefoneCadastro" class="form-label">Telefone para
+                                                        contato</label>
+                                                    <input type="tel" class="form-control" id="telefoneCadastro"
+                                                        name="telefone" maxlength="11"
+                                                        placeholder="Exemplo: (DD) 9 9999-9999">
+                                                </div>
+                                                <!-- Div de CPF -->
+                                                <div class="mb-3 py-3">
+                                                    <label for="cpfCadastro" class="form-label">CPF</label>
+                                                    <input type="text" class="form-control" id="cpfCadastro" name="cpf"
+                                                        maxlength="11" placeholder="Exemplo: 000.000.000-00">
+                                                </div>
+                                                <!-- Div de data de nascimento -->
+                                                <div class="mb-3">
+                                                    <label for="data_nascimentoCadastro" class="form-label">Data de
+                                                        nascimento</label>
+                                                    <input type="date" class="form-control" id="data_nascimentoCadastro"
+                                                        name="data_nascimento">
+                                                </div>
+                                                <!-- Botão de cadastro -->
+                                                <div class="form-group">
+                                                    <button type="submit"
+                                                        class="form-control btn btn-purple rounded text-white submit px-3"
+                                                        id="btnCadastrar">Cadastrar</button>
+                                                </div>
+                                                <div class="mb-3 mt-3">
+                                                    <p class="text-center">Já possui conta?
+                                                        <!-- Caso clicado irá redirecionar para a página de login -->
+                                                        <a href="#" id="btnLoginToggle">Entrar</a>
+                                                    </p>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
         integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
         crossorigin="anonymous"></script>

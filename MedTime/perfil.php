@@ -1,3 +1,17 @@
+<?php 
+session_start();
+
+if(!isset($_SESSION['usuario'])){
+    header('Location: actions/login/index.php');
+    die();
+}
+
+require_once('classes/Usuario.class.php');
+$usuario = new Usuario();
+$info = $usuario->ListarPorId();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -175,6 +189,8 @@
                         aria-label=".form-control-lg example">
                     <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Telefone"
                         aria-label=".form-control-lg example">
+
+                        <br><hr><br>
                     <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Estado"
                         aria-label=".form-control-lg example">
                     <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Bairro"

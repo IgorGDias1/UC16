@@ -14,7 +14,7 @@
             session_start();
 
             $_SESSION['usuario'] = $resultado[0];
-            header('Location: ../../paginainicial.htm?sucesso=login');
+            header('Location: ../../paginainicial.php?sucesso=login');
             die();
         } else {
             session_start();
@@ -25,7 +25,7 @@
         }
             
     }else{
-        header('Location: ../../paginainicial.htm?falha=post');
+        header('Location: ../../paginainicial.php?falha=post');
         die();
     }
 

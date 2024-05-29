@@ -173,6 +173,7 @@ $lista_convenios = $convenio->Listar();
   <br><br><br><hr>
 
   <?php 
+  // Se o cargo for = gerente e estiver ativo
   if($_SESSION['usuario']['id_cargo'] == 5){ ?>
 
 <div class="container mt-5">
