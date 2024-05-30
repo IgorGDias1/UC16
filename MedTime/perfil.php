@@ -98,7 +98,7 @@ $info = $usuario->ListarPorId();
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item px-3">
-                            <a class="nav-link" aria-current="page" href="paginainicial.htm">Página
+                            <a class="nav-link" aria-current="page" href="paginainicial.php">Página
                                 Inicial</a>
                         </li>
                         <li class="nav-item px-3">
@@ -109,7 +109,7 @@ $info = $usuario->ListarPorId();
                             <a class="nav-link" href="agendamentos.htm">Agendamentos</a>
                         </li>
                         <li class="nav-item px-3">
-                            <a class="nav-link" href="contate_nos.htm">Contate-nós</a>
+                            <a class="nav-link" href="contate_nos.htm">Contate-nos</a>
                         </li>
                     </ul>
                 </div>
@@ -140,43 +140,43 @@ $info = $usuario->ListarPorId();
                 </div>
                 <div class="col-md-8 rounded-3 border border-3 mb-2" hidden>
                     <p class="h2 text-center">Meus Agendamentos</p>
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome do exame"
+                    <input class="form-control form-control-lg mb-2 w-75" name="nomeagendamento" id="nomeagendamento" type="text" placeholder="Nome do exame"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Convênio"
+                    <input class="form-control form-control-lg mb-2 w-75" name="convenio" id="convenio" type="text" placeholder="Convênio"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Data"
+                    <input class="form-control form-control-lg mb-2 w-75" name="dataagendamento" id="dataagendamento" type="text" placeholder="Data"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Local"
+                    <input class="form-control form-control-lg mb-2 w-75" name="localagendamento" id="localagendamento" type="text" placeholder="Local"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Situação"
+                    <input class="form-control form-control-lg mb-2 w-75" name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Situação"
                         aria-label=".form-control-lg example">
                 </div>
 
                 <div class="col-md-8 rounded-3 border border-3 mb-2" hidden>
                     <p class="h2 text-center">Meus Exames</p>
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome do exame"
+                    <input class="form-control form-control-lg mb-2 w-75" name="nomeexame" id="nomexame" type="text" placeholder="Nome do exame"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="data da realização"
+                    <input class="form-control form-control-lg mb-2 w-75" name="dataexame" id="dataexame" type="text" placeholder="data da realização"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Médico responsável"
+                    <input class="form-control form-control-lg mb-2 w-75" name="medicoexame" id="medicoexame" type="text" placeholder="Médico responsável"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Resultado"
+                    <input class="form-control form-control-lg mb-2 w-75" name="resultadoexame" id="resultadoexame" type="text" placeholder="Resultado"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Situação"
+                    <input class="form-control form-control-lg mb-2 w-75" name="situacaoexame" id="situacaoexame" type="text" placeholder="Situação"
                         aria-label=".form-control-lg example">
                 </div>
 
                 <div class="col-md-8 rounded-3 border border-3 mb-2" hidden>
                     <p class="h2 text-center">Meus Resultados</p>
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome do exame"
+                    <input class="form-control form-control-lg mb-2 w-75" name="nomeresultado" id="nomeresultado" type="text" placeholder="Nome do exame"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Data da realização"
+                    <input class="form-control form-control-lg mb-2 w-75" name="dataresultado" id="dataresultado" nametype="text" placeholder="Data da realização"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Localização realizada"
+                    <input class="form-control form-control-lg mb-2 w-75" name="localizacaoresultado" id="localizacaoresultado" type="text" placeholder="Localização realizada"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Resultado"
+                    <input class="form-control form-control-lg mb-2 w-75" name="resultado" id="resultado" type="text" placeholder="Resultado"
                         aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Reagendamento"
+                    <input class="form-control form-control-lg mb-2 w-75" name="reagendamento" id="reagendamento" type="text" placeholder="Reagendamento"
                         aria-label=".form-control-lg example">
                 </div>
 

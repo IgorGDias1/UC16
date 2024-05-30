@@ -51,7 +51,7 @@ $lista_localizacao = $localizacao->Listar();
                                 </a>
                             </li>
                             <li class="nav-item px-3 mt-4">
-                                <a class="nav-link active" aria-current="page" href="#">Página Inicial</a>
+                                <a class="nav-link active" aria-current="page" href="../../paginainicial.php">Página Inicial</a>
                             </li>
                             <li class="nav-item px-3 mt-4">
                                 <a class="nav-link" href="#">Consultas</a>

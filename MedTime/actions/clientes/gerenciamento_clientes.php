@@ -10,7 +10,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['id_cargo'] == "") {
 
 require_once('../../classes/Usuario.class.php');
 $usuario = new Usuario();
-$lista_usuarios = $usuario->ListarClientes();
+$lista_usuariosSemLocalizacao = $usuario->ListarClientesSemLocalizacao();
+
+$lista_usuarioComLocalizacao = $usuario->ListarClientesComLocalizacao();
+
 $lista_funcionarios = $usuario->ListarFuncionarios();
 
 require_once('../../classes/Localizacao.class.php');
@@ -73,7 +76,7 @@ $lista_convenios = $convenio->Listar();
               </a>
             </li>
             <li class="nav-item px-3 mt-4">
-              <a class="nav-link active" aria-current="page" href="#">Página Inicial</a>
+              <a class="nav-link active" aria-current="page" href="../../paginainicial.php">Página Inicial</a>
             </li>
             <li class="nav-item dropdown px-3 mt-4">
               <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -106,9 +109,10 @@ $lista_convenios = $convenio->Listar();
 
   </div>
 
-  <!-- Container de gerenciamento -->
+  <!-- Container de gerenciamento de clientes sem endereço cadastrado -->
   <div class="container mt-5">
     <h2 class="text-center mb-4">Gerenciamento de Clientes</h2>
+    <h5 class="text-center">Clientes sem endereço cadastrado</h5>
     <div class="row mb-3">
       <div class="col d-flex justify-content-end">
         <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus-circle"></i> Cadastrar Usuário</button>
@@ -120,7 +124,69 @@ $lista_convenios = $convenio->Listar();
           <th hidden>ID</th>
           <th>Nome</th>
           <th>E-mail</th>
-          <th hidden>Senha</th>
+          <th>CPF</th>
+          <th>Data de Nascimento</th>
+          <th>Telefone Celular</th>
+          <th>Telefone Residencial</th>
+          <th>Convênio</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($lista_usuariosSemLocalizacao as $usuario) { ?>
+          <tr>
+            <td hidden><?= $usuario['id_usuario']; ?></td>
+            <td><?= $usuario['nome']; ?></td>
+            <td><?= $usuario['email']; ?></td>
+            <td><?= $usuario['cpf']; ?></td>
+            <td><?= $usuario['data_nascimento']; ?></td>
+            <td><?= $usuario['telefone_celular']; ?></td>
+            <td><?= $usuario['telefone_residencial']; ?></td>
+            <td hidden><?= $usuario['id_convenio']; ?></td>
+            <td><?= $usuario['convenio']; ?></td>
+            <td>
+            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
+            data-id="<?=$usuario['id_usuario'];?>" 
+            data-nome="<?=$usuario['nome'];?>" 
+            data-email="<?=$usuario['email'];?>" 
+            data-cpf="<?=$usuario['cpf'];?>" 
+            data-data_nascimento="<?=$usuario['data_nascimento'];?>" 
+            data-telefone_celular="<?=$usuario['telefone_celular'];?>" 
+            data-telefone_residencial="<?=$usuario['telefone_residencial'];?>" 
+            data-id_convenio="<?=$usuario['id_convenio'];?>">
+            <i class="bi bi-pencil-square"></i> Editar</button>
+          </td>
+            <td>
+              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $usuario['id_usuario']; ?>)">
+              <i class="bi bi-file-earmark-x"></i> Excluir
+            </a>
+          </td>
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+
+  </div>
+  </div>
+
+  <br><br><br><hr>
+
+    <!-- Container de gerenciamento de clientes com endereço cadastrado -->
+    <div class="container mt-5">
+    <h2 class="text-center mb-4">Gerenciamento de Clientes</h2>
+    <h5 class="text-center">Clientes com endereço cadastrado</h5>
+    <div class="row mb-3">
+      <div class="col d-flex justify-content-end">
+        <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus-circle"></i> Cadastrar Usuário e Localização</button>
+      </div>
+    </div>
+    <table class="table table-striped table-hover table-primary ">
+      <thead>
+        <tr>
+          <th hidden>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
           <th>CPF</th>
           <th>Data de Nascimento</th>
           <th>Telefone Celular</th>
@@ -132,21 +198,22 @@ $lista_convenios = $convenio->Listar();
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($lista_usuarios as $usuario) { ?>
+        <?php foreach ($lista_usuarioComLocalizacao as $usuario) { ?>
           <tr>
-            <td hidden><?= $usuario['id']; ?></td>
+            <td hidden><?= $usuario['id_usuario']; ?></td>
             <td><?= $usuario['nome']; ?></td>
             <td><?= $usuario['email']; ?></td>
-            <td hidden><?= $usuario['senha']; ?></td>
             <td><?= $usuario['cpf']; ?></td>
             <td><?= $usuario['data_nascimento']; ?></td>
             <td><?= $usuario['telefone_celular']; ?></td>
             <td><?= $usuario['telefone_residencial']; ?></td>
-            <td><?= $usuario['id_localizacao']; ?></td>
-            <td><?= $usuario['id_convenio']; ?></td>
+            <td hidden><?= $usuario['id_local']; ?></td>
+            <td><?= $usuario['cep']; ?></td>
+            <td hidden><?= $usuario['id_convenio']; ?></td>
+            <td><?= $usuario['convenio']; ?></td>
             <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
-            data-id="<?=$usuario['id'];?>" 
+            data-id="<?=$usuario['id_usuario'];?>" 
             data-nome="<?=$usuario['nome'];?>" 
             data-email="<?=$usuario['email'];?>" 
             data-cpf="<?=$usuario['cpf'];?>" 
@@ -154,11 +221,11 @@ $lista_convenios = $convenio->Listar();
             data-telefone_celular="<?=$usuario['telefone_celular'];?>" 
             data-telefone_residencial="<?=$usuario['telefone_residencial'];?>" 
             data-id_convenio="<?=$usuario['id_convenio'];?>"
-            data-id_localizacao="<?=$usuario['id_localizacao'];?>">
+            data-id_localizacao="<?=$usuario['id_local'];?>">
             <i class="bi bi-pencil-square"></i> Editar</button>
           </td>
             <td>
-              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $usuario['id']; ?>)">
+              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $usuario['id_usuario']; ?>)">
               <i class="bi bi-file-earmark-x"></i> Excluir
             </a>
           </td>
@@ -194,6 +261,11 @@ $lista_convenios = $convenio->Listar();
           <th>Data de Nascimento</th>
           <th>Telefone Celular</th>
           <th>Telefone Residencial</th>
+          <th>CEP</th>
+          <th>Convenio</th>
+          <th>Cargo</th>
+          <th>Especialidade</th>
+          <th>Situação</th>
           <th></th>
           <th></th>
         </tr>
@@ -201,7 +273,7 @@ $lista_convenios = $convenio->Listar();
       <tbody>
         <?php foreach ($lista_funcionarios as $funcionario) { ?>
           <tr>
-            <td hidden><?= $funcionario['id']; ?></td>
+            <td hidden><?= $funcionario['id_funcionario']; ?></td>
             <td><?= $funcionario['nome']; ?></td>
             <td><?= $funcionario['email']; ?></td>
             <td hidden><?= $funcionario['senha']; ?></td>
@@ -209,19 +281,33 @@ $lista_convenios = $convenio->Listar();
             <td><?= $funcionario['data_nascimento']; ?></td>
             <td><?= $funcionario['telefone_celular']; ?></td>
             <td><?= $funcionario['telefone_residencial']; ?></td>
+            <td hidden><?= $funcionario['id_localizacao']; ?></td>
+            <td><?= $funcionario['cep']; ?></td>
+            <td hidden><?= $funcionario['id_convenio']; ?></td>
+            <td><?= $funcionario['convenio']; ?></td>
+            <td hidden><?= $funcionario['id_cargo']; ?></td>
+            <td><?= $funcionario['cargo']; ?></td>
+            <td hidden><?= $funcionario['id_especialidade']; ?></td>
+            <td><?= $funcionario['especificacao']; ?></td>
+            <td><?= $funcionario['situacao']; ?></td>
             <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
-            data-id="<?=$funcionario['id'];?>" 
+            data-id="<?=$funcionario['id_funcionario'];?>" 
             data-nome="<?=$funcionario['nome'];?>" 
             data-email="<?=$funcionario['email'];?>" 
             data-cpf="<?=$funcionario['cpf'];?>" 
             data-data_nascimento="<?=$funcionario['data_nascimento'];?>" 
             data-telefone_celular="<?=$funcionario['telefone_celular'];?>" 
-            data-telefone_residencial="<?=$funcionario['telefone_residencial'];?>">
+            data-telefone_residencial="<?=$funcionario['telefone_residencial'];?>"
+            data-id_localizacao="<?=$funcionario['id_localizacao'];?>"
+            data-id_convenio="<?=$funcionario['id_convenio'];?>"
+            data-id_cargo="<?=$funcionario['id_cargo'];?>"
+            data-id_especialidade="<?=$funcionario['id_especialidade'];?>"
+            data-situacao="<?=$funcionario['situacao'];?>">
             <i class="bi bi-pencil-square"></i> Editar</button>
           </td>
             <td>
-              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $funcionario['id']; ?>)">
+              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $funcionario['id_funcionario']; ?>)">
               <i class="bi bi-file-earmark-x"></i> Excluir
             </a>
           </td>

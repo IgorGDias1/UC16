@@ -8,6 +8,11 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['id_cargo'] == "") {
   die();
 }
 
+require_once('../../classes/Usuario.class.php');
+$u = new Usuario();
+$listar_usuario = $u->ListarClientes();
+$listar_medico = $u->ListarMedicos();
+
 require_once('../../classes/Agendamento.class.php');
 $a = new Agendamento();
 $listar_agendamentos = $a->Listar();
@@ -36,6 +41,8 @@ $lista_convenios = $convenio->Listar();
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <link rel="shortcut icon" type="image/png" href="../img/favico.png">
+
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
   <!-- Removendo a setinha do imput number -->
   <style>
@@ -162,8 +169,6 @@ $lista_convenios = $convenio->Listar();
         <?php } ?>
       </tbody>
     </table>
-
-  </div>
   </div>
 
   <!-- Modal de cadastro -->
@@ -178,11 +183,19 @@ $lista_convenios = $convenio->Listar();
           <div class="modal-body">
             <div class="form-group mt-3">
               <label for="nomePaciente">Paciente</label>
-              <input type="text" class="form-control" id="nomePaciente" placeholder="Digite o nome do paciente" name="nome" required>
+              <select class="form-control" id="nomePaciente" name="nome" style="width: 75%"  multiple="multiple" required>
+                <?php foreach ($listar_usuario as $usuario) { ?>
+                  <option value="<?= $usuario['id']; ?>"><?= $usuario['nome']; ?></option>
+                <?php } ?>
+              </select>
             </div>
             <div class="form-group mt-3">
               <label for="nomeMedico">Médico</label>
-              <input type="text" class="form-control" id="nomeMedico" name="nomemed" placeholder="Digite o nome do Médico" required>
+              <select  class="form-control " id="nomeMedico" name="nomemed" style="width: 75%" multiple="multiple" required>
+                <?php foreach ($listar_medico as $medico) { ?>
+                  <option value="<?= $medico['id']; ?>"><?= $medico['nome']; ?></option>
+                <?php } ?>
+              </select>
             </div>
             <div class="form-group mt-3">
               <label for="exame">Exame</label>
@@ -238,8 +251,6 @@ $lista_convenios = $convenio->Listar();
       </div>
       </form>
     </div>
-  </div>
-  </div>
   </div>
 
 <!-- Modal de edição -->
@@ -308,8 +319,23 @@ $lista_convenios = $convenio->Listar();
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <?php include_once('../../includes/alertas.include.php'); ?>
+
+  <script> 
+    $('#nomePaciente').select2({
+        dropdownParent: $('#modalCadastro')
+    });
+  </script>
+
+  <script> 
+    $('#nomeMedico').select2({
+        dropdownParent: $('#modalCadastro')
+    });
+  </script>
+  
+  <script>$('#nomemed').select2();</script>
 
   <script src="script.js"></script>
   <!-- API ViaCEP -->

@@ -40,32 +40,6 @@ class Usuario {
         return $resultado;
     }
 
-    public function ViewClientes(){
-
-        $sql = "SELECT * FROM view_usuarios";
-        $banco = Banco::conectar();
-        $comando = $banco->prepare($sql);
-        $comando->execute();
-
-        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
-        Banco::desconectar();
-
-        return $resultado;
-    }
-
-    public function ViewFuncionarios(){
-
-        $sql = "SELECT * FROM view_funcionarios";
-        $banco = Banco::conectar();
-        $comando = $banco->prepare($sql);
-        $comando->execute();
-
-        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
-        Banco::desconectar();
-
-        return $resultado;
-    }
-
     public function ListarPorID(){
 
         $sql = "SELECT * FROM usuarios WHERE id = ?";
@@ -81,9 +55,89 @@ class Usuario {
 
     }
 
+    public function ListarClientesSemLocalizacao(){
+
+        $sql = "SELECT usuarios.id AS 'id_usuario', usuarios.nome, usuarios.email, usuarios.cpf, usuarios.data_nascimento, 
+        usuarios.telefone_celular, usuarios.telefone_residencial, usuarios.id_convenio, 
+        convenios.nome AS 'convenio'
+ 
+        FROM usuarios
+         
+        INNER JOIN convenios ON
+        usuarios.id_convenio = convenios.id
+         
+        WHERE usuarios.id_localizacao IS NULL AND usuarios.id_cargo IS NULL";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+    }
+
+    public function ListarClientesComLocalizacao(){
+
+        $sql = "SELECT usuarios.id AS 'id_usuario', usuarios.nome, usuarios.email, usuarios.cpf, usuarios.data_nascimento, 
+        usuarios.telefone_celular, usuarios.telefone_residencial, usuarios.id_convenio, usuarios.id_localizacao AS 'id_local', localizacoes.cep,
+        convenios.nome AS 'convenio'
+ 
+        FROM usuarios
+
+        INNER JOIN localizacoes ON
+        usuarios.id_localizacao = localizacoes.id
+         
+        INNER JOIN convenios ON
+        usuarios.id_convenio = convenios.id
+         
+        WHERE usuarios.id_localizacao IS NOT NULL AND usuarios.id_cargo IS NULL";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+    }
+
+
     public function ListarFuncionarios(){
 
-        $sql = "SELECT * FROM usuarios WHERE id_cargo IS NOT NULL";
+        $sql = "SELECT usuarios.id AS 'id_funcionario', usuarios.nome, usuarios.email, usuarios.cpf, usuarios.data_nascimento, usuarios.telefone_celular, usuarios.telefone_residencial, usuarios.id_localizacao, localizacoes.cep , usuarios.id_convenio ,convenios.nome AS 'convenio', usuarios.id_cargo, cargos.nome AS 'cargo', usuarios.id_especialidade, especialidades.especificacao, IF(usuarios.situacao>0, 'Ativo', 'Inativo') AS 'situacao'
+ 
+        FROM usuarios
+         
+        INNER JOIN localizacoes ON
+        usuarios.id_localizacao = localizacoes.id
+         
+        INNER JOIN convenios ON
+        usuarios.id_convenio = convenios.id
+         
+        INNER JOIN cargos ON
+        usuarios.id_cargo = cargos.id
+         
+        INNER JOIN especialidades ON
+        usuarios.id_especialidade = especialidades.id
+         
+        WHERE usuarios.id_cargo IS NOT NULL";
+
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        $comando->execute();
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+
+    }
+    
+    public function ListarMedicos(){
+
+        $sql = "SELECT * FROM usuarios WHERE id_cargo = 4";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
