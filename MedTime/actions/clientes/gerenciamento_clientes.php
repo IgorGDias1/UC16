@@ -468,7 +468,7 @@ $lista_especialidade = $especialidade->Listar();
    <div class="modal fade" id="modalCadastroFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalCadastroFuncionario" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <form action="" method="POST">
+        <form action="funcionarios/cadastrar_funcionario.php" method="POST">
           <div class="modal-header d-flex justify-content-center">
             <h5 class="modal-title" id="modalCadastroFuncionario">Cadastrar novo funcionario</h5>
             </button>
@@ -773,7 +773,7 @@ $lista_especialidade = $especialidade->Listar();
         </div>
   </div>
   <!-- Modal de especialidade -->
-  <div class="modal fade" id="modalAddEspecialidade" tabindex="-1" role="dialog" aria-labelledby="modalAddEspecialiadadeLabel" aria-hidden="true">
+  <div class="modal fade" id="modalAddEspecialidade" tabindex="-" role="dialog" aria-labelledby="modalAddEspecialiadadeLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <form action="" method="POST">
