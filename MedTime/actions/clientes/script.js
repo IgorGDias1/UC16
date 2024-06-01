@@ -1,7 +1,7 @@
 
-    // Função do SweetAlert
-    function excluir(id){
-        Swal.fire({
+// Função do SweetAlert
+function excluir(id) {
+    Swal.fire({
         title: "Tem certeza?",
         text: "Não será possível desfazer essa ação!",
         icon: "warning",
@@ -10,18 +10,18 @@
         cancelButtonColor: "#d33",
         cancelButtonText: "Cancelar",
         confirmButtonText: "Sim, apagar!"
-        }).then((result) => {
+    }).then((result) => {
         if (result.isConfirmed) {
-        window.location.href='deletar_cliente.php?id=' + id;
+            window.location.href = 'deletar_cliente.php?id=' + id;
         }
-        });
-        }
+    });
+}
 
-        function mostrarSenha() {
-            var x = document.getElementById("senha");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
+function mostrarSenha() {
+    var x = document.getElementById("senha");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
