@@ -31,7 +31,7 @@ class Especialidade {
 
 
         try{
-        $comando->execute([$this->id_cargo, $this->nome]);
+        $comando->execute([$this->id_cargo, $this->especificacao]);
             
         Banco::desconectar();
 

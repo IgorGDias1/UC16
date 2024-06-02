@@ -121,7 +121,8 @@ class Usuario {
         INNER JOIN especialidades ON
         usuarios.id_especialidade = especialidades.id
          
-        WHERE usuarios.id_cargo IS NOT NULL";
+        WHERE usuarios.id_cargo IS NOT NULL
+        ORDER BY situacao";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -179,7 +180,7 @@ class Usuario {
     //Método para cadastrar um funcionário com pârametros adicionais
     public function CadastrarFuncionario(){
 
-        $sql = "INSERT INTO clientes(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone_residencial, id_localizacao, id_convenio, id_cargo, id_especialidade, situacao) 
+        $sql = "INSERT INTO usuarios(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone_residencial, id_localizacao, id_convenio, id_cargo, id_especialidade, situacao) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
@@ -218,6 +219,34 @@ class Usuario {
                 
                 // Parametros para o usuario
                 $this->nome, $this->email, $hash, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_convenio]);
+
+                Banco::desconectar();
+
+                return 1;
+
+            } catch(PDOEXCEPTION $e){
+                Banco::desconectar();
+                return 0;
+            }
+    }
+
+    public function CadastrarFuncionarioLocalizacao(){
+        $sql = "CALL cadastrar_funcionario_localizacao(?, ?, ?, ?, ?, ?, ?, ?,
+        ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"; //Stored Procedure para um cadastro duplo
+
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        $hash = hash('sha256', $this->senha);
+        $formato_data = date_format(date_create($this->data_nascimento),"Y/m/d");
+
+        try{
+            $comando->execute([
+                // Parametros para a localizacao
+                $this->cep, $this->logradouro, $this->complemento, $this->bairro, $this->localidade, $this->uf, $this->ddd, $this->tipoLocal, 
+                
+                // Parametros para o usuario
+                $this->nome, $this->email, $hash, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_convenio, $this->id_cargo, $this->id_especialidade, $this->situacao]);
 
                 Banco::desconectar();
 
