@@ -43,7 +43,7 @@ session_start();
 
                 <!-- Logotipo -->
                 <div class="colv-md-3 col-12"><img src="img/logo.png" width="100px" alt="Logo" class="img-fluid mx-auto d-block">
-                    <p class="container-fluid text-center mt-1 righteous-regular">MedTime - Consultas</p>
+                    <p class="container-fluid text-center mt-1 righteous-regular">MedTime </br> Página Inicial</p>
                 </div>
 
             </div>
@@ -93,7 +93,7 @@ session_start();
                         <div class="d-flex justify-content-center align-items-center">
                             <button class="btn" type="button">
                                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="botaoLogin" name="botaoLogin">
-                                    <div class="position-absolute top-0 end-0"><i class="bi bi-person-circle text-dark fs-1 me-4"></i>
+                                    <div class="position-absolute top-0 end-0"><i class="bi bi-person-circle text-light fs-1 me-4"></i>
                                     </div>
                         </div>
                     <?php } ?>

@@ -28,7 +28,7 @@
                 <!-- Logotipo -->
                 <div class="colv-md-3 col-12"><img src="img/logo.png" width="100px" alt="Logo"
                         class="img-fluid mx-auto d-block">
-                    <p class="container-fluid text-center mt-1 righteous-regular">MedTime - Consultas</p>
+                    <p class="container-fluid text-center mt-1 righteous-regular">MedTime </br> Consultas</p>
                 </div>
 
 
