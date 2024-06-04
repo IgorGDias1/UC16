@@ -20,6 +20,7 @@ $listar_agendamentos = $a->Listar();
 require_once('../../classes/Localizacao.class.php');
 $localizacao = new Localizacao();
 $lista_localizacao = $localizacao->Listar();
+$listar_clinica = $localizacao->ListarClinicas();
 
 require_once('../../classes/Convenio.class.php');
 $convenio = new Convenio();
@@ -143,14 +144,12 @@ $listar_exame = $exame->Listar();
         <?php foreach ($listar_agendamentos as $agendamento) { ?>
           <tr>
             <td hidden><?= $agendamentos['id']; ?></td>
-            <td><?= $agendamentos['nome']; ?></td>
-            <td><?= $agendamentos['email']; ?></td>
-            <td hidden><?= $agendamentos['senha']; ?></td>
-            <td><?= $agendamentos['cpf']; ?></td>
-            <td><?= $agendamentos['data_nascimento']; ?></td>
-            <td><?= $agendamentos['telefone_celular']; ?></td>
-            <td><?= $agendamentos['telefone_residencial']; ?></td>
-            <td><?= $agendamentos['id_localizacao']; ?></td>
+            <td><?= $agendamentos['paciente']; ?></td>
+            <td><?= $agendamentos['profissional']; ?></td>
+            <td><?= $agendamentos['exame']; ?></td>
+            <td><?= $agendamentos['convenio']; ?></td>
+            <td><?= $agendamentos['data_agendado']; ?></td>
+            <td><?= $agendamentos['situacao']; ?></td>
             <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
             data-id="<?=$agendamentos['id'];?>" 
@@ -179,7 +178,7 @@ $listar_exame = $exame->Listar();
   <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
-        <form action="cadastrar_cliente.php" method="POST">
+        <form action="cadastrar_agendamento.php" method="POST">
           <div class="modal-header d-flex justify-content-center">
             <h5 class="modal-title" id="modalCadastroLabel">Novo Agendamento</h5>
             </button>
@@ -188,18 +187,18 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="nomePaciente">Paciente</label>
               <br>
-              <select class="form-control" id="nomePaciente" name="nome" style="width: 75%"  multiple="multiple" required>
+              <select class="form-control" id="nomePaciente" name="paciente" style="width: 75%"  multiple="multiple" required>
                 <?php foreach ($listar_usuario as $usuario) { ?>
-                  <option value="<?= $usuario['id']; ?>"><?= $usuario['nome']; ?></option>
+                  <option value="<?= $usuario['id']; ?>" ><?= $usuario['nome']; ?></option>
                 <?php } ?>
               </select>
             </div>
             <div class="form-group mt-3">
               <label for="nomeMedico">Médico</label>
               <br>
-              <select  class="form-control " id="nomeMedico" name="nomemed" style="width: 75%" multiple="multiple" required>
+              <select  class="form-control " id="nomeMedico" name="medico" style="width: 75%" multiple="multiple" required>
                 <?php foreach ($listar_medico as $medico) { ?>
-                  <option value="<?= $medico['id']; ?>"><?= $medico['nome']; ?></option>
+                  <option value="<?= $medico['id']; ?>" name="id_medico"><?= $medico['nome']; ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -215,34 +214,20 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-2">
               <label for="convenio">Convênio</label>
               <br>
-              <select class="form-control" name="id_convenio" id="convenio" style="width: 75%" multiple="multiple">
+              <select class="form-control" name="convenio" id="convenio" style="width: 75%" multiple="multiple">
                 <?php foreach ($lista_convenios as $convenio) { ?>
                   <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
                 <?php } ?>
               </select><br>
             </div>
             <div class="form-group mt-2">
-              <label>CEP
-              <input name="cep" class="form-control" type="text" id="cep" size="10" maxlength="9"
-              onblur="pesquisacep(this.value);"/></label>
-              <label hidden id="ruaLabel">Rua
-              <input name="rua" class="form-control" type="text" id="rua" size="60" hidden/></label>
-              <label hidden id="complementoLabel">Complemento
-              <input name="complemento" class="form-control" type="text" id="complemento" size="60" /></label>
-              <label hidden id="bairroLabel">Bairro
-              <input name="bairro" class="form-control" type="text" id="bairro" size="40" hidden/></label>
-              <label hidden id="cidadeLabel">Cidade
-              <input name="cidade" class="form-control" type="text" id="cidade" size="40" hidden/></label><br>
-              <label hidden id="ufLabel">Estado
-              <input name="uf" class="form-control" type="text" id="uf" size="2" hidden/></label>
-              <label hidden id="dddLabel">DDD
-              <input name="ddd" class="form-control" type="text" id="ddd" size="8" hidden/></label>
-              <label hidden id="tipoLabel">Tipo
-              <select name="tipoLocal" id="tipo" class="form-control"  hidden>
-                <option value="Residencial">Residencial</option>
-                <option value="Comercial">Comercial</option>
-                <option value="Clinica">Clinica</option>
-              </select></label>
+            <label for="clinica">Endereço Clinica</label>
+              <br>
+              <select class="form-control" name="clinica" id="clinica" style="width: 75%" multiple="multiple">
+                <?php foreach ($listar_clinica as $clinica) { ?>
+                  <option value="<?= $clinica['id']; ?>"><?= $clinica['complemento']; ?></option>
+                <?php } ?>
+              </select><br>
             </div>
             <div class="form-group mt-3">
               <label for="data_consPaciente">Data da Consulta</label>
@@ -349,6 +334,11 @@ $listar_exame = $exame->Listar();
   </script>
   <script> 
     $('#convenio').select2({
+        dropdownParent: $('#modalCadastro')
+    });
+  </script>
+  <script> 
+    $('#clinica').select2({
         dropdownParent: $('#modalCadastro')
     });
   </script>

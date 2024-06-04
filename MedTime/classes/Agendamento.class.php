@@ -14,7 +14,7 @@ class Agendamento {
     public $situacao;
 
     public function Listar(){
-        $sql = "SELECT * FROM agendamentos" ;
+        $sql = "SELECT * FROM 'view_agendamento'" ;
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
@@ -46,9 +46,10 @@ class Agendamento {
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
+        $formato_data = date_format(date_create($this->data_agendado),"Y/m/d");
 
         try{
-        $comando->execute([$this->id_cliente, $this->id_funcionario, $this->id_exame, $this->id_convenio, $this->id_localizacao, $this->data_agendado, $this->situacao]);
+        $comando->execute([$this->id_cliente, $this->id_funcionario, $this->id_exame, $this->id_convenio, $this->id_localizacao, $formato_data, $this->situacao]);
             
         Banco::desconectar();
 

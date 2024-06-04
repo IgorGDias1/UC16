@@ -222,7 +222,7 @@ class Usuario {
 
                 Banco::desconectar();
 
-                return 1;
+                return $comando->rowCount();
 
             } catch(PDOEXCEPTION $e){
                 Banco::desconectar();
@@ -250,7 +250,7 @@ class Usuario {
 
                 Banco::desconectar();
 
-                return 1;
+                return $comando->rowCount();
 
             } catch(PDOEXCEPTION $e){
                 Banco::desconectar();

@@ -41,6 +41,21 @@ class Localizacao {
 
     }
 
+    public function ListarClinicas(){
+
+        $sql = "SELECT * FROM localizacoes WHERE tipo = 'Clinica'";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+
+    }
+
+
     public function VerificarSeExiste(){
 
         $sql = "SELECT * FROM localizacoes WHERE cep = ?";
