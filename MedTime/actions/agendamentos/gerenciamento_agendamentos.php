@@ -130,7 +130,6 @@ $listar_exame = $exame->Listar();
           <th hidden>ID</th>
           <th>Paciente</th>
           <th>Médico</th>
-          <th hidden>Senha</th>
           <th>Exame</th>
           <th>Convenio</th>
           <th>Endereço</th>
@@ -143,13 +142,14 @@ $listar_exame = $exame->Listar();
       <tbody>
         <?php foreach ($listar_agendamentos as $agendamento) { ?>
           <tr>
-            <td hidden><?= $agendamentos['id']; ?></td>
-            <td><?= $agendamentos['paciente']; ?></td>
-            <td><?= $agendamentos['profissional']; ?></td>
-            <td><?= $agendamentos['exame']; ?></td>
-            <td><?= $agendamentos['convenio']; ?></td>
-            <td><?= $agendamentos['data_agendado']; ?></td>
-            <td><?= $agendamentos['situacao']; ?></td>
+            <td hidden><?= $agendamento['id']; ?></td>
+            <td><?= $agendamento['paciente']; ?></td>
+            <td><?= $agendamento['médico']; ?></td>
+            <td><?= $agendamento['exame']; ?></td>
+            <td><?= $agendamento['convenio']; ?></td>
+            <td><?= $agendamento['clinica']; ?></td>
+            <td><?= $agendamento['data consulta']; ?></td>
+            <td><?= $agendamento['situacao']; ?></td>
             <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
             data-id="<?=$agendamentos['id'];?>" 

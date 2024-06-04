@@ -14,7 +14,7 @@ class Agendamento {
     public $situacao;
 
     public function Listar(){
-        $sql = "SELECT * FROM 'view_agendamento'" ;
+        $sql = "SELECT * FROM view_agendamentos " ;
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();
