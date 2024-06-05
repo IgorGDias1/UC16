@@ -81,13 +81,13 @@ $listar_exame = $exame->Listar();
               <a class="nav-link active" href="#">
                 <img src="../../img/logo.png" alt="logo" width="100px">
               </a>
-              </li>
+            </li>
             <li class="nav-item px-3 mt-4">
               <a class="nav-link active" aria-current="page" href="#">Página Inicial</a>
             </li>
             <li class="nav-item dropdown px-3 mt-4">
               <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Gerenciamentos
+                Gerenciamentos
               </button>
               <ul class="dropdown-menu dropdown-menu px-2">
                 <li><a class="dropdown-item" href="../enderecos/gerenciamento_enderecos.php">Endereços</a></li>
@@ -151,23 +151,22 @@ $listar_exame = $exame->Listar();
             <td><?= $agendamento['data consulta']; ?></td>
             <td><?= $agendamento['situacao']; ?></td>
             <td>
-            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
-            data-id="<?=$agendamentos['id'];?>" 
-            data-nome="<?=$agendamentos['nome'];?>" 
-            data-email="<?=$agendamentos['email'];?>" 
-            data-cpf="<?=$agendamentos['cpf'];?>" 
-            data-data_nascimento="<?=$agendamentos['data_nascimento'];?>" 
-            data-telefone_celular="<?=$agendamentos['telefone_celular'];?>" 
-            data-telefone_residencial="<?=$agendamentos['telefone_residencial'];?>" 
-            data-id_convenio="<?=$agendamentos['id_convenio'];?>"
-            data-id_localizacao="<?=$agendamentos['id_localizacao'];?>">
-            <i class="bi bi-pencil-square"></i> Editar</button>
-          </td>
+              <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
+                data-id="<?= $agendamento['id']; ?>" 
+                data-paciente="<?= $agendamento['paciente']; ?>" 
+                data-medico="<?= $agendamento['id_medico']; ?>" 
+                data-exame="<?= $agendamento['exame']; ?>" 
+                data-convenio="<?= $agendamento['convenio']; ?>" 
+                data-clinica="<?= $agendamento['clinica']; ?>" 
+                data-data_consulta="<?= $agendamento['data consulta']; ?>" 
+                data-situacao="<?= $agendamento['situacao']; ?>">
+                <i class="bi bi-pencil-square"></i> Editar</button>
+            </td>
             <td>
               <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $agendamentos['id']; ?>)">
-              <i class="bi bi-file-earmark-x"></i> Excluir
-            </a>
-          </td>
+                <i class="bi bi-file-earmark-x"></i> Excluir
+              </a>
+            </td>
           </tr>
         <?php } ?>
       </tbody>
@@ -187,16 +186,16 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="nomePaciente">Paciente</label>
               <br>
-              <select class="form-control" id="nomePaciente" name="paciente" style="width: 75%"  multiple="multiple" required>
+              <select class="form-control" id="nomePaciente" name="paciente" style="width: 75%" multiple="multiple" required>
                 <?php foreach ($listar_usuario as $usuario) { ?>
-                  <option value="<?= $usuario['id']; ?>" ><?= $usuario['nome']; ?></option>
+                  <option value="<?= $usuario['id']; ?>"><?= $usuario['nome']; ?></option>
                 <?php } ?>
               </select>
             </div>
             <div class="form-group mt-3">
               <label for="nomeMedico">Médico</label>
               <br>
-              <select  class="form-control " id="nomeMedico" name="medico" style="width: 75%" multiple="multiple" required>
+              <select class="form-control " id="nomeMedico" name="medico" style="width: 75%" multiple="multiple" required>
                 <?php foreach ($listar_medico as $medico) { ?>
                   <option value="<?= $medico['id']; ?>" name="id_medico"><?= $medico['nome']; ?></option>
                 <?php } ?>
@@ -205,7 +204,7 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="exame">Exame</label>
               <br>
-              <select  class="form-control " id="exame" name="exame" style="width: 75%" multiple="multiple" required>
+              <select class="form-control " id="exame" name="exame" style="width: 75%" multiple="multiple" required>
                 <?php foreach ($listar_exame as $exame) { ?>
                   <option value="<?= $exame['id']; ?>"><?= $exame['nome']; ?></option>
                 <?php } ?>
@@ -221,7 +220,7 @@ $listar_exame = $exame->Listar();
               </select><br>
             </div>
             <div class="form-group mt-2">
-            <label for="clinica">Endereço Clinica</label>
+              <label for="clinica">Endereço Clinica</label>
               <br>
               <select class="form-control" name="clinica" id="clinica" style="width: 75%" multiple="multiple">
                 <?php foreach ($listar_clinica as $clinica) { ?>
@@ -235,7 +234,7 @@ $listar_exame = $exame->Listar();
             </div required>
             <br>
           </div>
-            <button type="button" class="btn btn-warning mt-3" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
+          <button type="button" class="btn btn-warning mt-3" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
           <div class="modal-footer mt-5">
             <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
             <button type="submit" class="btn btn-success">Salvar</button>
@@ -246,64 +245,80 @@ $listar_exame = $exame->Listar();
     </div>
   </div>
 
-<!-- Modal de edição -->
-<div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+  <!-- Modal de edição -->
+  <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <form action="editar_cliente.php" method="POST">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" class="id" name="id">
-                    <div class="form-group">
-                        <label for="nome">Nome</label>
-                        <input type="text" class="form-control nome" id="nome" name="nome">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control email" id="email" name="email"> 
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="cpf">CPF</label>
-                        <input type="text" class="form-control cpf" id="cpf" name="cpf"> 
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="data_nascimento">Data de Nascimento</label>
-                        <input type="date" class="form-control data_nascimento" id="data_nascimento" name="data_nascimento"> 
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="telefone_celular">Telefone Celular</label>
-                        <input type="tel" class="form-control telefone_celular" id="telefone_celular" name="telefone_celular"> 
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="telefone_residencial">Telefone Residencial</label>
-                        <input type="tel" class="form-control telefone_residencial" id="telefone_residencial" name="telefone_residencial"> 
-                    </div>
-                    <div class="form-group mt-2">
-                      <label for="id_convenio">Convênio</label>
-                      <select class="form-control id_convenio" name="id_convenio" id="id_convenio">
-                      <?php foreach ($lista_convenios as $convenio) { ?>
-                        <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
-                      <?php } ?>
-                      </select><br>
-                    </div>
-                    <div class="form-group">
-                      <label for="tipo">Tipo</label>
-                      <select name="tipo" id="tipo" class="form-control">
-                        <option value="Cliente">Cliente</option>
-                        <option value="Funcionario">Funcionario</option>
-                      </select>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                </div>
-            </form>
+      <div class="modal-content">
+        <form action="editar_cliente.php" method="POST">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" class="id" name="id">
+            <div class="form-group">
+              <label for="paciente">Paciente</label>
+              <input type="text" class="form-control paciente" id="paciente" name="paciente">
             </div>
-        </div>
+            <div class="form-group mt-3">
+              <label for="medico">Médico</label>
+              <br>
+              <select class="form-control medico" id="medico" name="medico" style="width: 75%" multiple="multiple" required>
+                <?php foreach ($listar_medico as $medico) { ?>
+                  <option value="<?= $medico['id']; ?>" name="id_medico"><?= $medico['nome']; ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="form-group mt-3">
+              <label for="exame">Exame</label>
+              <br>
+              <select class="form-control exame" id="exames" name="exame" style="width: 75%" multiple="multiple" required>
+                <?php foreach ($listar_exame as $exame) { ?>
+                  <option value="<?= $exame['id']; ?>"><?= $exame['nome']; ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <div class="form-group mt-3">
+              <label for="convenio">Convênio</label>
+              <br>
+              <select class="form-control convenio" name="convenio" id="convenios" style="width: 75%" multiple="multiple">
+                <?php foreach ($lista_convenios as $convenio) { ?>
+                  <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
+                <?php } ?>
+              </select><br>
+            </div> 
+            <div class="form-group mt-3">
+              <label for="endereco">Endereço Clinica</label>
+              <br>
+              <select class="form-control endereco" name="endereco" id="endereco" style="width: 75%" multiple="multiple">
+                <?php foreach ($listar_clinica as $clinica) { ?>
+                  <option value="<?= $clinica['id']; ?>"><?= $clinica['complemento']; ?></option>
+                <?php } ?>
+              </select><br>
+            </div>
+            <div class="form-group mt-3">
+              <label for="data_consulta">Data Consulta</label>
+              <input type="date" class="form-control data_consulta" id="data_consulta" name="data_consulta">
+            </div>
+            <div class="form-group mt-2">
+              <label for="situacao">Situação</label>
+              <input type="text" class="form-control situacao" id="situacao" name="situacao">
+            </div>
+            <div class="form-group">
+              <label for="tipo">Tipo</label>
+              <select name="tipo" id="tipo" class="form-control">
+                <option value="Cliente">Cliente</option>
+                <option value="Funcionario">Funcionario</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-success">Salvar</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
 
 
   <!-- Bootstrap -->
@@ -316,67 +331,91 @@ $listar_exame = $exame->Listar();
 
   <?php include_once('../../includes/alertas.include.php'); ?>
 
-  <script> 
+  <!-- Modais Cadastro -->             
+  <script>
     $('#nomePaciente').select2({
-        dropdownParent: $('#modalCadastro')
+      dropdownParent: $('#modalCadastro')
+    });
+
+  </script>
+
+  <script>
+    $('#nomeMedico').select2({
+      dropdownParent: $('#modalCadastro')
+    });
+  </script>
+  <script>
+    $('#exame').select2({
+      dropdownParent: $('#modalCadastro')
+    });
+  </script>
+  <script>
+    $('#convenio').select2({
+      dropdownParent: $('#modalCadastro')
+    });
+  </script>
+  <script>
+    $('#clinica').select2({
+      dropdownParent: $('#modalCadastro')
+    });
+  </script>
+  <script>
+    $('#medico').select2({
+      dropdownParent: $('#modalEdicao')
     });
   </script>
 
-  <script> 
-    $('#nomeMedico').select2({
-        dropdownParent: $('#modalCadastro')
+  <!-- Modais Edição --> 
+  <script>
+    $('#convenios').select2({
+      dropdownParent: $('#modalEdicao')
     });
   </script>
-  <script> 
-    $('#exame').select2({
-        dropdownParent: $('#modalCadastro')
+  <script>
+    $('#endereco').select2({
+      dropdownParent: $('#modalEdicao')
     });
   </script>
-  <script> 
-    $('#convenio').select2({
-        dropdownParent: $('#modalCadastro')
+  <script>
+    $('#exames').select2({
+      dropdownParent: $('#modalEdicao')
     });
   </script>
-  <script> 
-    $('#clinica').select2({
-        dropdownParent: $('#modalCadastro')
-    });
+
+  <script>
+    $('#nomemed').select2();
   </script>
-  
-  <script>$('#nomemed').select2();</script>
 
   <script src="script.js"></script>
   <!-- API ViaCEP -->
   <script src="../enderecos/viacep/script.js"></script>
 
   <script>
-  $('#modalEdicao').on('show.bs.modal', function (event) {
+    $('#modalEdicao').on('show.bs.modal', function(event) {
 
-  var button = $(event.relatedTarget) 
+      var button = $(event.relatedTarget)
 
-  var id = button.data('id')
-  var nome = button.data('nome')
-  var email = button.data('email')
-  var cpf = button.data('cpf')
-  var data_nascimento = button.data('data_nascimento')
-  var telefone_celular = button.data('telefone_celular')
-  var telefone_residencial = button.data('telefone_residencial')
-  var id_convenio = button.data('id_convenio')
-  var id_localizacao = button.data('id_localizacao')
+      var id = button.data('id')
+      var paciente = button.data('paciente')
+      var medico = button.data('médico')
+      var exame = button.data('exame')
+      var convenio = button.data('convenio')
+      var endereco = button.data('clinica')
+      var data_consulta = button.data('data consulta')
+      var situacao = button.data('situacao')
 
-  var modal = $(this)
+      var modal = $(this)
 
-  modal.find('.id').val(id)
-  modal.find('.nome').val(nome)
-  modal.find('.email').val(email)
-  modal.find('.cpf').val(cpf)
-  modal.find('.data_nascimento').val(data_nascimento)
-  modal.find('.telefone_celular').val(telefone_celular)
-  modal.find('.telefone_residencial').val(telefone_residencial)
-  modal.find('.id_convenio').val(id_convenio)
-  modal.find('.id_localizacao').val(id_localizacao)
+      modal.find('.id').val(id)
+      modal.find('.paciente').val(paciente)
+      modal.find('.medico').val(medico)
+      modal.find('.exame').val(exame)
+      modal.find('.convenio').val(convenio)
+      modal.find('.endereco').val(endereco)
+      modal.find('.data_consulta').val(data_consulta)
+      modal.find('.situacao').val(situacao)
 
-  })
+    })
   </script>
 
 </body>

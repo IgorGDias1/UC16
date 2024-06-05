@@ -36,10 +36,12 @@ session_start();
 
 <body>
 
+<img src="https://i.imgur.com/qGlcMHX.gif" alt="iguinho" width="700px">
 
     <div class="container-fluid">
         <div class="row pt-2 corsi">
             <div class="col-1 col-3">
+                
 
                 <!-- Logotipo -->
                 <div class="colv-md-3 col-12"><img src="img/logo.png" width="100px" alt="Logo" class="img-fluid mx-auto d-block">
@@ -204,25 +206,23 @@ session_start();
         </div>
 
         <!-- Linha do Rodapé -->
-        <div class="row bg-secondary-subtle ">
-            <div class="col-md-4 col-12 mt-5 ms-3">
+        <div class="row bg-secondary-subtle">
+            <div class="col-md-4 col-12 mt-4 ms-3">
                 <p class="h2">Redes Sociais:</p><br>
                 <p>@medtime</0p>
                 <p>medtime@gmail.com</p>
                 <p>(12)98334-1234</p>
             </div>
 
-            <div class="col-md-4 col-12 mt-5">
+            <div class="col-md-4 col-12 mt-4">
                 <p class="h2">Exames com:</p><br>
                 <p>Otorrinolaringologista</p>
                 <p>Oftalmologista</p>
-                <p>Urologista</p>
                 <p>Ginecologista</p>
-                <p>Cardiologista</p>
                 <p>E muito mais</p>
             </div>
 
-            <div class="col-md-2 col-12 mt-5">
+            <div class="col-md-2 col-12 mt-4">
                 <p class="h2">Institucional</p><br>
                 <p>Quem Somos</p>
                 <p>Sobre os Exames</p>

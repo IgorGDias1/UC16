@@ -1,11 +1,11 @@
 body {
-  background: beige;
+  background: rgba(118, 216, 233, 0.411);
   background-repeat: no-repeat;
 }
 
 
 .btn-verde {
-    background-color: #00B19C;
+  background-color: #00B19C;
 }
 
 .btn-verde:hover {
@@ -13,9 +13,9 @@ body {
 }
 
 .conteudo {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
 }
 
 /* cor do fundo do cabeçalho*/
@@ -35,25 +35,41 @@ body {
 
 
 .navbar-custom {
-    background-color: #01c0aa;
+  background-color: #01c0aa;
 }
 
 
 /* navbar */
 .navbar-nav .nav-link {
-    text-transform: uppercase;
-    color: white;
-    padding: 0.5rem 1rem;
-    transition: all 0.3s ease;
+  text-transform: uppercase;
+  color: white;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
 }
 
 /* Estilo para o texto da barra de navegação quando em hover */
 .navbar-custom .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 0.25rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 0.25rem;
 }
 
-.titulo
+/* COR DO TEXT BODY DAS CONSULTAS */
+.card-body a{
+  color: black;
+}
+
+/* CLICAVEL TEXBODY CONSULTAS */
+.clicavelhover {
+  text-decoration: dotted;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+}
+
+.clicavelhover:hover {
+  transform: scale(0.9);
+
+
+}
 
 
 
@@ -61,44 +77,45 @@ body {
 
 /* FONTES: */
 .bungee-spice-regular {
-    font-family: "Bungee Spice", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  .nosifer-regular {
-    font-family: "Nosifer", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+  font-family: "Bungee Spice", sans-serif;
+  font-weight: 400;
+  font-style: normal;
 }
-  
-  .amatic-sc-regurla {
-    font-family: "Amatic SC", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .amatic-sc-bold {
-    font-family: "Amatic SC", sans-serif;
-    font-weight: 700;
-    font-style: normal;
-  }
-  
-  .righteous-regular {
-    font-family: "Righteous", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  .bungee-regular {
-    font-family: "Bungee", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-  }
 
-  .rubik-doodle-shadow-regular {
-    font-family: "Rubik Doodle Shadow", system-ui;
-    font-weight: 400;
-    font-style: normal;
-  }
-  /* fontes */
+.nosifer-regular {
+  font-family: "Nosifer", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.amatic-sc-regurla {
+  font-family: "Amatic SC", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.amatic-sc-bold {
+  font-family: "Amatic SC", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.righteous-regular {
+  font-family: "Righteous", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bungee-regular {
+  font-family: "Bungee", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.rubik-doodle-shadow-regular {
+  font-family: "Rubik Doodle Shadow", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* fontes */
