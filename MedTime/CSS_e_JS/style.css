@@ -1,9 +1,9 @@
 body {
   background: rgba(118, 216, 233, 0.411);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
   background-repeat: no-repeat;
 }
-
-
+oiiiiiiiiiiiiiiiiiiiiiiiiiiii adeuuuuuuuuuuuuuuuuuuuuuuuuuussssssssssssssssssssssssssssssssssss
 .btn-verde {
   background-color: #00B19C;
 }
@@ -32,12 +32,14 @@ body {
   background-color: #17AF9B;
 }
 
-
-
 .navbar-custom {
   background-color: #01c0aa;
+
 }
 
+.rodape {
+  background-color: #58c4b7;
+}
 
 /* navbar */
 .navbar-nav .nav-link {

@@ -14,7 +14,39 @@ class Agendamento {
     public $situacao;
 
     public function Listar(){
-        $sql = "SELECT * FROM view_agendamentos " ;
+        $sql = "SELECT usuarios.nome AS 'paciente',
+ 
+        (SELECT usuarios.nome 
+        FROM usuarios WHERE usuarios.id = agendamentos.id_funcionario) AS 'médico',
+         
+        (SELECT usuarios.id
+        FROM usuarios WHERE usuarios.id = agendamentos.id_funcionario) AS 'id_medico',
+
+        agendamentos.id, 
+        exames.id AS 'id_exame', exames.nome AS 'exame',
+         
+        convenios.id AS 'id_convenio', convenios.nome AS 'convenio',
+         
+        localizacoes.id AS 'id_clinica', localizacoes.complemento AS 'clinica',
+         
+        agendamentos.data_agendado AS 'data consulta',
+         
+        IF(agendamentos.situacao>0, 'Ativo', 'Inativo') AS 'situacao'
+         
+        FROM agendamentos
+         
+        INNER JOIN usuarios ON
+        agendamentos.id_cliente = usuarios.id
+         
+        INNER JOIN exames ON
+        agendamentos.id_exame = exames.id
+         
+        INNER JOIN convenios ON
+        agendamentos.id_convenio = convenios.id
+         
+        INNER JOIN localizacoes ON
+        agendamentos.id_localizacao = localizacoes.id";
+        
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();

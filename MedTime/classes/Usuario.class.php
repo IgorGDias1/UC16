@@ -40,6 +40,19 @@ class Usuario {
         return $resultado;
     }
 
+    public function ListarPorCPF(){
+
+        $sql = "SELECT * FROM usuarios WHERE cpf = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute([$this->cpf]);
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+    }
+
     public function ListarPorID(){
 
         $sql = "SELECT * FROM usuarios WHERE id = ?";

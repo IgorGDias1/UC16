@@ -21,6 +21,19 @@ Class Exame {
         return $resultado;
     }
 
+    public function ListarExamePorMedico(){
+        $sql = "SELECT * FROM exames WHERE id_responsavel = ?";
+        $banco = Banco::conectar();
+
+        $comando = $banco->prepare($sql);
+
+        $comando->execute([$this->id_responsavel]);
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+    }
+
     public function Cadastrar(){
 
         $sql = "INSERT INTO exames(nome, id_responsavel) 

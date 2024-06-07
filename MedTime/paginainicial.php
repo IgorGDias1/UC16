@@ -21,6 +21,8 @@ session_start();
     <!-- Link para o arquivo CSS externo -->
     <link rel="stylesheet" href="CSS_e_js/style.css">
 
+    <!-- Movimento logo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
     <!-- api google fontes-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -36,193 +38,107 @@ session_start();
 
 <body>
 
-<img src="https://i.imgur.com/qGlcMHX.gif" alt="iguinho" width="700px">
-
     <div class="container-fluid">
-        <div class="row pt-2 corsi">
-            <div class="col-1 col-3">
-                
+       <?php 
+       $paginaAtiva = "1";
+       include_once("includes/elementos.include.php");
+       ?>
 
-                <!-- Logotipo -->
-                <div class="colv-md-3 col-12"><img src="img/logo.png" width="100px" alt="Logo" class="img-fluid mx-auto d-block">
-                    <p class="container-fluid text-center mt-1 righteous-regular">MedTime </br> Página Inicial</p>
-                </div>
 
-            </div>
-
-            <div class="col-5 pt-5">
-                <div class="input-group mb-3 d-flex">
-
-                    <!-- Barra de pesquisa -->
-                    <input type="text" class="form-control" placeholder="Pesquisar..." aria-label="Buscar..." aria-describedby="button-addon2">
-                    <!-- Botão de busca -->
-                    <button type="button" class="btn btn-purple">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Linha do menu NAV-->
-    <div class="row sticky-top">
-        <div class="col">
-            <nav class="navbar navbar-expand-lg righteous-regular navbar-custom">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-center text-center" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item px-3">
-                                <a class="nav-link active" aria-current="page" href="paginainicial.php">Página
-                                    Inicial</a>
-                            </li>
-                            <li class="nav-item px-3">
-                                <a class="nav-link" href="consultas.php">Consultas</a>
-                            </li>
-
-                            <li class="nav-item px-3">
-                                <a class="nav-link" href="agendamentos.php">Agendamentos</a>
-                            </li>
-                            <li class="nav-item px-3">
-                                <a class="nav-link" href="contate_nos.php">Contate-nós</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- USUARIO E LOGIN -->
-                    <?php if (!isset($_SESSION['usuario'])) { ?>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <button class="btn" type="button">
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="botaoLogin" name="botaoLogin">
-                                    <div class="position-absolute top-0 end-0"><i class="bi bi-person-circle text-light fs-1 me-4"></i>
-                                    </div>
-                        </div>
-                    <?php } ?>
-
-                    <?php if (isset($_SESSION['usuario'])) { ?>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <div class="position-absolute top-0 end-0 dropdown">
-                                <button class="btn btn-light dropdown-toggle mt-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person-circle text-dark fs-5"> <?php echo 'Olá! ' . $_SESSION['usuario']['nome'] ?></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item text-center" type="button" href="perfil.php">Meu Perfil</a></li>
-                                    <li><a class="dropdown-item text-center" type="button" href="perfil.php">Resultados</a></li>
-                                    <li><a class="dropdown-item text-center" type="button" href="agendamentos.htm">Agendamentos</a></li>
-                                    <li class="mt-3 border border-danger py-1"><a class="bi bi-box-arrow-left fs-6 ms-5 text-danger" href="actions/login/logout.php"> Sair</a></li>
-                                </ul>
+        <!-- Linha do Carousel -->
+        <div class="container-fluid">
+            <div class="row mx-4 p-3">
+                <div class="col justify-content-center">
+                    <div id="carouselExampleFade" class="carousel slide carousel-fade ">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="img/carrosel.png" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="img/carrosel2.png" class="d-block w-100" alt="...">
                             </div>
                         </div>
-                    <?php } ?>
-                </div>
-        </div>
-    </div>
-
-    </div>
-
-    </nav>
-
-    </div>
-    </div>
-
-    <!-- Linha do Carousel -->
-    <div class="container-fluid">
-        <div class="row mx-4 p-3">
-            <div class="col justify-content-center">
-                <div id="carouselExampleFade" class="carousel slide carousel-fade ">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="img/carrosel.png" class="d-block w-100" alt="...">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="img/carrosel2.png" class="d-block w-100" alt="...">
-                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <!-- Botões de informação -->
-    <div class="container-fluid align-items-center text-center">
-        <div class="row px--md5">
-            <div class="col-md-4 mt-4">
-                <div class="card mb-3 bg-transparent border-0 align-items-center">
-                    <img src="img/cruz.png" class="card-img-top w-25" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Agende seus exames aqui</h5>
+        <!-- Botões de informação -->
+        <div class="container-fluid align-items-center text-center">
+            <div class="row px--md5">
+                <div class="col-md-4 mt-4">
+                    <div class="card mb-3 bg-transparent border-0 align-items-center">
+                        <img src="img/cruz.png" class="card-img-top w-25" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Agende seus exames aqui</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mt-4">
+                    <div class="card mb-3 bg-transparent border-0 align-items-center">
+                        <img src="img/med.png" class="card-img-top w-25" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Com médicos de confiança</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mt-4">
+                    <div class="card mb-3 bg-transparent border-0 align-items-center ">
+                        <img src="img/exame-medico(1).png" class="card-img-top w-25" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">E resultados com mais facilidade</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Linha do Corpo -->
+                <div class="row">
+                    <div class="col-md-4 mt-3 mb-3 px-5">
+                        <img src="img/medica.jpg" class="d-block w-100 rounded-5" alt="Medtime">
+                    </div>
+                    <div class="col-md-6 mt-3 px-5">
+                        <p class="h2">Quem Somos</p>
+                        <p class="text-md-start"> Na MedTime, nosso propósito é simplificar e otimizar o processo de agendamento
+                            e gerenciamento de
+                            consultas médicas. Somos uma empresa dedicada a fornecer soluções inovadoras e eficientes para
+                            facilitar o acesso dos pacientes aos cuidados de saúde de que necessitam. </br>
+                            Além de fornecer soluções de agendamento e gerenciamento de consultas, também nos preocupamos
+                            profundamente com o bem-estar de nossa comunidade. Estamos envolvidos em iniciativas locais e
+                            globais que visam promover a saúde e o acesso igualitário aos cuidados médicos.
+                        </p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mt-4">
-                <div class="card mb-3 bg-transparent border-0 align-items-center">
-                    <img src="img/med.png" class="card-img-top w-25" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Com médicos de confiança</h5>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 mt-4">
-                <div class="card mb-3 bg-transparent border-0 align-items-center ">
-                    <img src="img/exame-medico(1).png" class="card-img-top w-25" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">E resultados com mais facilidade</h5>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Linha do Corpo -->
-            <div class="row">
-                <div class="col-md-4 mt-3 mb-3 px-5">
-                    <img src="img/medica.jpg" class="d-block w-100 rounded-5" alt="Medtime">
-                </div>
-                <div class="col-md-6 mt-3 px-5">
-                    <p class="h2">Quem Somos</p>
-                    <p class="text-md-start"> Na MedTime, nosso propósito é simplificar e otimizar o processo de agendamento
-                        e gerenciamento de
-                        consultas médicas. Somos uma empresa dedicada a fornecer soluções inovadoras e eficientes para
-                        facilitar o acesso dos pacientes aos cuidados de saúde de que necessitam. </br>
-                        Além de fornecer soluções de agendamento e gerenciamento de consultas, também nos preocupamos
-                        profundamente com o bem-estar de nossa comunidade. Estamos envolvidos em iniciativas locais e
-                        globais que visam promover a saúde e o acesso igualitário aos cuidados médicos.
-                    </p>
-                </div>
-            </div>
-
-            </div>
-
-
         </div>
 
         <!-- Linha do Rodapé -->
-        <div class="row bg-secondary-subtle">
-            <div class="col-md-4 col-12 mt-4 ms-3">
-                <p class="h2">Redes Sociais:</p><br>
-                <p>@medtime</0p>
-                <p>medtime@gmail.com</p>
-                <p>(12)98334-1234</p>
+        <div class="row rodape justify-content-center pb-3">
+            <div class="col-md-4 mt-4 ms-3">
+                <p class="h2">Contatos</p><br>
+                <p><i class="bi bi-instagram fs-5"></i>ﾠ@medtime</p>
+                <p><i class="bi bi-envelope fs-5"></i>ﾠmedtime@gmail.com</p>
+                <p><i class="bi bi-whatsapp fs-5"></i>ﾠ(12)98334-1234</p>
             </div>
 
-            <div class="col-md-4 col-12 mt-4">
-                <p class="h2">Exames com:</p><br>
+            <div class="col-md-4 mt-4">
+                <p class="h2">Profissionais</p><br>
                 <p>Otorrinolaringologista</p>
                 <p>Oftalmologista</p>
-                <p>Ginecologista</p>
-                <p>E muito mais</p>
+                <p>Psiquiatra</p>
+                <p>Entre outros</p>
             </div>
 
-            <div class="col-md-2 col-12 mt-4">
+            <div class="col-md-2 mt-4">
                 <p class="h2">Institucional</p><br>
                 <p>Quem Somos</p>
                 <p>Sobre os Exames</p>
@@ -231,21 +147,17 @@ session_start();
             </div>
 
         </div>
-
-        <!-- Linha dos Recursos -->
-        <div class="row bg-secondary-subtle">
-            <div class="col">
-                <i class="bi bi-shield-check h1"></i>
-            </div>
-        </div>
-
         <!-- Linha do Rodapé 2 -->
         <div class="row bg-black">
-            <div class="col py-3">
+            <div class="col py-3 ms-2">
                 <span class="text-light ">Copyright MedTime Agendamentos Online-2032. Todos os direitos reservados</span>
             </div>
         </div>
     </div>
+
+
+
+
 
     <!-- Modais -->
     <div class="modal fade" id="exampleModal" tabindex="1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -337,7 +249,6 @@ session_start();
             </div>
         </div>
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

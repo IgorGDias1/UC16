@@ -25,125 +25,45 @@
 
 <body>
 
-    <div class="container-fluid align-items-center text-center justify-content-center">
-        <div class="row pt-2 corsi">
-            <div class="col-1 col-3">
+    <div class="container-fluid">
+        <?php
+        include_once("includes/elementos.include.php");
+        ?>
 
-                <!-- Logotipo -->
-                <div class="colv-md-3 col-12"><img src="img/logo.png" width="100px" alt="Logo" class="img-fluid mx-auto d-block">
-                    <p class="container-fluid text-center mt-1 righteous-regular">MedTime </br> Agendamentos</p>
-                </div>
-
-
-
+        <!-- Linha da tabela de agendamentos -->
+        <div class="row justify-content-center">
+            <div class="col-md-6 rounded-3  mb-2 ">
+                <p class="h2 text-center">Agendamentos</p>
+                <input class="form-control form-control-lg mb-2 " name="nomeagendamento" id="nomeagendamento" type="text" placeholder="Nome do paciente" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Tipo do exame" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Nome do medico" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " name="convenio" id="convenio" type="text" placeholder="Convênio" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " name="dataagendamento" id="dataagendamento" type="text" placeholder="Data" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " name="localagendamento" id="localagendamento" type="text" placeholder="Local" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Situação" aria-label=".form-control-lg example">
+                <button type="button" class="btn btn-primary">Agendar Consuta</button>
             </div>
 
-            <div class="col-5 pt-5">
-                <div class="input-group mb-3 d-flex">
-
-                    <!-- Barra de pesquisa -->
-                    <input type="text" class="form-control" placeholder="Pesquisar..." aria-label="Buscar..." aria-describedby="button-addon2">
-                    <!-- Botão de busca -->
-                    <button type="button" class="btn btn-purple">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Linha do menu NAV-->
-    <div class="row sticky-top">
-        <div class="col">
-            <nav class="navbar navbar-expand-lg navbar-custom righteous-regular">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse justify-content-center text-center" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item px-3">
-                                <a class="nav-link" aria-current="page" href="paginainicial.php">Página
-                                    Inicial</a>
-                            </li>
-                            <li class="nav-item px-3">
-                                <a class="nav-link" href="consultas.php">Consultas</a>
-                            </li>
-
-                            <li class="nav-item px-3">
-                                <a class="nav-link active" href="agendamentos.php">Agendamentos</a>
-                            </li>
-                            <li class="nav-item px-3">
-                                <a class="nav-link" href="contate_nos.php">Contate-nós</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <!-- USUARIO E LOGIN -->
-                    <?php if (!isset($_SESSION['usuario'])) { ?>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <button class="btn me-md-2" type="button">
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" id="botaoLogin" name="botaoLogin">
-                                    <div class="position-absolute top-0 end-0"><i class="bi bi-person-circle text-light fs-1 me-4"></i>
-                                    </div>
-                        </div>
-                    <?php } ?>
-
-                    <?php if (isset($_SESSION['usuario'])) { ?>
-                        <div class="d-flex justify-content-center align-items-center">
-                            <div class="position-absolute top-0 end-0 dropdown">
-                                <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person-circle text-dark fs-5"> <?php echo 'Olá! ' . $_SESSION['usuario']['nome'] ?></i>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item text-center" type="button" href="perfil.php">Meu Perfil</a></li>
-                                    <li><a class="dropdown-item text-center" type="button" href="perfil.php">Resultados</a></li>
-                                    <li><a class="dropdown-item text-center" type="button" href="agendamentos.htm">Agendamentos</a></li>
-                                    <li class="mt-3 border border-danger py-1"><a class="bi bi-box-arrow-left fs-6 ms-5 text-danger" href="actions/login/logout.php"> Sair</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    <?php } ?>
-                </div>
-        </div>
-    </div>
-
-    </div>
-    </div>
-    </div>
-    <!-- Linha da tabela de agendamentos -->
-    <div class="row justify-content-center"> 
-        <div class="col-md-6 rounded-3  mb-2 ">
-            <p class="h2 text-center">Agendamentos</p>
-            <input class="form-control form-control-lg mb-2 " name="nomeagendamento" id="nomeagendamento" type="text" placeholder="Nome do paciente" aria-label=".form-control-lg example">
-            <input class="form-control form-control-lg mb-2 " name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Tipo do exame" aria-label=".form-control-lg example">
-            <input class="form-control form-control-lg mb-2 " name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Nome do medico" aria-label=".form-control-lg example">
-            <input class="form-control form-control-lg mb-2 " name="convenio" id="convenio" type="text" placeholder="Convênio" aria-label=".form-control-lg example">
-            <input class="form-control form-control-lg mb-2 " name="dataagendamento" id="dataagendamento" type="text" placeholder="Data" aria-label=".form-control-lg example">
-            <input class="form-control form-control-lg mb-2 " name="localagendamento" id="localagendamento" type="text" placeholder="Local" aria-label=".form-control-lg example">
-            <input class="form-control form-control-lg mb-2 " name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Situação" aria-label=".form-control-lg example">
-            <button type="button" class="btn btn-primary">Agendar Consuta</button>
         </div>
 
-    </div>
-    
-    <!-- Linha do Rodapé -->
-    <div class="row bg-secondary-subtle ">
-            <div class="col-md-4 col-12 mt-4 ms-3">
-                <p class="h2">Redes Sociais:</p><br>
-                <p>@medtime</0p>
-                <p>medtime@gmail.com</p>
-                <p>(12)98334-1234</p>
+        <!-- Linha do Rodapé -->
+        <div class="row rodape justify-content-center pb-3 mt-3">
+            <div class="col-md-4 mt-4 ms-3">
+                <p class="h2">Contatos</p><br>
+                <p><i class="bi bi-instagram fs-5"></i>ﾠ@medtime</p>
+                <p><i class="bi bi-envelope fs-5"></i>ﾠmedtime@gmail.com</p>
+                <p><i class="bi bi-whatsapp fs-5"></i>ﾠ(12)98334-1234</p>
             </div>
 
-            <div class="col-md-4 col-12 mt-4">
-                <p class="h2">Exames com:</p><br>
+            <div class="col-md-4 mt-4">
+                <p class="h2">Profissionais</p><br>
                 <p>Otorrinolaringologista</p>
                 <p>Oftalmologista</p>
-                <p>Ginecologista</p>
-                <p>E muito mais</p>
+                <p>Psiquiatra</p>
+                <p>Entre outros</p>
             </div>
 
-            <div class="col-md-2 col-12 mt-4">
+            <div class="col-md-2 mt-4">
                 <p class="h2">Institucional</p><br>
                 <p>Quem Somos</p>
                 <p>Sobre os Exames</p>
@@ -152,18 +72,17 @@
             </div>
 
         </div>
+        <!-- Linha do Rodapé 2 -->
+        <div class="row bg-black">
+            <div class="col py-3 ms-2">
+                <span class="text-light ">Copyright MedTime Agendamentos Online-2032. Todos os direitos reservados</span>
+            </div>
+        </div>
 
 
 
 
 
-
-
-
-
-    </nav>
-
-    </div>
     </div>
 
 

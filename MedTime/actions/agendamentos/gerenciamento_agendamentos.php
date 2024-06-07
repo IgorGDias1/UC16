@@ -12,6 +12,7 @@ require_once('../../classes/Usuario.class.php');
 $u = new Usuario();
 $listar_usuario = $u->ListarClientes();
 $listar_medico = $u->ListarMedicos();
+$listar_cpf = $u->ListarPorCPF();
 
 require_once('../../classes/Agendamento.class.php');
 $a = new Agendamento();
@@ -83,7 +84,7 @@ $listar_exame = $exame->Listar();
               </a>
             </li>
             <li class="nav-item px-3 mt-4">
-              <a class="nav-link active" aria-current="page" href="#">Página Inicial</a>
+              <a class="nav-link active" aria-current="page" href="../../paginainicial.php">Página Inicial</a>
             </li>
             <li class="nav-item dropdown px-3 mt-4">
               <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -151,15 +152,7 @@ $listar_exame = $exame->Listar();
             <td><?= $agendamento['data consulta']; ?></td>
             <td><?= $agendamento['situacao']; ?></td>
             <td>
-              <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
-                data-id="<?= $agendamento['id']; ?>" 
-                data-paciente="<?= $agendamento['paciente']; ?>" 
-                data-medico="<?= $agendamento['id_medico']; ?>" 
-                data-exame="<?= $agendamento['exame']; ?>" 
-                data-convenio="<?= $agendamento['convenio']; ?>" 
-                data-clinica="<?= $agendamento['clinica']; ?>" 
-                data-data_consulta="<?= $agendamento['data consulta']; ?>" 
-                data-situacao="<?= $agendamento['situacao']; ?>">
+              <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" data-id="<?= $agendamento['id']; ?>" data-paciente="<?= $agendamento['paciente']; ?>" data-medico="<?= $agendamento['médico']; ?>" data-exame="<?= $agendamento['id_exame']; ?>" data-convenio="<?= $agendamento['id_convenio']; ?>" data-clinica="<?= $agendamento['id_clinica']; ?>" data-data_consulta="<?= $agendamento['data consulta']; ?>" data-situacao="<?= $agendamento['situacao']; ?>">
                 <i class="bi bi-pencil-square"></i> Editar</button>
             </td>
             <td>
@@ -186,16 +179,16 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="nomePaciente">Paciente</label>
               <br>
-              <select class="form-control" id="nomePaciente" name="paciente" style="width: 75%" multiple="multiple" required>
-                <?php foreach ($listar_usuario as $usuario) { ?>
-                  <option value="<?= $usuario['id']; ?>"><?= $usuario['nome']; ?></option>
-                <?php } ?>
-              </select>
+              <input type="text" class="form-control" id="paciente" name="paciente">
             </div>
+
+            <br>
+            <a class="btn btn-success " href="../clientes/gerenciamento_clientes.php" target="blank">Cadastrar Cliente</a>
+            
             <div class="form-group mt-3">
               <label for="nomeMedico">Médico</label>
-              <br>
-              <select class="form-control " id="nomeMedico" name="medico" style="width: 75%" multiple="multiple" required>
+              <br> 
+              <select class="form-control " id="nomeMedico" name="medico" required>
                 <?php foreach ($listar_medico as $medico) { ?>
                   <option value="<?= $medico['id']; ?>" name="id_medico"><?= $medico['nome']; ?></option>
                 <?php } ?>
@@ -204,7 +197,7 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="exame">Exame</label>
               <br>
-              <select class="form-control " id="exame" name="exame" style="width: 75%" multiple="multiple" required>
+              <select class="form-control " id="exame" name="exame" required>
                 <?php foreach ($listar_exame as $exame) { ?>
                   <option value="<?= $exame['id']; ?>"><?= $exame['nome']; ?></option>
                 <?php } ?>
@@ -213,7 +206,7 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-2">
               <label for="convenio">Convênio</label>
               <br>
-              <select class="form-control" name="convenio" id="convenio" style="width: 75%" multiple="multiple">
+              <select class="form-control" name="convenio" id="convenio">
                 <?php foreach ($lista_convenios as $convenio) { ?>
                   <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
                 <?php } ?>
@@ -222,7 +215,7 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-2">
               <label for="clinica">Endereço Clinica</label>
               <br>
-              <select class="form-control" name="clinica" id="clinica" style="width: 75%" multiple="multiple">
+              <select class="form-control" name="clinica" id="clinica">
                 <?php foreach ($listar_clinica as $clinica) { ?>
                   <option value="<?= $clinica['id']; ?>"><?= $clinica['complemento']; ?></option>
                 <?php } ?>
@@ -253,16 +246,28 @@ $listar_exame = $exame->Listar();
           <div class="modal-header">
             <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
           </div>
+          <nav class="navbar bg-body-tertiary">
+          <div class="container-fluid">
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="CPF do Cliente" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit" name="cpf" id="cpf">Pesquisar</button>
+            </form>
+          </div>
+        </nav>
           <div class="modal-body">
-            <input type="hidden" class="id" name="id">
+            <input type="hidden" class="id" name="id" id="id">
             <div class="form-group">
               <label for="paciente">Paciente</label>
-              <input type="text" class="form-control paciente" id="paciente" name="paciente">
+              <select class="form-control paciente" id="paciente" name="paciente" >
+                <?php foreach ($listar_cpf as $cpf) { ?>
+                  <option value="<?= $cpf['id']; ?>"><?= $cpf['nome']; ?></option>
+                <?php } ?>
+              </select>
             </div>
             <div class="form-group mt-3">
               <label for="medico">Médico</label>
               <br>
-              <select class="form-control medico" id="medico" name="medico" style="width: 75%" multiple="multiple" required>
+              <select class="form-control medico" id="medico" name="medico" required>
                 <?php foreach ($listar_medico as $medico) { ?>
                   <option value="<?= $medico['id']; ?>" name="id_medico"><?= $medico['nome']; ?></option>
                 <?php } ?>
@@ -271,7 +276,7 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="exame">Exame</label>
               <br>
-              <select class="form-control exame" id="exames" name="exame" style="width: 75%" multiple="multiple" required>
+              <select class="form-control exame" id="exames" name="exame" required>
                 <?php foreach ($listar_exame as $exame) { ?>
                   <option value="<?= $exame['id']; ?>"><?= $exame['nome']; ?></option>
                 <?php } ?>
@@ -280,16 +285,16 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="convenio">Convênio</label>
               <br>
-              <select class="form-control convenio" name="convenio" id="convenios" style="width: 75%" multiple="multiple">
+              <select class="form-control convenio" name="convenio" id="convenios">
                 <?php foreach ($lista_convenios as $convenio) { ?>
                   <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
                 <?php } ?>
               </select><br>
-            </div> 
+            </div>
             <div class="form-group mt-3">
               <label for="endereco">Endereço Clinica</label>
               <br>
-              <select class="form-control endereco" name="endereco" id="endereco" style="width: 75%" multiple="multiple">
+              <select class="form-control endereco" name="endereco" id="endereco">
                 <?php foreach ($listar_clinica as $clinica) { ?>
                   <option value="<?= $clinica['id']; ?>"><?= $clinica['complemento']; ?></option>
                 <?php } ?>
@@ -327,64 +332,9 @@ $listar_exame = $exame->Listar();
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <?php include_once('../../includes/alertas.include.php'); ?>
 
-  <!-- Modais Cadastro -->             
-  <script>
-    $('#nomePaciente').select2({
-      dropdownParent: $('#modalCadastro')
-    });
-
-  </script>
-
-  <script>
-    $('#nomeMedico').select2({
-      dropdownParent: $('#modalCadastro')
-    });
-  </script>
-  <script>
-    $('#exame').select2({
-      dropdownParent: $('#modalCadastro')
-    });
-  </script>
-  <script>
-    $('#convenio').select2({
-      dropdownParent: $('#modalCadastro')
-    });
-  </script>
-  <script>
-    $('#clinica').select2({
-      dropdownParent: $('#modalCadastro')
-    });
-  </script>
-  <script>
-    $('#medico').select2({
-      dropdownParent: $('#modalEdicao')
-    });
-  </script>
-
-  <!-- Modais Edição --> 
-  <script>
-    $('#convenios').select2({
-      dropdownParent: $('#modalEdicao')
-    });
-  </script>
-  <script>
-    $('#endereco').select2({
-      dropdownParent: $('#modalEdicao')
-    });
-  </script>
-  <script>
-    $('#exames').select2({
-      dropdownParent: $('#modalEdicao')
-    });
-  </script>
-
-  <script>
-    $('#nomemed').select2();
-  </script>
 
   <script src="script.js"></script>
   <!-- API ViaCEP -->
@@ -397,11 +347,11 @@ $listar_exame = $exame->Listar();
 
       var id = button.data('id')
       var paciente = button.data('paciente')
-      var medico = button.data('médico')
+      var medico = button.data('medico')
       var exame = button.data('exame')
       var convenio = button.data('convenio')
       var endereco = button.data('clinica')
-      var data_consulta = button.data('data consulta')
+      var data_consulta = button.data('data_consulta')
       var situacao = button.data('situacao')
 
       var modal = $(this)
