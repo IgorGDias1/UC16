@@ -84,7 +84,7 @@ $lista_especialidade = $especialidade->Listar();
               </a>
             </li>
             <li class="nav-item px-3 mt-4">
-              <a class="nav-link active" aria-current="page" href="../../paginainicial.php">Página Inicial</a>
+              <a class="nav-link active" aria-current="page" href="gerenciamento_clientes.php">Página Inicial</a>
             </li>
             <li class="nav-item dropdown px-3 mt-4">
               <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

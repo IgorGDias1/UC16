@@ -50,7 +50,7 @@ $lista_localizacao = $localizacao->Listar();
                             </a>
                         </li>
                         <li class="nav-item px-3 mt-4">
-                            <a class="nav-link active" aria-current="page" href="../../paginainicial.php">Página Inicial</a>
+                            <a class="nav-link active" aria-current="page" href="../clientes/gerenciamento_clientes.php">Página Inicial</a>
                         </li>
                         <li class="nav-item dropdown px-3 mt-4">
                             <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,7 +66,7 @@ $lista_localizacao = $localizacao->Listar();
                             <a class="nav-link" href="#">Exames</a>
                         </li>
                         <li class="nav-item px-3 mt-4">
-                            <a class="nav-link" href="#">Agendamentos</a>
+                            <a class="nav-link" href="../agendamentos/gerenciamento_agendamentos.php">Agendamentos</a>
                         </li>
                         <li class="nav-item px-3 mt-4">
                             <a class="nav-link" href="#">Suporte</a>
