@@ -14,7 +14,9 @@ $lista_usuariosSemLocalizacao = $usuario->ListarClientesSemLocalizacao();
 
 $lista_usuarioComLocalizacao = $usuario->ListarClientesComLocalizacao();
 
-$lista_funcionarios = $usuario->ListarFuncionarios();
+$lista_funcionarios = $usuario->ListarFuncionariosComEspecialidade();
+$lista_funcionarios2 = $usuario->ListarFuncionariosSemEspecialidade();
+
 
 require_once('../../classes/Localizacao.class.php');
 $localizacao = new Localizacao();
@@ -120,12 +122,16 @@ $lista_especialidade = $especialidade->Listar();
   <!-- Container de gerenciamento de clientes sem endereço cadastrado -->
   <div class="container mt-5">
     <h2 class="text-center mb-4">Gerenciamento de Clientes</h2>
-    <h5 class="text-center">Clientes sem endereço cadastrado</h5>
+    <h6 class="text-center">Clientes sem endereço cadastrado</h6>
     <div class="row mb-3">
       <div class="col d-flex justify-content-end">
         <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus-circle"></i> Cadastrar Usuário</button>
       </div>
     </div>
+    <div class="col d-flex justify-content-start mb-3">
+        <input type="text" class="" id="cpf_buscar" name="cpf_buscar" placeholder="Digite o CPF...">
+        <button type="submit" class="btn btn-primary ms-2">Buscar</button>
+      </div>
     <table class="table table-striped table-hover table-primary ">
       <thead>
         <tr>
@@ -200,8 +206,7 @@ $lista_especialidade = $especialidade->Listar();
 
   <!-- Container de gerenciamento de clientes com endereço cadastrado -->
   <div class="container mt-5">
-    <h2 class="text-center mb-4">Gerenciamento de Clientes</h2>
-    <h5 class="text-center">Clientes com endereço cadastrado</h5>
+    <h6 class="text-center">Clientes com endereço cadastrado</h6>
     <table class="table table-striped table-hover table-primary ">
       <thead>
         <tr>
@@ -278,7 +283,7 @@ $lista_especialidade = $especialidade->Listar();
   <?php 
   // Se o cargo for = gerente e estiver ativo
   if($_SESSION['usuario']['id_cargo'] == 5){ ?>
-  <!-- Gerenciamento de funcionário -->
+  <!-- Gerenciamento de funcionário com especialidade -->
   <div class="container mt-5">
     <h2 class="text-center mb-4">Gerenciamento de Funcionarios</h2>
     <div class="row mb-3">
@@ -293,14 +298,14 @@ $lista_especialidade = $especialidade->Listar();
           <th>Nome</th>
           <th>E-mail</th>
           <th hidden>Senha</th>
-          <th>CPF</th>
+          <th hidden>CPF</th>
           <th>Data de Nascimento</th>
           <th hidden>Telefone Celular</th>
           <th hidden>Telefone Residencial</th>
           <th hidden>CEP</th>
           <th hidden>Convenio</th>
           <th>Cargo</th>
-          <th hidden>Especialidade</th>
+          <th>Especialidade</th>
           <th>Situação</th>
           <th></th>
           <th></th>
@@ -314,7 +319,7 @@ $lista_especialidade = $especialidade->Listar();
             <td><?= $funcionario['nome']; ?></td>
             <td><?= $funcionario['email']; ?></td>
             <td hidden><?= $funcionario['senha']; ?></td>
-            <td><?= $funcionario['cpf']; ?></td>
+            <td hidden><?= $funcionario['cpf']; ?></td>
             <td><?= $funcionario['data_nascimento']; ?></td>
             <td hidden><?= $funcionario['telefone_celular']; ?></td>
             <td hidden><?= $funcionario['telefone_residencial']; ?></td>
@@ -326,7 +331,7 @@ $lista_especialidade = $especialidade->Listar();
             <td hidden><?= $funcionario['id_cargo']; ?></td>
             <td><?= $funcionario['cargo']; ?></td>
             <td hidden><?= $funcionario['id_especialidade']; ?></td>
-            <td hidden><?= $funcionario['especificacao']; ?></td>
+            <td><?= $funcionario['especificacao']; ?></td>
             <td><?= $funcionario['situacao']; ?></td>
 
             <td>
@@ -372,6 +377,100 @@ $lista_especialidade = $especialidade->Listar();
             <td>
               <a href="#" class="btn btn-danger btn-sm" 
               onclick="excluir(<?= $funcionario['id_funcionario']; ?>)">
+              <i class="bi bi-file-earmark-x"></i> Excluir</a>
+          </td>
+
+          </tr>
+        <?php } ?>
+      </tbody>
+    </table>
+  </div>
+
+  <br><br><hr>
+
+  <!-- Gerenciamento de funcionário sem especialidade -->
+  <div class="container mt-5">
+        <h6 class="text-center">Funcionários sem especialidade</h6>
+    </div>
+    <table class="table table-striped table-hover table-primary ">
+      <thead>
+        <tr>
+          <th hidden>ID</th>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th hidden>Senha</th>
+          <th hidden>CPF</th>
+          <th>Data de Nascimento</th>
+          <th hidden>Telefone Celular</th>
+          <th hidden>Telefone Residencial</th>
+          <th hidden>CEP</th>
+          <th hidden>Convenio</th>
+          <th>Cargo</th>
+          <th>Situação</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($lista_funcionarios2 as $funcionario2) { ?>
+          <tr>
+            <td hidden><?= $funcionario2['id_funcionario']; ?></td>
+            <td><?= $funcionario2['nome']; ?></td>
+            <td><?= $funcionario2['email']; ?></td>
+            <td hidden><?= $funcionario2['senha']; ?></td>
+            <td hidden><?= $funcionario2['cpf']; ?></td>
+            <td><?= $funcionario2['data_nascimento']; ?></td>
+            <td hidden><?= $funcionario2['telefone_celular']; ?></td>
+            <td hidden><?= $funcionario2['telefone_residencial']; ?></td>
+            <td hidden><?= $funcionario2['id_localizacao']; ?></td>
+            <td hidden><?= $funcionario2['cep']; ?></td>
+            <td hidden><?= $funcionario2['id_convenio']; ?></td>
+            <td hidden><?= $funcionario2['convenio']; ?></td>
+            <td hidden><?= $funcionario2['cep']; ?></td>
+            <td hidden><?= $funcionario2['id_cargo']; ?></td>
+            <td><?= $funcionario2['cargo']; ?></td>
+            <td><?= $funcionario2['situacao']; ?></td>
+
+            <td>
+            <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalInfoFuncionario" 
+            data-id="<?=$funcionario2['id_funcionario'];?>" 
+            data-nome="<?=$funcionario2['nome'];?>" 
+            data-email="<?=$funcionario2['email'];?>" 
+            data-cpf="<?=$funcionario2['cpf'];?>" 
+            data-data_nascimento="<?=$funcionario2['data_nascimento'];?>" 
+            data-telefone_celular="<?=$funcionario2['telefone_celular'];?>" 
+            data-telefone_residencial="<?=$funcionario2['telefone_residencial'];?>"
+            data-id_localizacao="<?=$funcionario2['id_localizacao'];?>"
+            data-cep="<?=$funcionario2['cep'];?>"
+            data-id_convenio="<?=$funcionario2['id_convenio'];?>"
+            data-convenio="<?=$funcionario2['convenio'];?>"
+            data-id_cargo="<?=$funcionario2['id_cargo'];?>"
+            data_cargo="<?=$funcionario2['cargo'];?>"
+            data-situacao="<?=$funcionario2['situacao'];?>">
+            <i class="bi bi-info-circle"></i> Info</button>
+            </td>
+
+            <td>
+            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicaoFuncionario" 
+            data-id="<?=$funcionario2['id_funcionario'];?>" 
+            data-nome="<?=$funcionario2['nome'];?>" 
+            data-email="<?=$funcionario2['email'];?>" 
+            data-cpf="<?=$funcionario2['cpf'];?>" 
+            data-data_nascimento="<?=$funcionario2['data_nascimento'];?>" 
+            data-telefone_celular="<?=$funcionario2['telefone_celular'];?>" 
+            data-telefone_residencial="<?=$funcionario2['telefone_residencial'];?>"
+            data-id_localizacao="<?=$funcionario2['id_localizacao'];?>"
+            data-id_convenio="<?=$funcionario2['id_convenio'];?>"
+            data-id_cargo="<?=$funcionario2['id_cargo'];?>"
+            data_cargo="<?=$funcionario2['cargo'];?>"
+            data-situacao="<?=$funcionario2['situacao'];?>">
+            <i class="bi bi-pencil-square"></i> Editar</button>
+          </td>
+
+            <td>
+              <a href="#" class="btn btn-danger btn-sm" 
+              onclick="excluir(<?= $funcionario2['id_funcionario']; ?>)">
               <i class="bi bi-file-earmark-x"></i> Excluir</a>
           </td>
 
@@ -586,7 +685,7 @@ $lista_especialidade = $especialidade->Listar();
   <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
-              <form action="editar_cliente.php" method="POST">
+              <form action="../funcionarios/editar_funcionario.php" method="POST">
                   <div class="modal-header">
                       <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
                   </div>
@@ -594,27 +693,27 @@ $lista_especialidade = $especialidade->Listar();
                       <input type="hidden" class="id" name="id">
                       <div class="form-group">
                           <label for="nome">Nome</label>
-                          <input type="text" class="form-control nome" id="nome" name="nome">
+                          <input type="text" class="form-control nome" id="nome" name="nomeFuncionarioEdi">
                       </div>
                       <div class="form-group mt-3">
                           <label for="email">Email</label>
-                          <input type="email" class="form-control email" id="email" name="email"> 
+                          <input type="email" class="form-control email" id="email" name="emailFuncionarioEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="cpf">CPF</label>
-                          <input type="text" class="form-control cpf" id="cpf" name="cpf"> 
+                          <input type="text" class="form-control cpf" id="cpf" name="cpfFuncionarioEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="data_nascimento">Data de Nascimento</label>
-                          <input type="date" class="form-control data_nascimento" id="data_nascimento" name="data_nascimento"> 
+                          <input type="date" class="form-control data_nascimento" id="data_nascimento" name="data_nascimentoEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="telefone_celular">Telefone Celular</label>
-                          <input type="tel" class="form-control telefone_celular" id="telefone_celular" name="telefone_celular"> 
+                          <input type="tel" class="form-control telefone_celular" id="telefone_celular" name="telefone_celularEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="telefone_residencial">Telefone Residencial</label>
-                          <input type="tel" class="form-control telefone_residencial" id="telefone_residencial" name="telefone_residencial"> 
+                          <input type="tel" class="form-control telefone_residencial" id="telefone_residencial" name="telefone_residencialEdi"> 
                       </div>
                       <div class="form-group mt-2">
                         <label for="id_convenio">Convênio</label>
@@ -639,42 +738,65 @@ $lista_especialidade = $especialidade->Listar();
   <div class="modal fade" id="modalEdicaoFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoFuncionario" aria-hidden="true">
       <div class="modal-dialog" role="document">
           <div class="modal-content">
-              <form action="" method="POST">
+              <form action="../funcionarios/editar_funcionario.php" method="POST">
                   <div class="modal-header">
                       <h5 class="modal-title" id="modalEdicaoFuncionariol">Edição de Funcionário</h5>
                   </div>
                   <div class="modal-body">
-                      <input type="hidden" class="id" name="id">
+                      <input type="hidden" class="id_funcionario" id="id_funcionario" name="id_funcionarioEdi">
                       <div class="form-group">
                           <label for="nome">Nome</label>
-                          <input type="text" class="form-control nome" id="nome" name="nome">
+                          <input type="text" class="form-control nome" id="nome" name="nomeFuncionarioEdi">
                       </div>
                       <div class="form-group mt-3">
                           <label for="email">Email</label>
-                          <input type="email" class="form-control email" id="email" name="email"> 
+                          <input type="email" class="form-control email" id="email" name="emailFuncionarioEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="cpf">CPF</label>
-                          <input type="text" class="form-control cpf" id="cpf" name="cpf"> 
+                          <input type="text" class="form-control cpf" id="cpf" name="cpfFuncionarioEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="data_nascimento">Data de Nascimento</label>
-                          <input type="date" class="form-control data_nascimento" id="data_nascimento" name="data_nascimento"> 
+                          <input type="date" class="form-control data_nascimento" id="data_nascimento" name="data_nascimentoFuncionarioEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="telefone_celular">Telefone Celular</label>
-                          <input type="tel" class="form-control telefone_celular" id="telefone_celular" name="telefone_celular"> 
+                          <input type="tel" class="form-control telefone_celular" id="telefone_celular" name="telefone_celularFuncionarioEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="telefone_residencial">Telefone Residencial</label>
-                          <input type="tel" class="form-control telefone_residencial" id="telefone_residencial" name="telefone_residencial"> 
+                          <input type="tel" class="form-control telefone_residencial" id="telefone_residencial" name="telefone_residencialFuncionarioEdi"> 
                       </div>
                       <div class="form-group mt-2">
                         <label for="id_convenio">Convênio</label>
-                        <select class="form-control id_convenio" name="id_convenio" id="id_convenio">
+                        <select class="form-control id_convenio" name="id_convenioFuncionarioEdi" id="id_convenio">
                         <?php foreach ($lista_convenios as $convenio) { ?>
                           <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
                         <?php } ?>
+                        </select><br>
+                      </div>
+                      <div class="form-group mt-2">
+                        <label for="id_convenio">Cargo</label>
+                        <select class="form-control id_cargo" name="id_cargoFuncionarioEdi" id="id_cargo">
+                        <?php foreach ($lista_cargos as $cargo) { ?>
+                          <option value="<?= $cargo['id']; ?>"><?= $cargo['nome']; ?></option>
+                        <?php } ?>
+                        </select><br>
+                      </div>
+                      <div class="form-group mt-2">
+                        <label for="id_especialidade">Especialidade</label>
+                        <select class="form-control id_especialidade" name="id_especialidadeEdi" id="id_especialidade">
+                        <?php foreach ($lista_especialidade as $especialidade) { ?>
+                          <option value="<?= $especialidade['id']; ?>"><?= $especialidade['especificacao']; ?></option>
+                        <?php } ?>
+                        </select><br>
+                      </div>
+                      <div class="form-group mt-2">
+                        <label for="situacao">Situação</label>
+                        <select class="form-control situacao" name="situacaoFuncionarioEdi" id="situacao">
+                          <option value="Ativo">Ativo</option>
+                          <option value="Inativo">Inativo</option>
                         </select><br>
                       </div>
                   </div>
@@ -873,27 +995,33 @@ $lista_especialidade = $especialidade->Listar();
 
   var button = $(event.relatedTarget) 
 
-  var id = button.data('id_funcionario')
-  var nome = button.data('nome')
-  var email = button.data('email')
-  var cpf = button.data('cpf')
-  var data_nascimento = button.data('data_nascimento')
-  var telefone_celular = button.data('telefone_celular')
-  var telefone_residencial = button.data('telefone_residencial')
-  var id_convenio = button.data('id_convenio')
-  var id_localizacao = button.data('id_localizacao')
+  var id_funcionario = button.data('id')
+  var nome_funcionario = button.data('nome')
+  var email_funcionario = button.data('email')
+  var cpf_funcionario = button.data('cpf')
+  var data_nascimento_funcionario = button.data('data_nascimento')
+  var telefone_celular_funcionario = button.data('telefone_celular')
+  var telefone_residencial_funcionario = button.data('telefone_residencial')
+  var id_convenio_funcionario = button.data('id_convenio')
+  var id_localizacao_funcionario = button.data('id_localizacao')
+  var id_cargo_funcionario = button.data('id_cargo')
+  var id_especialidade_funcionario = button.data('id_especialidade')
+  var situacao_funcionario = button.data('situacao')
 
   var modal = $(this)
 
-  modal.find('.id').val(id)
-  modal.find('.nome').val(nome)
-  modal.find('.email').val(email)
-  modal.find('.cpf').val(cpf)
-  modal.find('.data_nascimento').val(data_nascimento)
-  modal.find('.telefone_celular').val(telefone_celular)
-  modal.find('.telefone_residencial').val(telefone_residencial)
-  modal.find('.id_convenio').val(id_convenio)
-  modal.find('.id_localizacao').val(id_localizacao)
+  modal.find('.id_funcionario').val(id_funcionario)
+  modal.find('.nome').val(nome_funcionario)
+  modal.find('.email').val(email_funcionario)
+  modal.find('.cpf').val(cpf_funcionario)
+  modal.find('.data_nascimento').val(data_nascimento_funcionario)
+  modal.find('.telefone_celular').val(telefone_celular_funcionario)
+  modal.find('.telefone_residencial').val(telefone_residencial_funcionario)
+  modal.find('.id_convenio').val(id_convenio_funcionario)
+  modal.find('.id_localizacao').val(id_localizacao_funcionario)
+  modal.find('.id_cargo').val(id_cargo_funcionario)
+  modal.find('.id_especialidade').val(id_especialidade_funcionario)
+  modal.find('.situacao').val(situacao_funcionario)
 
 })
 

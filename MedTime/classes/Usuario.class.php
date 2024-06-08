@@ -116,7 +116,7 @@ class Usuario {
     }
 
 
-    public function ListarFuncionarios(){
+    public function ListarFuncionariosComEspecialidade(){
 
         $sql = "SELECT usuarios.id AS 'id_funcionario', usuarios.nome, usuarios.email, usuarios.cpf, usuarios.data_nascimento, usuarios.telefone_celular, usuarios.telefone_residencial, usuarios.id_localizacao, localizacoes.cep , usuarios.id_convenio ,convenios.nome AS 'convenio', usuarios.id_cargo, cargos.nome AS 'cargo', usuarios.id_especialidade, especialidades.especificacao, IF(usuarios.situacao>0, 'Ativo', 'Inativo') AS 'situacao'
  
@@ -148,6 +148,36 @@ class Usuario {
         return $resultado;
 
     }
+
+    public function ListarFuncionariosSemEspecialidade(){
+
+        $sql = "SELECT usuarios.id AS 'id_funcionario', usuarios.nome, usuarios.email, usuarios.cpf, usuarios.data_nascimento, usuarios.telefone_celular, usuarios.telefone_residencial, usuarios.id_localizacao, localizacoes.cep , usuarios.id_convenio ,convenios.nome AS 'convenio', usuarios.id_cargo, cargos.nome AS 'cargo', IF(usuarios.situacao>0, 'Ativo', 'Inativo') AS 'situacao'
+ 
+        FROM usuarios
+         
+        INNER JOIN localizacoes ON
+        usuarios.id_localizacao = localizacoes.id
+         
+        INNER JOIN convenios ON
+        usuarios.id_convenio = convenios.id
+         
+        INNER JOIN cargos ON
+        usuarios.id_cargo = cargos.id
+         
+        WHERE usuarios.id_cargo IS NOT NULL AND id_especialidade IS NULL
+        ORDER BY situacao";
+
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        $comando->execute();
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+
+    }
     
     public function ListarMedicos(){
 
@@ -166,10 +196,10 @@ class Usuario {
 
 
     //Método para cadastrar um cliente - Obs: Sem parâmetros como id_cargo, id_especialidade, situacao
-    public function CadastrarCliente(){
+    public function CadastrarClienteSemLocalizacao(){
 
-        $sql = "INSERT INTO usuarios(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone_residencial, id_localizacao, id_convenio) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO usuarios(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone_residencial, id_convenio) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -178,7 +208,7 @@ class Usuario {
         $formato_data = date_format(date_create($this->data_nascimento),"Y/m/d");
 
         try{
-        $comando->execute([$this->nome, $this->email, $hash, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_localizacao, $this->id_convenio]);
+        $comando->execute([$this->nome, $this->email, $hash, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_convenio]);
             
         Banco::desconectar();
 
@@ -235,7 +265,7 @@ class Usuario {
 
                 Banco::desconectar();
 
-                return $comando->rowCount();
+                return 1;
 
             } catch(PDOEXCEPTION $e){
                 Banco::desconectar();
@@ -263,7 +293,7 @@ class Usuario {
 
                 Banco::desconectar();
 
-                return $comando->rowCount();
+                return 1;
 
             } catch(PDOEXCEPTION $e){
                 Banco::desconectar();
@@ -312,8 +342,10 @@ class Usuario {
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
+        $formato_data = date_format(date_create($this->data_nascimento),"Y/m/d");
+
         try{
-            $comando->execute([$this->nome, $this->email, $this->cpf, $this->data_nascimento, $this->telefone_celular, $this->telefone_residencial, $this->id_convenio, $this->id]);
+            $comando->execute([$this->nome, $this->email, $this->cpf, $formato_data, $this->telefone_celular, $this->telefone_residencial, $this->id_convenio, $this->id]);
 
             Banco::desconectar();
 
