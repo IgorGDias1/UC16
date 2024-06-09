@@ -31,7 +31,7 @@ class Agendamento {
          
         agendamentos.data_agendado AS 'data consulta',
          
-        IF(agendamentos.situacao>0, 'Ativo', 'Inativo') AS 'situacao'
+        IF(agendamentos.situacao>0, 'Pendente', 'Concluído') AS 'situacao'
          
         FROM agendamentos
          
@@ -46,6 +46,53 @@ class Agendamento {
          
         INNER JOIN localizacoes ON
         agendamentos.id_localizacao = localizacoes.id";
+        
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute();
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+
+    }
+
+    public function ListarPendente(){
+        $sql = "SELECT usuarios.nome AS 'paciente',
+ 
+        (SELECT usuarios.nome 
+        FROM usuarios WHERE usuarios.id = agendamentos.id_funcionario) AS 'médico',
+         
+        (SELECT usuarios.id
+        FROM usuarios WHERE usuarios.id = agendamentos.id_funcionario) AS 'id_medico',
+
+        agendamentos.id, 
+        exames.id AS 'id_exame', exames.nome AS 'exame',
+         
+        convenios.id AS 'id_convenio', convenios.nome AS 'convenio',
+         
+        localizacoes.id AS 'id_clinica', localizacoes.complemento AS 'clinica',
+         
+        agendamentos.data_agendado AS 'data consulta',
+         
+        IF(agendamentos.situacao>0, 'Pendente', 'Concluído') AS 'situacao'
+         
+        FROM agendamentos
+         
+        INNER JOIN usuarios ON
+        agendamentos.id_cliente = usuarios.id
+         
+        INNER JOIN exames ON
+        agendamentos.id_exame = exames.id
+         
+        INNER JOIN convenios ON
+        agendamentos.id_convenio = convenios.id
+         
+        INNER JOIN localizacoes ON
+        agendamentos.id_localizacao = localizacoes.id
+        
+        WHERE agendamentos.situacao = 1 AND agendamentos.data_agendado = CURRENT_DATE";
         
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
@@ -124,7 +171,26 @@ class Agendamento {
         return $comando -> rowCount();
     }
 
+
+    public function FinalizarAgendamento(){
+        $sql = "UPDATE agendamentos SET situacao = ?  WHERE id = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        try{
+            $comando->execute([$this->situacao, $this->id]);
+
+            Banco::desconectar();
+
+            return $comando->rowCount();
+
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }   
+    }
 }
+
 
 
 ?>

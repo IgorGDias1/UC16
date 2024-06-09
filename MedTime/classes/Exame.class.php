@@ -9,7 +9,11 @@ Class Exame {
     public $id_responsavel;
 
     public function Listar(){
-        $sql = "SELECT * FROM exames";
+        $sql = "SELECT exames.id, exames.nome, exames.id_responsavel, 
+        usuarios.nome AS 'funcionario_resp' FROM exames
+        
+        INNER JOIN usuarios ON
+        exames.id_responsavel = usuarios.id";
         $banco = Banco::conectar();
 
         $comando = $banco->prepare($sql);

@@ -17,6 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $usuario->telefone_residencial = strip_tags($_POST['telefone_residencial']);
         $usuario->id_convenio = strip_tags($_POST['id_convenio']);
 
+
         if($usuario -> CadastrarClienteSemLocalizacao() == 1){
             header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');
         

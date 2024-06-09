@@ -11,7 +11,6 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['id_cargo'] == "") {
 require_once('../../classes/Usuario.class.php');
 $usuario = new Usuario();
 $lista_usuariosSemLocalizacao = $usuario->ListarClientesSemLocalizacao();
-
 $lista_usuarioComLocalizacao = $usuario->ListarClientesComLocalizacao();
 
 $lista_funcionarios = $usuario->ListarFuncionariosComEspecialidade();
@@ -94,9 +93,13 @@ $lista_especialidade = $especialidade->Listar();
               </button>
               <ul class="dropdown-menu dropdown-menu px-2">
                 <li><a class="dropdown-item" href="../enderecos/gerenciamento_enderecos.php">Endereços</a></li>
+                <li><a class="dropdown-item" href="../agendamentos/gerenciamento_agendamentos.php">Agendamentos</a></li>
                 <li><a class="dropdown-item" href="#">Convenios</a></li>
                 <li><a class="dropdown-item" href="#">Resultados</a></li>
               </ul>
+            </li>
+            <li class="nav-item px-3 mt-4">
+              <a class="nav-link" href="../atendimento/atendimento.php">Atendimento</a>
             </li>
             <li class="nav-item px-3 mt-4">
               <a class="nav-link" href="#">Exames</a>
@@ -492,7 +495,10 @@ $lista_especialidade = $especialidade->Listar();
           <div class="modal-body">
             <div class="form-group mt-3">
               <label for="nomeFuncionario">Nome</label>
-              <input type="text" class="form-control" id="nomeFuncionario placeholder="Digite o nome do funcionário" name="nomeFuncionario" required>
+              <input type="text" class="form-control" id="nomeFuncionarioa" placeholder="Digite o nome do funcionário" name="nomeFuncionario" required>
+              <div class="row text-success fs-6 fw-bold ms-2" id="nomeOk" hidden>
+                Tudo certo!
+              </div>
             </div>
             <div class="form-group mt-3">
               <label for="emailFuncionario">Email</label>
@@ -1092,7 +1098,6 @@ $lista_especialidade = $especialidade->Listar();
   })
 
   </script>
-  
 
 </body>
 

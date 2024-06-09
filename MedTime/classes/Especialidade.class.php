@@ -9,7 +9,12 @@ class Especialidade {
     public $especificacao;
 
     public function Listar(){
-        $sql = "SELECT * FROM especialidades";
+        $sql = "SELECT especialidades.id, especialidades.id_cargo, cargos.nome, especialidades.especificacao
+        FROM especialidades
+        
+        INNER JOIN cargos ON
+        especialidades.id_cargo = cargos.id";
+        
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute();

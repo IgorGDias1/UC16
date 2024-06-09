@@ -91,10 +91,14 @@ $listar_exame = $exame->Listar();
                 Gerenciamentos
               </button>
               <ul class="dropdown-menu dropdown-menu px-2">
+              <li><a class="dropdown-item" href="../clientes/gerenciamento_clientes.php">Clientes</a></li>
                 <li><a class="dropdown-item" href="../enderecos/gerenciamento_enderecos.php">Endereços</a></li>
                 <li><a class="dropdown-item" href="#">Convenios</a></li>
                 <li><a class="dropdown-item" href="#">Resultados</a></li>
               </ul>
+            </li>
+            <li class="nav-item px-3 mt-4">
+              <a class="nav-link" href="../atendimento/atendimento.php">Atendimento</a>
             </li>
             <li class="nav-item px-3 mt-4">
               <a class="nav-link" href="#">Exames</a>

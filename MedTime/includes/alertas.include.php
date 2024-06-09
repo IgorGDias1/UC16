@@ -20,6 +20,9 @@
         "removeragendamento" => "Agendamento deletado",
         "editaragendamento" => "Informações editadas",
 
+        //Atendimento
+        "finalizaratendimento" => "Atendimento finalizado",
+
         //Cargos
         "cadastrarcargo" => "Cargo cadastrado",
         "removercargo" => "Cargo removido!",
@@ -64,6 +67,9 @@
         "cadastraragendamento" => "Erro ao cadastrar agendamento",
         "removeragendamento" => "Erro!",
         "editaragendamento" => "Erro ao editar agendamento",
+
+        //Atendimento
+        "finalizaratendimento" => "Erro",
 
         //Cargos
         "cadastrarcargo" => "Erro!",
