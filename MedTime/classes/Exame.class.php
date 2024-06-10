@@ -72,6 +72,25 @@ Class Exame {
 
         return $comando->rowCount();
     }
+
+    public function Editar(){
+        $sql = "UPDATE exames SET nome = ?, id_responsavel = ?  WHERE id = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        try{
+            $comando->execute([$this->nome, $this->id_responsavel, $this->id]);
+
+            Banco::desconectar();
+
+            return $comando->rowCount();
+
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }   
+    }
+
 }
 
 

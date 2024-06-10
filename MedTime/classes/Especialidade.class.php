@@ -61,6 +61,24 @@ class Especialidade {
         return $comando -> rowCount();
     }
 
+    public function Editar(){
+        $sql = "UPDATE especialidades SET id_cargo = ?, especificacao = ?  WHERE id = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        try{
+            $comando->execute([$this->id_cargo, $this->especificacao, $this->id]);
+
+            Banco::desconectar();
+
+            return $comando->rowCount();
+
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }   
+    }
+
 }
 
 

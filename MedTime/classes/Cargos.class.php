@@ -54,6 +54,24 @@ class Cargos {
         return $comando -> rowCount();
     }
 
+    public function Editar(){
+        $sql = "UPDATE cargos SET nome = ?  WHERE id = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        try{
+            $comando->execute([$this->nome, $this->id]);
+
+            Banco::desconectar();
+
+            return $comando->rowCount();
+
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }   
+    }
+
 
 }
 
