@@ -183,7 +183,11 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="nomePaciente">Paciente</label>
               <br>
-              <input type="text" class="form-control" id="paciente" name="paciente">
+              <select class="form-control " id="paciente" name="paciente" multiple="multiple" style="width: 100%">
+                <?php foreach ($listar_usuario as $u) { ?>
+                  <option value="<?= $u['id']; ?>" name="id_medico"><?= $u['nome']; ?></option>
+                <?php } ?>
+              </select>
             </div>
 
             <br>
@@ -336,9 +340,15 @@ $listar_exame = $exame->Listar();
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
   <?php include_once('../../includes/alertas.include.php'); ?>
 
+  <script>
+    $('#paciente').select2({
+        dropdownParent: $('#modalCadastro')
+    });
+  </script>
 
   <script src="script.js"></script>
   <!-- API ViaCEP -->

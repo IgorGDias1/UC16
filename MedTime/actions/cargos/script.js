@@ -1,4 +1,4 @@
-function excluir(id){
+function excluirCargo(id){
     Swal.fire({
     title: "Tem certeza?",
     text: "Não será possível desfazer essa ação!",

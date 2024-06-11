@@ -50,7 +50,7 @@ class Especialidade {
 
     public function Deletar(){
 
-        $sql = "DELETE * FROM especialidades WHERE id = ?";
+        $sql = "DELETE FROM especialidades WHERE id = ?";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);

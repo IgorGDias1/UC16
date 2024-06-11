@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -26,9 +32,10 @@
 <body>
 
     <div class="container-fluid">
-        <?php
-        include_once("includes/elementos.include.php");
-        ?>
+    <?php 
+       $paginaAtiva = "3";
+       include_once("includes/elementos.include.php");
+       ?>
 
         <!-- Linha da tabela de agendamentos -->
         <div class="row justify-content-center">
@@ -78,10 +85,6 @@
                 <span class="text-light ">Copyright MedTime Agendamentos Online-2032. Todos os direitos reservados</span>
             </div>
         </div>
-
-
-
-
 
     </div>
 
