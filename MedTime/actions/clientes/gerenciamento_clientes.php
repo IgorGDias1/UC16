@@ -59,9 +59,6 @@ $lista_especialidade = $especialidade->Listar();
       margin: 0;
     }
 
-    input[type=number] {
-      -moz-appearance: textfield;
-    }
   </style>
 
 
@@ -128,7 +125,7 @@ $lista_especialidade = $especialidade->Listar();
     <h6 class="text-center">Clientes sem endereço cadastrado</h6>
     <div class="row mb-3">
       <div class="col d-flex justify-content-end">
-        <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus-circle"></i> Cadastrar Usuário</button>
+        <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastroCliente"><i class="bi bi-plus-circle"></i> Cadastrar Usuário</button>
       </div>
     </div>
     <div class="col d-flex justify-content-start mb-3">
@@ -180,7 +177,7 @@ $lista_especialidade = $especialidade->Listar();
 
             <!-- Botão de edicao -->
             <td>
-            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
+            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicaoCliente" 
             data-id="<?=$usuario['id_usuario'];?>" 
             data-nome="<?=$usuario['nome'];?>" 
             data-email="<?=$usuario['email'];?>" 
@@ -257,7 +254,7 @@ $lista_especialidade = $especialidade->Listar();
             </td>
 
             <td>
-            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
+            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicaoCliente" 
             data-id="<?=$usuario['id_usuario'];?>" 
             data-nome="<?=$usuario['nome'];?>" 
             data-email="<?=$usuario['email'];?>" 
@@ -484,7 +481,7 @@ $lista_especialidade = $especialidade->Listar();
   </div>
 
   <!-- Modal de cadastro de funcionario -->
-   <div class="modal fade" id="modalCadastroFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalCadastroFuncionario" aria-hidden="true">
+   <div class="modal fade" id="modalCadastroFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalCadastroFuncionarioLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form action="../funcionarios/cadastrar_funcionario.php" method="POST">
@@ -564,7 +561,7 @@ $lista_especialidade = $especialidade->Listar();
 
             <div class="form-group mt-2">
                 <label for="id_cargoFuncionario">Cargo</label>
-                <select class="form-control id_cargo" name="id_cargoFuncionario" id="id_cargo">
+                <select class="form-control id_cargo" name="id_cargoFuncionario" id="id_cargoFuncionario">
                   <?php foreach ($lista_cargos as $cargo) { ?>
                   <option value="<?= $cargo['id']; ?>"><?= $cargo['nome']; ?></option>
                   <?php } ?>
@@ -596,50 +593,174 @@ $lista_especialidade = $especialidade->Listar();
           </div>
       </div>
       </form>
+      </div>
+      </div>
+   </div>
+  <!-- Modal de edição de funcionario -->
+  <div class="modal fade" id="modalEdicaoFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoFuncionario" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <form action="../funcionarios/editar_funcionario.php" method="POST">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalEdicaoFuncionariol">Edição de Funcionário</h5>
+                  </div>
+                  <div class="modal-body">
+                      <input type="hidden" class="id_funcionario" id="id_funcionario" name="id_funcionarioEdi">
+                      <div class="form-group">
+                          <label for="nome">Nome</label>
+                          <input type="text" class="form-control nome" id="nomeFuncionarioEdi" name="nomeFuncionarioEdi">
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="email">Email</label>
+                          <input type="email" class="form-control email" id="emailFuncionarioEdi" name="emailFuncionarioEdi"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="cpf">CPF</label>
+                          <input type="text" class="form-control cpf" id="cpfFuncionarioEdi" name="cpfFuncionarioEdi"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="data_nascimento">Data de Nascimento</label>
+                          <input type="date" class="form-control data_nascimento" id="data_nascimentoFuncionarioEdi" name="data_nascimentoFuncionarioEdi"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="telefone_celular">Telefone Celular</label>
+                          <input type="tel" class="form-control telefone_celular" id="telefone_celularFuncionarioEdi" name="telefone_celularFuncionarioEdi"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="telefone_residencial">Telefone Residencial</label>
+                          <input type="tel" class="form-control telefone_residencial" id="telefone_residencialFuncionarioEdi" name="telefone_residencialFuncionarioEdi"> 
+                      </div>
+                      <div class="form-group mt-2">
+                        <label for="id_convenio">Convênio</label>
+                        <select class="form-control id_convenio" name="id_convenioFuncionarioEdi" id="id_convenioFuncionarioEdi">
+                        <?php foreach ($lista_convenios as $convenio) { ?>
+                          <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
+                        <?php } ?>
+                        </select><br>
+                      </div>
+                      <div class="form-group mt-2">
+                        <label for="id_convenio">Cargo</label>
+                        <select class="form-control id_cargo" name="id_cargoFuncionarioEdi" id="id_cargoFuncionarioEdi">
+                        <?php foreach ($lista_cargos as $cargo) { ?>
+                          <option value="<?= $cargo['id']; ?>"><?= $cargo['nome']; ?></option>
+                        <?php } ?>
+                        </select><br>
+                      </div>
+                      <div class="form-group mt-2">
+                        <label for="id_especialidade">Especialidade</label>
+                        <select class="form-control id_especialidade" name="id_especialidadeEdi" id="id_especialidadeFuncionarioEdi">
+                        <?php foreach ($lista_especialidade as $especialidade) { ?>
+                          <option value="<?= $especialidade['id']; ?>"><?= $especialidade['especificacao']; ?></option>
+                        <?php } ?>
+                        </select><br>
+                      </div>
+                      <div class="form-group mt-2">
+                        <label for="situacao">Situação</label>
+                        <select class="form-control situacao" name="situacaoFuncionarioEdi" id="situacaoFuncionarioEdi">
+                          <option value="Ativo">Ativo</option>
+                          <option value="Inativo">Inativo</option>
+                        </select><br>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                      <button type="submit" class="btn btn-success">Salvar</button>
+                  </div>
+              </form>
+              </div>
+          </div>
     </div>
-  </div>
-  </div>
 
+  <!-- Modal de informação do funcionario -->
+  <div class="modal fade" id="modalInfoFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalInfoFuncionarioLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <div class="modal-content">
+              <form action="" method="POST">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="modalInfoFuncionario">Informações do Funcionário</h5>
+                  </div>
+                  <div class="modal-body">
+                      <input type="hidden" class="id" name="id">
+                      <div class="form-group mt-3">
+                          <label for="emailInfoFuncionario">Email</label>
+                          <input readonly type="email" class="form-control email" id="emailInfoFuncionario" name="emailInfoFuncionario"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="cpfInfoFuncionario">CPF</label>
+                          <input readonly type="text" class="form-control cpf" id="cpfInfoFuncionarioInfoFuncionario" name="cpfInfoFuncionario"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="telefone_celularInfoFuncionario">Telefone Celular</label>
+                          <input readonly type="tel" class="form-control telefone_celular" id="telefone_celularInfoFuncionario" name="telefone_celularInfoFuncionario"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="telefone_residencialInfoFuncionario">Telefone Residencial</label>
+                          <input readonly type="tel" class="form-control telefone_residencial" id="telefone_residencialInfoFuncionario" name="telefone_residencialInfoFuncionario"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="cepInfoFuncionario">CEP</label>
+                          <input readonly type="number" class="form-control cep" id="cepInfoFuncionario" name="cepInfoFuncionario"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="convenioInfoFuncionario">Convênio</label>
+                          <input readonly type="text" class="form-control convenio" id="convenioInfoFuncionario" name="convenioInfoFuncionario"> 
+                      </div>
+                      <div class="form-group mt-3">
+                          <label for="especificacaoInfoFuncionario">Especialidade</label>
+                          <input readonly type="text" class="form-control especificacao" id="especificacaoInfoFuncionario" name="especificacaoInfoFuncionario"> 
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                  </div>
+              </form>
+              </div>
+          </div>
+      </div>
+
+
+  
   <?php }?>
 
+
   <!-- Modal de cadastro de cliente -->
-  <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel" aria-hidden="true">
+  <div class="modal fade" id="modalCadastroCliente" tabindex="-1" role="dialog" aria-labelledby="modalCadastroClienteLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <form action="cadastrar_cliente.php" method="POST">
           <div class="modal-header d-flex justify-content-center">
-            <h5 class="modal-title" id="modalCadastroLabel">Cadastrar novo cliente</h5>
+            <h5 class="modal-title" id="modalCadastroClienteLabel">Cadastrar novo cliente</h5>
             </button>
           </div>
           <div class="modal-body">
             <div class="form-group mt-3">
-              <label for="nomeUsuario">Nome</label>
-              <input type="text" class="form-control" id="nomeUsuario" placeholder="Digite o nome do cliente" name="nome" required>
+              <label for="nomeCliente">Nome</label>
+              <input type="text" class="form-control" id="nomeCliente" name="nomeCliente" placeholder="Digite o nome do cliente" required>
             </div>
             <div class="form-group mt-3">
-              <label for="emailUsuario">Email</label>
-              <input type="email" class="form-control" id="emailUsuario" name="email" placeholder="email@email.com" required>
+              <label for="emailCLiente">Email</label>
+              <input type="email" class="form-control" id="emailCLiente" name="emailCliente" placeholder="email@email.com" required>
             </div>
             <div class="form-group mt-3">
-              <label for="senha">Senha</label>
-              <input type="password" class="form-control" id="senha" name="senha" required>
+              <label for="senhaCliente">Senha</label>
+              <input type="password" class="form-control" id="senhaCliente" name="senhaCliente" required>
               <input class="mt-3" type="checkbox" class="form-check-input" onclick="mostrarSenha()"> Mostrar Senha
             </div>
             <div class="form-group mt-3">
-              <label for="cpfUsuario">CPF</label>
-              <input type="text" maxlength="11" class="form-control" id="cpfUsuario" name="cpf"></input required>
+              <label for="cpfCliente">CPF</label>
+              <input type="text" maxlength="11" class="form-control" id="cpfCliente" name="cpfCliente"></input required>
             </div>
             <div class="form-group mt-3">
-              <label for="data_nasciUsuario">Data de Nascimento</label>
-              <input type="date" class="form-control" id="datanasciUsuario" name="data_nascimento"></input>
+              <label for="data_nasciCliente">Data de Nascimento</label>
+              <input type="date" class="form-control" id="data_nasciCliente" name="data_nasciCliente"></input>
             </div required>
             <div class="form-group mt-3">
-              <label for="telcelUsuario">Telefone Celular</label>
-              <input type="tel" class="form-control" id="telcelUsuario" maxlenght="14" placeholder="(DDD) 9 9999-9999" name="telefone_celular">
+              <label for="telcelCliente">Telefone Celular</label>
+              <input type="tel" class="form-control" id="telcelCliente" maxlenght="14" name="telCelCliente" placeholder="(DDD) 9 9999-9999">
             </div>
             <div class="form-group mt-3">
-              <label for="telresUsuario">Telefone Residencial</label>
-              <input type="tel" class="form-control" id="telresUsuario" maxlenght="14" placeholder="(DDD) 9 9999-9999" name="telefone_residencial">
+              <label for="telresCliente">Telefone Residencial</label>
+              <input type="tel" class="form-control" id="telresCliente" maxlenght="14" name="telResCliente" placeholder="(DDD) 9 9999-9999">
             </div>
             <br>
             <hr>
@@ -669,8 +790,8 @@ $lista_especialidade = $especialidade->Listar();
             <button type="button" class="btn btn-warning btn-sm mt-3" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
         <br><hr>
             <div class="form-group mt-2">
-              <label for="convenio">Convênio</label>
-              <select class="form-control" name="id_convenio" id="convenio">
+              <label for="id_convenioCliente">Convênio</label>
+              <select class="form-control" name="id_convenioCliente" id="id_convenioCliente">
                 <?php foreach ($lista_convenios as $convenio) { ?>
                   <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
                 <?php } ?>
@@ -688,42 +809,42 @@ $lista_especialidade = $especialidade->Listar();
   </div>
 
   <!-- Modal de edição de cliente -->
-  <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+  <div class="modal fade" id="modalEdicaoCliente" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoClienteLabel" aria-hidden="true"> 
       <div class="modal-dialog" role="document">
           <div class="modal-content">
-              <form action="../funcionarios/editar_funcionario.php" method="POST">
+              <form action="editar_cliente.php" method="POST">
                   <div class="modal-header">
                       <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
                   </div>
                   <div class="modal-body">
-                      <input type="hidden" class="id" name="id">
+                      <input type="hidden" class="id" name="id_ClienteEdi">
                       <div class="form-group">
                           <label for="nome">Nome</label>
-                          <input type="text" class="form-control nome" id="nome" name="nomeFuncionarioEdi">
+                          <input type="text" class="form-control nome" id="nomeClienteEdi" name="nomeClienteEdi">
                       </div>
                       <div class="form-group mt-3">
                           <label for="email">Email</label>
-                          <input type="email" class="form-control email" id="email" name="emailFuncionarioEdi"> 
+                          <input type="email" class="form-control email" id="emailClienteEdi" name="emailClienteEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="cpf">CPF</label>
-                          <input type="text" class="form-control cpf" id="cpf" name="cpfFuncionarioEdi"> 
+                          <input type="text" class="form-control cpf" id="cpfClienteEdi" name="cpfClienteEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="data_nascimento">Data de Nascimento</label>
-                          <input type="date" class="form-control data_nascimento" id="data_nascimento" name="data_nascimentoEdi"> 
+                          <input type="date" class="form-control data_nascimento" id="data_nasciClienteEdi" name="data_nasciClienteEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="telefone_celular">Telefone Celular</label>
-                          <input type="tel" class="form-control telefone_celular" id="telefone_celular" name="telefone_celularEdi"> 
+                          <input type="tel" class="form-control telefone_celular" id="telefone_celClienteEdi" name="telefone_celClienteEdi"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="telefone_residencial">Telefone Residencial</label>
-                          <input type="tel" class="form-control telefone_residencial" id="telefone_residencial" name="telefone_residencialEdi"> 
+                          <input type="tel" class="form-control telefone_residencial" id="telefone_resClienteEdi" name="telefone_resClienteEdi"> 
                       </div>
                       <div class="form-group mt-2">
                         <label for="id_convenio">Convênio</label>
-                        <select class="form-control id_convenio" name="id_convenio" id="id_convenio">
+                        <select class="form-control id_convenio" name="id_convenioClienteEdi" id="id_convenioClienteEdi">
                         <?php foreach ($lista_convenios as $convenio) { ?>
                           <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
                         <?php } ?>
@@ -740,80 +861,9 @@ $lista_especialidade = $especialidade->Listar();
         </div>
       </div>
 
-  <!-- Modal de edição de funcionario -->
-  <div class="modal fade" id="modalEdicaoFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoFuncionario" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <form action="../funcionarios/editar_funcionario.php" method="POST">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="modalEdicaoFuncionariol">Edição de Funcionário</h5>
-                  </div>
-                  <div class="modal-body">
-                      <input type="hidden" class="id_funcionario" id="id_funcionario" name="id_funcionarioEdi">
-                      <div class="form-group">
-                          <label for="nome">Nome</label>
-                          <input type="text" class="form-control nome" id="nome" name="nomeFuncionarioEdi">
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="email">Email</label>
-                          <input type="email" class="form-control email" id="email" name="emailFuncionarioEdi"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="cpf">CPF</label>
-                          <input type="text" class="form-control cpf" id="cpf" name="cpfFuncionarioEdi"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="data_nascimento">Data de Nascimento</label>
-                          <input type="date" class="form-control data_nascimento" id="data_nascimento" name="data_nascimentoFuncionarioEdi"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="telefone_celular">Telefone Celular</label>
-                          <input type="tel" class="form-control telefone_celular" id="telefone_celular" name="telefone_celularFuncionarioEdi"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="telefone_residencial">Telefone Residencial</label>
-                          <input type="tel" class="form-control telefone_residencial" id="telefone_residencial" name="telefone_residencialFuncionarioEdi"> 
-                      </div>
-                      <div class="form-group mt-2">
-                        <label for="id_convenio">Convênio</label>
-                        <select class="form-control id_convenio" name="id_convenioFuncionarioEdi" id="id_convenio">
-                        <?php foreach ($lista_convenios as $convenio) { ?>
-                          <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
-                        <?php } ?>
-                        </select><br>
-                      </div>
-                      <div class="form-group mt-2">
-                        <label for="id_convenio">Cargo</label>
-                        <select class="form-control id_cargo" name="id_cargoFuncionarioEdi" id="id_cargo">
-                        <?php foreach ($lista_cargos as $cargo) { ?>
-                          <option value="<?= $cargo['id']; ?>"><?= $cargo['nome']; ?></option>
-                        <?php } ?>
-                        </select><br>
-                      </div>
-                      <div class="form-group mt-2">
-                        <label for="id_especialidade">Especialidade</label>
-                        <select class="form-control id_especialidade" name="id_especialidadeEdi" id="id_especialidade">
-                        <?php foreach ($lista_especialidade as $especialidade) { ?>
-                          <option value="<?= $especialidade['id']; ?>"><?= $especialidade['especificacao']; ?></option>
-                        <?php } ?>
-                        </select><br>
-                      </div>
-                      <div class="form-group mt-2">
-                        <label for="situacao">Situação</label>
-                        <select class="form-control situacao" name="situacaoFuncionarioEdi" id="situacao">
-                          <option value="Ativo">Ativo</option>
-                          <option value="Inativo">Inativo</option>
-                        </select><br>
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                      <button type="submit" class="btn btn-success">Salvar</button>
-                  </div>
-              </form>
-              </div>
-          </div>
-      </div>
+      <!-- Informação -->
+
+
   <!-- Modal de informação do cliente -->
   <div class="modal fade" id="modalInfoCliente" tabindex="-1" role="dialog" aria-labelledby="modalInfoClienteLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -826,11 +876,11 @@ $lista_especialidade = $especialidade->Listar();
                       <input type="hidden" class="id" name="id">
                       <div class="form-group mt-3">
                           <label for="email">Email</label>
-                          <input readonly type="email" class="form-control email" id="email" name="email"> 
+                          <input readonly type="email" class="form-control email" id="emailInfoCliente" name="email"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="cpf">CPF</label>
-                          <input readonly type="text" class="form-control cpf" id="cpf" name="cpf"> 
+                          <input readonly type="text" class="form-control cpf" id="cpfInfoCliente" name="cpf"> 
                       </div>
                       <div class="form-group mt-3">
                           <label for="telefone_celular">Telefone Celular</label>
@@ -842,7 +892,7 @@ $lista_especialidade = $especialidade->Listar();
                       </div>
                       <div class="form-group mt-3">
                           <label for="cep">CEP</label>
-                          <input readonly type="number" class="form-control cep" id="cep" name="cep"> 
+                          <input readonly type="number" class="form-control cep" id="cepInfo" name="cep"> 
                       </div>
                   </div>
                   <div class="modal-footer">
@@ -853,65 +903,21 @@ $lista_especialidade = $especialidade->Listar();
           </div>
       </div>
 
-  <!-- Modal de informação do funcionario -->
-  <div class="modal fade" id="modalInfoFuncionario" tabindex="-1" role="dialog" aria-labelledby="modalInfoFuncionarioLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-          <div class="modal-content">
-              <form action="" method="POST">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="modalInfoFuncionario">Informações do Funcionário</h5>
-                  </div>
-                  <div class="modal-body">
-                      <input type="hidden" class="id" name="id">
-                      <div class="form-group mt-3">
-                          <label for="email">Email</label>
-                          <input readonly type="email" class="form-control email" id="email" name="email"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="cpf">CPF</label>
-                          <input readonly type="text" class="form-control cpf" id="cpf" name="cpf"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="telefone_celular">Telefone Celular</label>
-                          <input readonly type="tel" class="form-control telefone_celular" id="telefone_celular" name="telefone_celular"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="telefone_residencial">Telefone Residencial</label>
-                          <input readonly type="tel" class="form-control telefone_residencial" id="telefone_residencial" name="telefone_residencial"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="cep">CEP</label>
-                          <input readonly type="number" class="form-control cep" id="cep" name="cep"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="convenio">Convênio</label>
-                          <input readonly type="text" class="form-control convenio" id="convenio" name="convenio"> 
-                      </div>
-                      <div class="form-group mt-3">
-                          <label for="especificacao">Especialidade</label>
-                          <input readonly type="text" class="form-control especificacao" id="especificacao" name="especificacao"> 
-                      </div>
-                  </div>
-                  <div class="modal-footer">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                  </div>
-              </form>
-              </div>
-          </div>
-      </div>
+  
 
   <!-- Modal de cargo -->
   <div class="modal fade" id="modalAddCargo" tabindex="-1" role="dialog" aria-labelledby="modalAddCargoLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
-                    <form action="../cargos/cadastrar_cargo.php" method="POST">
+                    <script src="post.js"></script>
+                    <form onsubmit="cadastrarCargo()">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalAddCargoLabel">Adicionar Cargo</h5>
                         </div>
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="nomeCargo">Nome do Cargo</label>
-                                <input type="text" class="form-control" id="nomeCargo" placeholder="Digite o nome do cargo" name="cargo">
+                                <input type="text" class="form-control" id="nomeCargo" placeholder="Digite o nome do cargo" name="nomeCargo">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -952,7 +958,7 @@ $lista_especialidade = $especialidade->Listar();
                 </form>
             </div>
         </div>
-  </div>
+  </div> 
  
       <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
@@ -969,7 +975,7 @@ $lista_especialidade = $especialidade->Listar();
   <script src="../funcionarios/script.js"></script>
 
   <script>
-  $('#modalEdicao').on('show.bs.modal', function (event) {
+  $('#modalEdicaoCliente').on('show.bs.modal', function (event) {
 
   var button = $(event.relatedTarget) 
 

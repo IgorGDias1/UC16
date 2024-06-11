@@ -4,17 +4,17 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     require_once('../../classes/Cargos.class.php');
 
     $cargo = new Cargos();
-    $cargo->nome = $_POST['cargo'];
+    $cargo->nome = $_POST['nomeCargo'];
 
     if($cargo->Cadastrar() == 1){
-        header('Location: ../clientes/gerenciamento_clientes.php?sucesso=cadastrarcargo');
+        echo 'SUCESSO';
 
     }else{
-        header('Location: .../clientes/gerenciamento_clientes.php?falha=cadastrarcargo');
+        echo 'FALHA';
     }
 
 }else{
-    header('Location: .../clientes/gerenciamento_clientes.php?falha=cadastrarcargo');
+    echo 'FALHAPOST';
 }
 
 ?>

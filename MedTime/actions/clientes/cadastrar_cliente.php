@@ -8,14 +8,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $usuario = new Usuario();    
     
-        $usuario->nome = strip_tags($_POST['nome']);
-        $usuario->email = strip_tags($_POST['email']);
-        $usuario->senha = strip_tags($_POST['senha']);
-        $usuario->cpf = strip_tags($_POST['cpf']);
-        $usuario->data_nascimento = strip_tags($_POST['data_nascimento']);
-        $usuario->telefone_celular = strip_tags($_POST['telefone_celular']);
-        $usuario->telefone_residencial = strip_tags($_POST['telefone_residencial']);
-        $usuario->id_convenio = strip_tags($_POST['id_convenio']);
+        $usuario->nome = strip_tags($_POST['nomeCliente']);
+        $usuario->email = strip_tags($_POST['emailCliente']);
+        $usuario->senha = strip_tags($_POST['senhaCliente']);
+        $usuario->cpf = strip_tags($_POST['cpfCliente']);
+        $usuario->data_nascimento = strip_tags($_POST['data_nasciCliente']);
+        $usuario->telefone_celular = strip_tags($_POST['telCelCliente']);
+        $usuario->telefone_residencial = strip_tags($_POST['telResCliente']);
+        $usuario->id_convenio = strip_tags($_POST['id_convenioCliente']);
 
 
         if($usuario -> CadastrarClienteSemLocalizacao() == 1){
@@ -45,14 +45,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             require_once('../../classes/Usuario.class.php');
             $usuario = new Usuario();    
     
-            $usuario->nome = strip_tags($_POST['nome']);
-            $usuario->email = strip_tags($_POST['email']);
-            $usuario->senha = strip_tags($_POST['senha']);
-            $usuario->cpf = strip_tags($_POST['cpf']);
-            $usuario->data_nascimento = strip_tags($_POST['data_nascimento']);
-            $usuario->telefone_celular = strip_tags($_POST['telefone_celular']);
-            $usuario->telefone_residencial = strip_tags($_POST['telefone_residencial']);
-            $usuario->id_convenio = strip_tags($_POST['id_convenio']);
+            $usuario->nome = strip_tags($_POST['nomeCliente']);
+            $usuario->email = strip_tags($_POST['emailCliente']);
+            $usuario->senha = strip_tags($_POST['senhaCliente']);
+            $usuario->cpf = strip_tags($_POST['cpfCliente']);
+            $usuario->data_nascimento = strip_tags($_POST['data_nasciCliente']);
+            $usuario->telefone_celular = strip_tags($_POST['telCelCliente']);
+            $usuario->telefone_residencial = strip_tags($_POST['telResCliente']);
+            $usuario->id_convenio = strip_tags($_POST['id_convenioCliente']);
             // Atribuindo o ID do CEP ao usuário
             $usuario->id_localizacao = $r['id'];
 
@@ -68,14 +68,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             $usuario = new Usuario();
         
-            $usuario -> nome = strip_tags($_POST['nome']);
-            $usuario -> email = strip_tags($_POST['email']);
-            $usuario -> senha = strip_tags($_POST['senha']);
-            $usuario -> cpf = strip_tags($_POST['cpf']);
-            $usuario -> data_nascimento = strip_tags($_POST['data_nascimento']);
-            $usuario -> telefone_celular = strip_tags($_POST['telefone_celular']);
-            $usuario -> telefone_residencial = strip_tags($_POST['telefone_residencial']);
-            $usuario -> id_convenio = strip_tags($_POST['id_convenio']);
+            $usuario -> nome = strip_tags($_POST['nomeCliente']);
+            $usuario -> email = strip_tags($_POST['emailCliente']);
+            $usuario -> senha = strip_tags($_POST['senhaCliente']);
+            $usuario -> cpf = strip_tags($_POST['cpfCliente']);
+            $usuario -> data_nascimento = strip_tags($_POST['data_nasciCliente']);
+            $usuario -> telefone_celular = strip_tags($_POST['telCelCliente']);
+            $usuario -> telefone_residencial = strip_tags($_POST['telResCliente']);
+            $usuario -> id_convenio = strip_tags($_POST['id_convenioCliente']);
         
             $usuario -> cep = strip_tags($_POST['cep']);
             $usuario -> logradouro = strip_tags($_POST['rua']);
@@ -115,7 +115,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 
 }else{
-    header('Location: gerenciamento_clientes.php?falha=cadastrarcliente');
+    header('Location: gerenciamento_clientes.php?falha=post');
 }
 
 
