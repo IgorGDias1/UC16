@@ -156,8 +156,16 @@ $listar_exame = $exame->Listar();
             <td><?= $agendamento['data consulta']; ?></td>
             <td><?= $agendamento['situacao']; ?></td>
             <td>
-              <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" data-id="<?= $agendamento['id']; ?>" data-paciente="<?= $agendamento['paciente']; ?>" data-medico="<?= $agendamento['médico']; ?>" data-exame="<?= $agendamento['id_exame']; ?>" data-convenio="<?= $agendamento['id_convenio']; ?>" data-clinica="<?= $agendamento['id_clinica']; ?>" data-data_consulta="<?= $agendamento['data consulta']; ?>" data-situacao="<?= $agendamento['situacao']; ?>">
-                <i class="bi bi-pencil-square"></i> Editar</button>
+              <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
+              data-id="<?= $agendamento['id']; ?>" 
+              data-paciente="<?= $agendamento['paciente']; ?>" 
+              data-medico="<?= $agendamento['médico']; ?>" 
+              data-exame="<?= $agendamento['id_exame']; ?>" 
+              data-convenio="<?= $agendamento['id_convenio']; ?>" 
+              data-clinica="<?= $agendamento['id_clinica']; ?>" 
+              data-data_consulta="<?= $agendamento['data consulta']; ?>" 
+              data-situacao="<?= $agendamento['situacao']; ?>">
+              <i class="bi bi-pencil-square"></i> Editar</button>
             </td>
             <td>
               <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $agendamentos['id']; ?>)">
@@ -266,11 +274,7 @@ $listar_exame = $exame->Listar();
             <input type="hidden" class="id" name="id" id="id">
             <div class="form-group">
               <label for="paciente">Paciente</label>
-              <select class="form-control paciente" id="paciente" name="paciente" >
-                <?php foreach ($listar_cpf as $cpf) { ?>
-                  <option value="<?= $cpf['id']; ?>"><?= $cpf['nome']; ?></option>
-                <?php } ?>
-              </select>
+              
             </div>
             <div class="form-group mt-3">
               <label for="medico">Médico</label>
@@ -361,7 +365,7 @@ $listar_exame = $exame->Listar();
 
       var id = button.data('id')
       var paciente = button.data('paciente')
-      var medico = button.data('medico')
+      var medico = button.data('médico')
       var exame = button.data('exame')
       var convenio = button.data('convenio')
       var endereco = button.data('clinica')
