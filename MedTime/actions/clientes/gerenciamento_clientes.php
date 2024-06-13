@@ -563,7 +563,7 @@ $lista_especialidade = $especialidade->Listar();
                 <label for="id_cargoFuncionario">Cargo</label>
                 <select class="form-control id_cargo" name="id_cargoFuncionario" id="id_cargoFuncionario">
                   <?php foreach ($lista_cargos as $cargo) { ?>
-                  <option value="<?= $cargo['id']; ?>"><?= $cargo['nome']; ?></option>
+                  <!-- <option value="<?= $cargo['id']; ?>"><?= $cargo['nome']; ?></option> -->
                   <?php } ?>
                 </select><br>
             </div>
@@ -1103,6 +1103,38 @@ $lista_especialidade = $especialidade->Listar();
 
   })
 
+  function preencherCargo(){
+    fetch('post.php').then(response => response.json()).then(data =>{
+      console.log(data);
+      const selectElement = document.querySelector('#id_cargoFuncionario');
+       // Preenche o elemento <select> com os valores do JSON
+    data.forEach(item => {
+      const optionElement = document.createElement('option');
+      optionElement.value = item.id;
+      optionElement.text = item.nome;
+      selectElement.appendChild(optionElement);
+    });
+  })
+}
+
+
+function cadastrarCargo() {
+  event.preventDefault()
+  fetch('../cargos/cadastrar_cargo.php', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: JSON.stringify({a: 1, b: 'Textual content'})
+  });
+  const content = rawResponse.json();
+
+  console.log(content);
+}
+
+
+// Executar a função assim que a página for carregada
+addEventListener("DOMContentLoaded", preencherCargo());
   </script>
 
 </body>

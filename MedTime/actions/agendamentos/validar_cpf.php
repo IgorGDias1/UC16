@@ -14,6 +14,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     
 
     if($u->ListarPorCPF() == 1){
+        
         header('Location: gerenciamento_agendamentos.php?sucesso=validarcpf');
     }else{
         header('Location: gerenciamento_agendamentos.php?falha=validarcpf');

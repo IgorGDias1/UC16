@@ -274,7 +274,7 @@ $listar_exame = $exame->Listar();
             <input type="hidden" class="id" name="id" id="id">
             <div class="form-group">
               <label for="paciente">Paciente</label>
-              
+              <input type="text" class="form-control paciente" id="paciente" name="paciente">
             </div>
             <div class="form-group mt-3">
               <label for="medico">Médico</label>

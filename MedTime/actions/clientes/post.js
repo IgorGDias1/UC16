@@ -44,17 +44,17 @@
 
 
 
-function cadastrarCargo() {
+// function cadastrarCargo() {
 
-    var nomeCargo = document.getElementById('nomeCargo').value
+//     var nomeCargo = document.getElementById('nomeCargo').value
 
-    let data = {nome: nomeCargo};
+//     let data = {nome: nomeCargo};
 
-    fetch("post.php", {
-    method: "POST",
-    headers: {'Content-Type': 'application/json'}, 
-    body: JSON.stringify(data)
-    }).then(res => {
-    console.log("Request complete! response:", res);
-    });
-}
+//     fetch("post.php", {
+//     method: "POST",
+//     headers: {'Content-Type': 'application/json'}, 
+//     body: JSON.stringify(data)
+//     }).then(res => {
+//     console.log("Request complete! response:", res);
+//     });
+// }
