@@ -8,7 +8,7 @@ if (isset($_SESSION['usuario'])) {
 
         $resultado = $c->Listar();
 
-        echo json_encode($resultado);
+        echo json_encode($resultado); //Json de cargos
 } else {
         echo json_encode([]);
 }

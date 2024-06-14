@@ -8,10 +8,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $especialidade->especificacao = $_POST['especialidade'];
 
     if($especialidade->Cadastrar() == 1){
-        header('Location: ../clientes/gerenciamento_clientes.php?sucesso=cadastrarespecialidade');
+        echo 'SUCESSO';
 
     }else{
-        header('Location: .../clientes/gerenciamento_clientes.php?falha=cadastrarespecialidade');
+        echo 'FALHA';
     }
 
 }else{
