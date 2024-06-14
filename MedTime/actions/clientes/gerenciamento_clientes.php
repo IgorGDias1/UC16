@@ -12,6 +12,7 @@ require_once('../../classes/Usuario.class.php');
 $usuario = new Usuario();
 $lista_usuariosSemLocalizacao = $usuario->ListarClientesSemLocalizacao();
 $lista_usuarioComLocalizacao = $usuario->ListarClientesComLocalizacao();
+$lista_usuarioPorID = $usuario->ListarPorID();
 
 $lista_funcionarios = $usuario->ListarFuncionariosComEspecialidade();
 $lista_funcionarios2 = $usuario->ListarFuncionariosSemEspecialidade();
@@ -119,6 +120,7 @@ $lista_especialidade = $especialidade->Listar();
 
   </div>
 
+
   <!-- Container de gerenciamento de clientes sem endereço cadastrado -->
   <div class="container mt-5">
     <h2 class="text-center mb-4">Gerenciamento de Clientes</h2>
@@ -130,7 +132,8 @@ $lista_especialidade = $especialidade->Listar();
     </div>
     <div class="col d-flex justify-content-start mb-3">
         <input type="text" class="" id="cpf_buscar" name="cpf_buscar" placeholder="Digite o CPF...">
-        <button type="submit" class="btn btn-primary ms-2">Buscar</button>
+        <button type="submit" class="btn btn-primary ms-2" onclick="buscarCPF()">Buscar</button>
+        <button onclick="location.reload()" class="btn btn-danger ms-2" id="btnReload" hidden>x</button>
       </div>
     <table class="table table-striped table-hover table-primary ">
       <thead>
@@ -148,7 +151,7 @@ $lista_especialidade = $especialidade->Listar();
           <th></th>
         </tr>
       </thead>
-      <tbody>
+      <tbody id="corpo_tabela">
         <?php foreach ($lista_usuariosSemLocalizacao as $usuario) { ?>
           <tr>
             <td hidden><?= $usuario['id_usuario']; ?></td>
@@ -573,17 +576,17 @@ $lista_especialidade = $especialidade->Listar();
                 </div>
             </div>
             <div class="form-group mt-2">
-                  <label for="id_especialidade">Especialidade</label>
-                    <select class="form-control id_especialidade" name="id_especialidadeFuncionario" id="id_especialidade">
+                  <label for="id_especialidadeFuncionario">Especialidade</label>
+                    <select class="form-control id_especialidade" name="id_especialidadeFuncionario" id="id_especialidadeFuncionario">
                       <option value=""></option>
                       <?php foreach ($lista_especialidade as $especialidade) { ?>
-                      <option value="<?= $especialidade['id']; ?>"><?= $especialidade['especificacao']; ?></option>
+                      <!-- <option value="<?= $especialidade['id']; ?>"><?= $especialidade['especificacao']; ?></option> -->
                       <?php } ?>
                     </select><br>
             </div>
             <div class="row">
               <div class="col d-flex justify-content-end">
-                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalAddEspecialidade">Adicionar Especialidade</button>
+                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalAddEspecialidade" onclick="preencherCargoEspeci()">Adicionar Especialidade</button>
               </div>
             </div>
           <div class="modal-footer mt-5">
@@ -909,7 +912,6 @@ $lista_especialidade = $especialidade->Listar();
   <div class="modal fade" id="modalAddCargo" tabindex="-1" role="dialog" aria-labelledby="modalAddCargoLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
-                    <script src="post.js"></script>
                     <form onsubmit="cadastrarCargo()">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalAddCargoLabel">Adicionar Cargo</h5>
@@ -932,7 +934,7 @@ $lista_especialidade = $especialidade->Listar();
   <div class="modal fade" id="modalAddEspecialidade" tabindex="-" role="dialog" aria-labelledby="modalAddEspecialiadadeLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
-                    <form action="../especialidades/cadastrar_especialidade.php" method="POST">
+                    <form onsubmit="cadastrarEspecialidade()">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalAddEspecialidadeLabel">Adicionar Especialidade</h5>
                         </div>
@@ -942,17 +944,17 @@ $lista_especialidade = $especialidade->Listar();
                                 <input type="text" class="form-control" id="nomeEspecialidade" placeholder="Digite o nome da especialidade" name="especialidade">
                             </div>
                             <div class="form-group mt-2">
-                              <label for="id_cargo">Cargo</label>
-                              <select class="form-control id_cargo" name="id_cargo" id="id_cargo">
-                                <?php foreach ($lista_cargos as $cargo) { ?>
-                                <option value="<?= $cargo['id']; ?>"><?= $cargo['nome']; ?></option>
-                                <?php } ?>
+                              <label for="id_cargoEspeci">Cargo</label>
+                              <select class="form-control id_cargo" name="id_cargoEspeci" id="id_cargoEspeci">
+                              <?php foreach ($lista_cargos as $cargo) { ?>
+                              <!-- <option value="<?= $cargo['id']; ?>"><?= $cargo['nome']; ?></option> -->
+                              <?php } ?>
                               </select><br>
-                            </div>
+                          </div>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="botaoFecharEspecialidade">Fechar</button>
                             <button type="submit" class="btn btn-success">Adicionar</button>
                         </div>
                 </form>
@@ -1116,9 +1118,9 @@ $lista_especialidade = $especialidade->Listar();
       selectElement.appendChild(optionElement);
     });
   })
-}
+  }
 
-function cadastrarCargo() {
+  function cadastrarCargo() {
   event.preventDefault()
   $.post( "../cargos/cadastrar_cargo.php", { nome: nomeCargo.value} ).done(function(resultado){
     if(resultado == "SUCESSO"){
@@ -1128,13 +1130,71 @@ function cadastrarCargo() {
       preencherCargo();
 
       $("#botaoFechar").click()
-      
     }
   })
-} 
+  } 
+
+  function preencherEspecialidade(){
+    fetch('post2.php').then(response => response.json()).then(data =>{
+      console.log(data);
+      const selectElement = document.querySelector('#id_especialidadeFuncionario');
+
+    data.forEach(item => {
+      const optionElement = document.createElement('option');
+      optionElement.value = item.id;
+      optionElement.text = item.especificacao;
+
+      selectElement.appendChild(optionElement);
+    });
+  })
+  }
+
+  function preencherCargoEspeci() {
+    fetch('post.php').then(response => response.json()).then(data =>{
+      console.log(data);
+      const selectElement = document.querySelector('#id_cargoEspeci');
+      data.forEach(item => {
+        const optionElement = document.createElement('option');
+        optionElement.value = item.id;
+        optionElement.text = item.nome;
+        selectElement.appendChild(optionElement);
+      });
+    })
+  }
+
+  function cadastrarEspecialidade() {
+  event.preventDefault()
+  $.post( "../especialidades/cadastrar_especialidade.php", { id_cargo: id_cargoEspeci.value , especialidade: nomeEspecialidade.value} ).done(function(resultado){
+    if(resultado == "SUCESSO"){
+      alert('Especialidade Cadastrada!')
+      $('#id_especialidadeFuncionario').html('');
+      nomeEspecialidade.value = "";
+      preencherEspecialidade();
+
+      $("#botaoFecharEspecialidade").click()
+    }
+  })
+  } 
+
+ function buscarCPF(){
+  $.getJSON('get.php?cpf=' + cpf_buscar.value, function(dados){
+    console.log(dados)
+    corpo_tabela.innerHTML = "";  
+
+    $(dados).each(function(item){
+      $("#corpo_tabela").append("<tr><td hidden>" + this.id + "</td><td>" + 
+      this.nome + "</td><td>" + 
+      this.cpf + "</td><td>" + 
+      this.data_nascimento + "</td><td>" +
+      this.id_convenio + "</td><td>" );
+    });
+    btnReload.hidden=false;
+  });
+  }
 
 // Executar a função assim que a página for carregada
 addEventListener("DOMContentLoaded", preencherCargo());
+addEventListener("DOMContentLoaded", preencherEspecialidade());
   </script>
 
 </body>
