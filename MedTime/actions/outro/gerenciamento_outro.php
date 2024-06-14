@@ -127,6 +127,9 @@ $lista_exames = $exame->Listar();
                 <i class="bi bi-file-earmark-x"></i> Excluir Convênio
               </a>
             </td>
+            <td>
+              <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCadastro"><i class="bi bi-plus-circle"></i> Cadastrar Agendamento</button>
+            </td>
           </tr>
         <?php } ?>
       </tbody>
@@ -256,6 +259,43 @@ $lista_exames = $exame->Listar();
     <?php } ?>
     </div>
     <!-- Modais -->
+
+    <!-- Modal de cadastro de convênio -->
+    <div class="modal fade" id="modalCadastro" tabindex="-1" role="dialog" aria-labelledby="modalCadastroLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form action="cadastrar_agendamento.php" method="POST">
+          <div class="modal-header d-flex justify-content-center">
+            <h5 class="modal-title" id="modalCadastroLabel">Novo Convênio</h5>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="form-group mt-3">
+              <label for="nomeConvenio">Nome Convênio</label>
+              <br>
+              <input type="text" class="form-control" id="convenio" name="convenio"></input>
+            </div>
+            <div class="form-group mt-3">
+              <label for="email">Email</label>
+              <br>
+              <input type="email" class="form-control" id="email" name="email"></input>
+            </div>
+            <div class="form-group mt-3">
+              <label for="telefone">Telefone</label>
+              <br>
+              <input type="tel" class="form-control" id="telefone" name="telefone"></input>
+            </div>
+          </div>
+          <button type="button" class="btn btn-warning mt-3" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
+          <div class="modal-footer mt-5">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+            <button type="submit" class="btn btn-success">Salvar</button>
+          </div>
+      </div>
+      </form>
+    </div>
+  </div>
+
 
     <!-- Modal de edição -->
     <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
