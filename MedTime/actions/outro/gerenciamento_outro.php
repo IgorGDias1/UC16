@@ -94,11 +94,10 @@ $lista_exames = $exame->Listar();
         </a>
       </div>
     </nav>
-
   </div>
 
-  <!-- Container de gerenciamento de convênios -->
 
+  <!-- Container de gerenciamento de convênios -->
   <div class="container-sm mt-5">
     <h2 class="text-center mb-4">Gerenciamento de Convênios</h2>
     <table class="table table-striped table-hover table-primary ">
@@ -255,7 +254,7 @@ $lista_exames = $exame->Listar();
         </div>
       </div>
     <?php } ?>
-
+    </div>
     <!-- Modais -->
 
     <!-- Modal de edição -->
@@ -417,6 +416,23 @@ $lista_exames = $exame->Listar();
         }).then((result) => {
           if (result.isConfirmed) {
             window.location.href = '../especialidades/deletar_especialidade.php?id=' + id;
+          }
+        });
+      }
+
+      function excluirCargo(id) {
+        Swal.fire({
+          title: "Tem certeza?",
+          text: "Não será possível desfazer essa ação!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "Cancelar",
+          confirmButtonText: "Sim, apagar!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = '../cargos/deletar_cargo.php?id=' + id;
           }
         });
       }

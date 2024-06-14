@@ -42,7 +42,7 @@ class Cargos {
     }
 
     public function Deletar(){
-        $sql = "DELETE * FROM cargos WHERE id = ?";
+        $sql = "DELETE FROM cargos WHERE id = ?";
 
         $banco = Banco::conectar();
         $comando = $banco -> prepare($sql);

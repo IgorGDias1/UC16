@@ -921,7 +921,7 @@ $lista_especialidade = $especialidade->Listar();
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" id="botaoFechar">Fechar</button>
                             <button type="submit" class="btn btn-success">Adicionar</button>
                         </div>
                 </form>
@@ -963,9 +963,10 @@ $lista_especialidade = $especialidade->Listar();
       <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 
   <?php include_once('../../includes/alertas.include.php'); ?>
 
@@ -1117,21 +1118,20 @@ $lista_especialidade = $especialidade->Listar();
   })
 }
 
-
 function cadastrarCargo() {
   event.preventDefault()
-  fetch('../cargos/cadastrar_cargo.php', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: JSON.stringify({a: 1, b: 'Textual content'})
-  });
-  const content = rawResponse.json();
+  $.post( "../cargos/cadastrar_cargo.php", { nome: nomeCargo.value} ).done(function(resultado){
+    if(resultado == "SUCESSO"){
+      alert('Cargo Cadastrado!')
+      $('#id_cargoFuncionario').html('');
+      nomeCargo.value = "";
+      preencherCargo();
 
-  console.log(content);
-}
-
+      $("#botaoFechar").click()
+      
+    }
+  })
+} 
 
 // Executar a função assim que a página for carregada
 addEventListener("DOMContentLoaded", preencherCargo());

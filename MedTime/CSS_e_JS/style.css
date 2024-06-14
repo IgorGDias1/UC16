@@ -74,6 +74,10 @@ oiiiiiiiiiiiiiiiiiiiiiiiiiiii adeuuuuuuuuuuuuuuuuuuuuuuuuuusssssssssssssssssssss
 }
 
 
+/* DROPDOWN PARA NAO FICAR FORA DA PAGINA */
+.dropdown-menu[data-bs-popper] { 
+  left: -64px;
+}
 
 
 

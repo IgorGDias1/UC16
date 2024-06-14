@@ -10,7 +10,7 @@ function excluirCargo(id){
     confirmButtonText: "Sim, apagar!"
     }).then((result) => {
     if (result.isConfirmed) {
-    window.location.href='deletar_cargo.php?id=' + id;
+    window.location.href='../cargos/deletar_cargo.php?id=' + id;
     }
     });
     }

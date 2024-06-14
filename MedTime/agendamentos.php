@@ -2,6 +2,7 @@
 
 session_start();
 
+
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +21,8 @@ session_start();
 
     <!-- Link para o arquivo CSS externo -->
     <link rel="stylesheet" href="CSS_e_js/style.css">
+        <!-- Movimento logo -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
 
     <!-- api google fontes-->
@@ -41,13 +44,21 @@ session_start();
         <div class="row justify-content-center">
             <div class="col-md-6 rounded-3  mb-2 ">
                 <p class="h2 text-center">Agendamentos</p>
-                <input class="form-control form-control-lg mb-2 " name="nomeagendamento" id="nomeagendamento" type="text" placeholder="Nome do paciente" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Tipo do exame" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Nome do medico" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " name="convenio" id="convenio" type="text" placeholder="Convênio" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " name="dataagendamento" id="dataagendamento" type="text" placeholder="Data" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " name="localagendamento" id="localagendamento" type="text" placeholder="Local" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Situação" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " 
+                name="nomepaciente" id="nomepaciente" type="text" 
+                placeholder="Nome do paciente" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " name="exame" id="exame" type="text" placeholder="Nome do Exame" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " 
+                name="nomemedico" id="nomemedico" 
+                type="text" placeholder="Nome do medico" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " 
+                name="convenio" id="convenio" type="text" placeholder="Convênio" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " 
+                name="dataagendamento" id="dataagendamento" type="text" placeholder="Data" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " 
+                name="localagendamento" id="localagendamento" type="text" placeholder="Local" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 " 
+                name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Situação" aria-label=".form-control-lg example">
                 <button type="button" class="btn btn-primary">Agendar Consuta</button>
             </div>
 

@@ -20,17 +20,17 @@ session_start();
     <!-- Link para o arquivo CSS externo -->
     <link rel="stylesheet" href="CSS_e_js/style.css">
 
+    <!-- Movimento logo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+
 
     <!-- api google fontes-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Amatic+SC:wght@400;700&family=Bungee&family=Bungee+Spice&family=Press+
     Start+2P&family=Righteous&family=Rubik+Doodle+Shadow&family=Uchen&display=swap" rel="stylesheet">
-    <style>
-        #formCadastro {
-            display: none;
-        }
-    </style>
+    
 </head>
 
 <body>

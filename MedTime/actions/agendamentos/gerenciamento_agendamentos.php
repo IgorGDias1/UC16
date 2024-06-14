@@ -12,7 +12,6 @@ require_once('../../classes/Usuario.class.php');
 $u = new Usuario();
 $listar_usuario = $u->ListarClientes();
 $listar_medico = $u->ListarMedicos();
-$listar_cpf = $u->ListarPorCPF();
 
 require_once('../../classes/Agendamento.class.php');
 $a = new Agendamento();
@@ -91,7 +90,7 @@ $listar_exame = $exame->Listar();
                 Gerenciamentos
               </button>
               <ul class="dropdown-menu dropdown-menu px-2">
-              <li><a class="dropdown-item" href="../clientes/gerenciamento_clientes.php">Clientes</a></li>
+                <li><a class="dropdown-item" href="../clientes/gerenciamento_clientes.php">Clientes</a></li>
                 <li><a class="dropdown-item" href="../enderecos/gerenciamento_enderecos.php">Endereços</a></li>
                 <li><a class="dropdown-item" href="#">Convenios</a></li>
                 <li><a class="dropdown-item" href="#">Resultados</a></li>
@@ -156,16 +155,8 @@ $listar_exame = $exame->Listar();
             <td><?= $agendamento['data consulta']; ?></td>
             <td><?= $agendamento['situacao']; ?></td>
             <td>
-              <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
-              data-id="<?= $agendamento['id']; ?>" 
-              data-paciente="<?= $agendamento['paciente']; ?>" 
-              data-medico="<?= $agendamento['médico']; ?>" 
-              data-exame="<?= $agendamento['id_exame']; ?>" 
-              data-convenio="<?= $agendamento['id_convenio']; ?>" 
-              data-clinica="<?= $agendamento['id_clinica']; ?>" 
-              data-data_consulta="<?= $agendamento['data consulta']; ?>" 
-              data-situacao="<?= $agendamento['situacao']; ?>">
-              <i class="bi bi-pencil-square"></i> Editar</button>
+              <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" data-id="<?= $agendamento['id']; ?>" data-paciente="<?= $agendamento['paciente']; ?>" data-medico="<?= $agendamento['médico']; ?>" data-exame="<?= $agendamento['id_exame']; ?>" data-convenio="<?= $agendamento['id_convenio']; ?>" data-clinica="<?= $agendamento['id_clinica']; ?>" data-data_consulta="<?= $agendamento['data consulta']; ?>" data-situacao="<?= $agendamento['situacao']; ?>">
+                <i class="bi bi-pencil-square"></i> Editar</button>
             </td>
             <td>
               <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $agendamentos['id']; ?>)">
@@ -200,10 +191,10 @@ $listar_exame = $exame->Listar();
 
             <br>
             <a class="btn btn-success " href="../clientes/gerenciamento_clientes.php" target="blank">Cadastrar Cliente</a>
-            
+
             <div class="form-group mt-3">
               <label for="nomeMedico">Médico</label>
-              <br> 
+              <br>
               <select class="form-control " id="nomeMedico" name="medico" required>
                 <?php foreach ($listar_medico as $medico) { ?>
                   <option value="<?= $medico['id']; ?>" name="id_medico"><?= $medico['nome']; ?></option>
@@ -258,23 +249,21 @@ $listar_exame = $exame->Listar();
   <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
+        </div>
+        <div class="container-fluid">
+          <form class="d-flex" role="search" action="post.php" method="GET">
+            <input class="form-control me-2" type="search" placeholder="CPF do Cliente" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit" name="cpf" id="cpf">Pesquisar</button>
+          </form>
+        </div>
         <form action="editar_cliente.php" method="POST">
-          <div class="modal-header">
-            <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
-          </div>
-          <nav class="navbar bg-body-tertiary">
-          <div class="container-fluid">
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="CPF do Cliente" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit" name="cpf" id="cpf">Pesquisar</button>
-            </form>
-          </div>
-        </nav>
           <div class="modal-body">
             <input type="hidden" class="id" name="id" id="id">
             <div class="form-group">
               <label for="paciente">Paciente</label>
-              <input type="text" class="form-control paciente" id="paciente" name="paciente">
+              <input type="text" class="form-control paciente" id="pacienteEdit" name="pacienteEdit">
             </div>
             <div class="form-group mt-3">
               <label for="medico">Médico</label>
@@ -341,7 +330,7 @@ $listar_exame = $exame->Listar();
   <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
   </script>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -350,7 +339,7 @@ $listar_exame = $exame->Listar();
 
   <script>
     $('#paciente').select2({
-        dropdownParent: $('#modalCadastro')
+      dropdownParent: $('#modalCadastro')
     });
   </script>
 
@@ -384,6 +373,17 @@ $listar_exame = $exame->Listar();
       modal.find('.situacao').val(situacao)
 
     })
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      pacienteEdit.innerHTML = "";
+      $.getJSON('post.php', function(dados) {
+        $(dados).each(function(item) {
+          $("#pacienteEdit").append(this.nome);
+        });
+      });
+    });
   </script>
 
 </body>
