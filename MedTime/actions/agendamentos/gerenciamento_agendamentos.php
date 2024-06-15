@@ -67,58 +67,9 @@ $listar_exame = $exame->Listar();
 
 <body>
 
-  <!-- Container principal -->
-  <div class="container-fluid mt-5">
-    <!-- Navbar geral -->
-    <nav class="navbar navbar-expand-lg navbar-custom righteous-regular">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center py-2" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item px-3 mx-3">
-              <a class="nav-link active" href="#">
-                <img src="../../img/logo.png" alt="logo" width="100px">
-              </a>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link active" aria-current="page" href="../clientes/gerenciamento_clientes.php">Página Inicial</a>
-            </li>
-            <li class="nav-item dropdown px-3 mt-4">
-              <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                Gerenciamentos
-              </button>
-              <ul class="dropdown-menu dropdown-menu px-2">
-                <li><a class="dropdown-item" href="../clientes/gerenciamento_clientes.php">Clientes</a></li>
-                <li><a class="dropdown-item" href="../enderecos/gerenciamento_enderecos.php">Endereços</a></li>
-                <li><a class="dropdown-item" href="#">Convenios</a></li>
-                <li><a class="dropdown-item" href="#">Resultados</a></li>
-              </ul>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="../atendimento/atendimento.php">Atendimento</a>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Exames</a>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Agendamentos</a>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Suporte</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end mx-5">
-        <a class="btn btn-danger mx-1 text-white" href="logout.php">
-          <i class="bi bi-box-arrow-right"></i>
-        </a>
-      </div>
-    </nav>
-
-  </div>
+  <?php
+  include_once("../../includes/navbargerente.include.php");
+  ?>
 
   <!-- Container de gerenciamento -->
   <div class="container mt-5">
@@ -184,7 +135,7 @@ $listar_exame = $exame->Listar();
               <br>
               <select class="form-control " id="paciente" name="paciente" multiple="multiple" style="width: 100%">
                 <?php foreach ($listar_usuario as $u) { ?>
-                  <option value="<?= $u['id']; ?>" name="id_medico"><?= $u['nome']; ?></option>
+                  <option value="<?= $u['id']; ?>"><?= $u['nome']; ?></option>
                 <?php } ?>
               </select>
             </div>
@@ -258,26 +209,30 @@ $listar_exame = $exame->Listar();
             <button class="btn btn-outline-success" type="submit" name="cpf" id="cpf">Pesquisar</button>
           </form>
         </div>
-        <form action="editar_cliente.php" method="POST">
+        <form action="editar_agendamento.php" method="POST">
           <div class="modal-body">
             <input type="hidden" class="id" name="id" id="id">
             <div class="form-group">
               <label for="paciente">Paciente</label>
-              <input type="text" class="form-control paciente" id="pacienteEdit" name="pacienteEdit">
+              <select class="form-control paciente" id="pacienteEdit" name="pacienteEdit" required>
+                <?php foreach ($listar_usuario as $u) { ?>
+                  <option value="<?= $u['id']; ?>"><?= $u['nome']; ?></option>
+                <?php } ?>
+              </select>
             </div>
             <div class="form-group mt-3">
               <label for="medico">Médico</label>
               <br>
-              <select class="form-control medico" id="medico" name="medico" required>
+              <select class="form-control medico" id="medicoEdit" name="medicoEdit" required>
                 <?php foreach ($listar_medico as $medico) { ?>
-                  <option value="<?= $medico['id']; ?>" name="id_medico"><?= $medico['nome']; ?></option>
+                  <option value="<?= $medico['id']; ?>"><?= $medico['nome']; ?></option>
                 <?php } ?>
               </select>
             </div>
             <div class="form-group mt-3">
               <label for="exame">Exame</label>
               <br>
-              <select class="form-control exame" id="exames" name="exame" required>
+              <select class="form-control exame" id="exameEdit" name="exameEdit" required>
                 <?php foreach ($listar_exame as $exame) { ?>
                   <option value="<?= $exame['id']; ?>"><?= $exame['nome']; ?></option>
                 <?php } ?>
@@ -286,7 +241,7 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="convenio">Convênio</label>
               <br>
-              <select class="form-control convenio" name="convenio" id="convenios">
+              <select class="form-control convenio" name="convenioEdit" id="convenioEdit">
                 <?php foreach ($lista_convenios as $convenio) { ?>
                   <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
                 <?php } ?>
@@ -295,7 +250,7 @@ $listar_exame = $exame->Listar();
             <div class="form-group mt-3">
               <label for="endereco">Endereço Clinica</label>
               <br>
-              <select class="form-control endereco" name="endereco" id="endereco">
+              <select class="form-control endereco" name="enderecoEdit" id="enderecoEdit">
                 <?php foreach ($listar_clinica as $clinica) { ?>
                   <option value="<?= $clinica['id']; ?>"><?= $clinica['complemento']; ?></option>
                 <?php } ?>
@@ -303,11 +258,14 @@ $listar_exame = $exame->Listar();
             </div>
             <div class="form-group mt-3">
               <label for="data_consulta">Data Consulta</label>
-              <input type="date" class="form-control data_consulta" id="data_consulta" name="data_consulta">
+              <input type="date" class="form-control data_consulta" id="data_consultaEdit" name="data_consultaEdit">
             </div>
             <div class="form-group mt-2">
               <label for="situacao">Situação</label>
-              <input type="text" class="form-control situacao" id="situacao" name="situacao">
+              <select class="form-control situacao" name="situacaoEdit" id="situacaoEdit">
+                <option value="1">Ativo</option>
+                <option value="0">Inativo</option>
+              </select><br>
             </div>
             <div class="form-group">
               <label for="tipo">Tipo</label>
@@ -375,17 +333,8 @@ $listar_exame = $exame->Listar();
     })
   </script>
 
-  <script>
-    $(document).ready(function() {
-      pacienteEdit.innerHTML = "";
-      $.getJSON('post.php', function(dados) {
-        $(dados).each(function(item) {
-          $("#pacienteEdit").append(this.nome);
-        });
-      });
-    });
-  </script>
-
+  <!-- puxar js -->
+  <script src="CSS_e_JS/script.js"></script>
 </body>
 
 </html>

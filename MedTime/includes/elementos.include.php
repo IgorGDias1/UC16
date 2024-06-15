@@ -1,13 +1,13 @@
 <div class="row pt-2 corsi">
-    <div class="col-3">
+    <div class="col-12 col-md-3">
         <!-- Logotipo -->
-        <div class="colv-md-3 col-12"><img src="img/logo.png" width="100px" alt="Logo" class="img-fluid mx-auto d-block animate__animated animate__jackInTheBox">
+        <img src="img/logo.png" width="100px" alt="Logo" class="img-fluid mx-auto d-block animate__animated animate__jackInTheBox">
             <p class="container-fluid text-center mt-1 righteous-regular ">MedTime </br> Página Inicial</p>
-        </div>
+        
     </div>
 
 
-    <div class="col-5 pt-5">
+    <div class="col-12 col-md-5 pt-5">
         <div class="input-group mb-3 d-flex">
 
             <!-- Barra de pesquisa -->

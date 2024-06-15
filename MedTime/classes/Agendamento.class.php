@@ -142,7 +142,7 @@ class Agendamento {
 
     public function Editar(){
         $sql = "UPDATE agendamentos SET id_cliente = ?, id_funcionario = ?, id_exame = ?, id_convenio = ?, id_localizacao = ?, data_agendado = ?, situacao = ?  WHERE id = ?";
-        $banco = Banco::conectar();
+        $banco = Banco::conectar(); 
         $comando = $banco->prepare($sql);
 
         try{
@@ -154,7 +154,7 @@ class Agendamento {
 
         }catch(PDOException $e){
             Banco::desconectar();
-            return 0;
+           return 0;
         }   
     }
 

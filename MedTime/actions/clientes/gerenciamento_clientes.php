@@ -67,58 +67,9 @@ $lista_especialidade = $especialidade->Listar();
 
 <body>
 
-  <!-- Container principal -->
-  <div class="container-fluid mt-5">
-    <!-- Navbar geral -->
-    <nav class="navbar navbar-expand-lg navbar-custom righteous-regular">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center py-2" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item px-3 mx-3">
-              <a class="nav-link active" href="#">
-                <img src="../../img/logo.png" alt="logo" width="100px">
-              </a>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link active" aria-current="page" href="gerenciamento_clientes.php">Página Inicial</a>
-            </li>
-            <li class="nav-item dropdown px-3 mt-4">
-              <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Gerenciamentos
-              </button>
-              <ul class="dropdown-menu dropdown-menu px-2">
-                <li><a class="dropdown-item" href="../enderecos/gerenciamento_enderecos.php">Endereços</a></li>
-                <li><a class="dropdown-item" href="../agendamentos/gerenciamento_agendamentos.php">Agendamentos</a></li>
-                <li><a class="dropdown-item" href="#">Convenios</a></li>
-                <li><a class="dropdown-item" href="#">Resultados</a></li>
-              </ul>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="../atendimento/atendimento.php">Atendimento</a>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Exames</a>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="../agendamentos/gerenciamento_agendamentos.php">Agendamentos</a>
-            </li>
-            <li class="nav-item px-3 mt-4">
-              <a class="nav-link" href="#">Suporte</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end mx-5">
-        <a class="btn btn-danger mx-1 text-white" href="logout.php">
-          <i class="bi bi-box-arrow-right"></i>
-        </a>
-      </div>
-    </nav>
-
-  </div>
+      <?php
+        include_once("../../includes/navbargerente.include.php"); 
+        ?>
 
 
   <!-- Container de gerenciamento de clientes sem endereço cadastrado -->
@@ -130,7 +81,7 @@ $lista_especialidade = $especialidade->Listar();
         <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#modalCadastroCliente"><i class="bi bi-plus-circle"></i> Cadastrar Usuário</button>
       </div>
     </div>
-    <div class="col d-flex justify-content-start mb-3">
+    <div class="col d-flex justify-content-end mb-3">
         <input type="text" class="" id="cpf_buscar" name="cpf_buscar" placeholder="Digite o CPF...">
         <button type="submit" class="btn btn-primary ms-2" onclick="buscarCPF()">Buscar</button>
         <button onclick="location.reload()" class="btn btn-danger ms-2" id="btnReload" hidden>x</button>
@@ -1164,7 +1115,7 @@ $lista_especialidade = $especialidade->Listar();
 
   function cadastrarEspecialidade() {
   event.preventDefault()
-  $.post( "../especialidades/cadastrar_especialidade.php", { id_cargo: id_cargoEspeci.value , especialidade: nomeEspecialidade.value} ).done(function(resultado){
+  $.post("../especialidades/cadastrar_especialidade.php", { id_cargo: id_cargoEspeci.value , especialidade: nomeEspecialidade.value} ).done(function(resultado){
     if(resultado == "SUCESSO"){
       alert('Especialidade Cadastrada!')
       $('#id_especialidadeFuncionario').html('');
@@ -1186,7 +1137,10 @@ $lista_especialidade = $especialidade->Listar();
       this.nome + "</td><td>" + 
       this.cpf + "</td><td>" + 
       this.data_nascimento + "</td><td>" +
-      this.id_convenio + "</td><td>" );
+      this.id_convenio + "</td><td>" +
+      "<button type=\"submit\" class=\"btn btn-primary btn-sm\" data-toggle=\"modal\" data-target=\"#modalInfoCliente\" data-id=\" "+this.id + "\" data-nome=\""+this.nome+"\" data-email=\""+this.email+"\" data-cpf=\""+this.cpf+"\" data-data_nascimento=\""+this.data_nascimento+"\" data-telefone_celular=\""+this.telefone_celular+"\" data-telefone_residencial=\""+this.telefone_residencial+"\" data-nome_convenio=\""+this.id_convenio+"\"><i class=\"bi bi-info-circle\"></i> Info </td><td>" + 
+      "<button type=\"submit\" class=\"btn btn-warning btn-sm\" data-toggle=\"modal\" data-target=\"#modalEdicaoCliente\" data-id=\" "+this.id + "\" data-nome=\""+this.nome+"\" data-email=\""+this.email+"\" data-cpf=\""+this.cpf+"\" data-data_nascimento=\""+this.data_nascimento+"\" data-telefone_celular=\""+this.telefone_celular+"\" data-telefone_residencial=\""+this.telefone_residencial+"\" data-nome_convenio=\""+this.id_convenio+"\"><i class=\"bi bi-pencil-square\"></i> Editar </td><td>" +
+      "<a href=\"#\" class=\"btn btn-danger btn-sm\" onclick=\"excluir("+this.id+")\"><i class=\"bi bi-file-earmark-x\"></i> Excluir</a>");
     });
     btnReload.hidden=false;
   });
@@ -1196,6 +1150,11 @@ $lista_especialidade = $especialidade->Listar();
 addEventListener("DOMContentLoaded", preencherCargo());
 addEventListener("DOMContentLoaded", preencherEspecialidade());
   </script>
+
+
+    <!-- puxar js -->
+    <script src="CSS_e_JS/script.js"></script>
+
 
 </body>
 

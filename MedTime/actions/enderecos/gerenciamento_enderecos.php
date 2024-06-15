@@ -34,58 +34,9 @@ $lista_localizacao = $localizacao->Listar();
 
 <body>
 
-    <!-- Container principal -->
-    <div class="container-fluid mt-5">
-        <!-- Navbar geral -->
-        <nav class="navbar navbar-expand-lg navbar-custom righteous-regular">
-            <div class="container-fluid">
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-center py-2" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item px-3 mx-3">
-                            <a class="nav-link active" href="#">
-                                <img src="../../img/logo.png" alt="logo" width="100px">
-                            </a>
-                        </li>
-                        <li class="nav-item px-3 mt-4">
-                            <a class="nav-link active" aria-current="page" href="../clientes/gerenciamento_clientes.php">Página Inicial</a>
-                        </li>
-                        <li class="nav-item dropdown px-3 mt-4">
-                            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                Gerenciamentos
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu px-2">
-                                <li><a class="dropdown-item" href="../clientes/gerenciamento_clientes.php">Clientes</a></li>
-                                <li><a class="dropdown-item" href="../agendamentos/gerenciamento_agendamentos.php">Agendamentos</a></li>
-                                <li><a class="dropdown-item" href="#">Convenios</a></li>
-                                <li><a class="dropdown-item" href="#">Resultados</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item px-3 mt-4">
-                            <a class="nav-link" href="../atendimento/atendimento.php">Atendimento</a>
-                        </li>
-                        <li class="nav-item px-3 mt-4">
-                            <a class="nav-link" href="#">Exames</a>
-                        </li>
-                        <li class="nav-item px-3 mt-4">
-                            <a class="nav-link" href="../agendamentos/gerenciamento_agendamentos.php">Agendamentos</a>
-                        </li>
-                        <li class="nav-item px-3 mt-4">
-                            <a class="nav-link" href="#">Suporte</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="d-flex justify-content-end mx-5">
-                <a class="btn btn-danger mx-1 text-white" href="logout.php">
-                    <i class="bi bi-box-arrow-right"></i>
-                </a>
-            </div>
-        </nav>
-
-    </div>
+    <?php
+        include_once("../../includes/navbargerente.include.php"); 
+    ?>
 
     <!-- Container de gerenciamento / Endereços já cadastrados -->
     <div class="container mt-5">
