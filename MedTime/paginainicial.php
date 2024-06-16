@@ -2,6 +2,10 @@
 
 session_start();
 
+if(isset($_SESSION['usuario']) && $_SESSION['usuario']['id_cargo'] != ""){
+    echo '<script src="text/javascript">','loginUsuario();','</script>';
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +33,7 @@ session_start();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Aclonica&family=Amatic+SC:wght@400;700&family=Bungee&family=Bungee+Spice&family=Press+
     Start+2P&family=Righteous&family=Rubik+Doodle+Shadow&family=Uchen&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -38,7 +43,6 @@ session_start();
        $paginaAtiva = "1";
        include_once("includes/elementos.include.php");
        ?>
-
 
         <!-- Linha do Carousel -->
         <div class="container-fluid">
@@ -251,6 +255,9 @@ session_start();
 
     <!-- puxar js -->
     <script src="CSS_e_JS/script.js"></script>
+
+
+    <?php include_once('includes/alertas.include.php'); ?>
 
 
 </body>

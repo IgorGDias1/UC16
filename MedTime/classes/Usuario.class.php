@@ -375,6 +375,49 @@ class Usuario {
         }   
     }
 
+    public function AdicionarLocalizacao(){
+        $sql = "UPDATE usuarios SET id_localizacao = ? WHERE id = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        try{
+            $comando->execute([$this->id_localizacao, $this->id]);
+
+            Banco::desconectar();
+
+            return $comando->rowCount();
+
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }   
+    }
+
+    public function CadastrarLocalizacaoAtribuirAoUsuario(){
+        $sql = "CALL cadastrar_localziacao_atribuir_usuario(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+
+        try{
+            $comando->execute([
+                // Parametros para a localizacao
+                $this->cep, $this->logradouro, $this->complemento, $this->bairro, $this->localidade, $this->uf, $this->ddd, $this->tipoLocal, 
+                
+                // Parametros para o usuario
+                $this->id]);
+
+                Banco::desconectar();
+
+                return 1;
+
+            } catch(PDOEXCEPTION $e){
+                Banco::desconectar();
+                return 0;
+            }
+    }
+
 }
 
 

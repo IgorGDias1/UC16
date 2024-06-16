@@ -53,7 +53,7 @@
                         <li class="nav-item px-3">
                             <a class="nav-link <?php if ($paginaAtiva == "4") {
                                                     echo "active";
-                                                } ?>" href="contate_nos.php">Contate-nós</a>
+                                                } ?>" href="contate_nos.php">Contate-nos</a>
                         </li>
                     </ul>
                 </div>
@@ -76,7 +76,10 @@
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item text-center" type="button" href="perfil.php">Meu Perfil</a></li>
                                 <li><a class="dropdown-item text-center" t.ype="button" href="perfil.php">Resultados</a></li>
-                                <li><a class="dropdown-item text-center" type="button" href="agendamentos.htm">Meus agendamentos</a></li>
+                                <li><a class="dropdown-item text-center" type="button" href="perfil.php">Meus agendamentos</a></li>
+                                <?php if($_SESSION['usuario']['id_cargo'] != ""){ ?>
+                                    <li><a class="dropdown-item text-center text-primary border border-primary mt-4" type="button" href="actions/clientes/gerenciamento_clientes.php">Gerenciamento</a></li>
+                                <?php } ?>
                                 <li class="mt-3 border border-danger py-1"><a class="bi bi-box-arrow-left fs-6 ms-5 text-danger" href="actions/login/logout.php"> Sair</a></li>
                             </ul>
                         </div>

@@ -20,7 +20,7 @@
             session_start();
 
             $_SESSION['usuario'] = $resultado[0];
-            header('Location: ../clientes/gerenciamento_clientes.php?sucesso=login');
+            header('Location: ../../paginainicial.php');
             die();
         }
             

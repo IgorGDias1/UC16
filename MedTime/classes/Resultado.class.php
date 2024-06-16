@@ -27,10 +27,81 @@ class Resultado {
 
     public function ListarPorID(){
 
-        $sql = "SELECT * FROM resultados WHERE id = ?";
+        $sql = "SELECT resultados.id AS 'id_resultado',
+        
+        usuarios.nome AS 'paciente', usuarios.id AS 'id_paciente',
+ 
+        (SELECT usuarios.nome 
+        FROM usuarios WHERE usuarios.id = resultados.id_funcionario) AS 'médico',
+        
+        (SELECT usuarios.id
+        FROM usuarios WHERE usuarios.id = resultados.id_funcionario) AS 'id_medico',
+        
+        resultados.data_realizacao,
+        
+        localizacoes.id AS 'id_clinica', localizacoes.complemento AS 'clinica',
+
+        resultados.resultado,
+        
+        
+        IF(resultados.reagendamento>0, 'Necessário Reagendar', 'Não Reagendar') AS 'situacao'
+        
+        FROM resultados
+        
+        INNER JOIN usuarios ON
+        resultados.id_cliente = usuarios.id
+        
+        
+        INNER JOIN localizacoes ON
+        resultados.id_localizacao = localizacoes.id
+        
+        WHERE resultados.id = ?;";
+        
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
         $comando->execute([$this -> id]);
+
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+        
+        return $resultado;
+    }
+
+    public function ListarPorIDCliente(){
+
+        $sql = "SELECT resultados.id AS 'id_resultado',
+
+        usuarios.nome AS 'paciente', usuarios.id AS 'id_paciente',
+ 
+        (SELECT usuarios.nome 
+        FROM usuarios WHERE usuarios.id = resultados.id_funcionario) AS 'médico',
+        
+        (SELECT usuarios.id
+        FROM usuarios WHERE usuarios.id = resultados.id_funcionario) AS 'id_medico',
+        
+        resultados.data_realizacao,
+        
+        localizacoes.id AS 'id_clinica', localizacoes.complemento AS 'clinica',
+
+        resultados.resultado,
+        
+        
+        IF(resultados.reagendamento>0, 'Necessário Reagendar', 'Não Reagendar') AS 'situacao'
+        
+        FROM resultados
+        
+        INNER JOIN usuarios ON
+        resultados.id_cliente = usuarios.id
+        
+        
+        INNER JOIN localizacoes ON
+        resultados.id_localizacao = localizacoes.id
+        
+        WHERE resultados.id_cliente = ?;";
+
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+        $comando->execute([$this -> id_cliente]);
 
         $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
         Banco::desconectar();
