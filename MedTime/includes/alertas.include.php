@@ -17,7 +17,7 @@
 
         //Agendamento
         "cadastraragendamento" => "Agendamento realizado!",
-        "removeragendamento" => "Agendamento deletado",
+        "removeragendamento" => "Agendamento cancelado",
         "editaragendamento" => "Informações editadas",
 
         //Atendimento
@@ -41,7 +41,7 @@
         "editarresultado" => "Informações editadas",
 
         //Suporte
-        "cadastrarsuporte" => "Seu pedido foi realizado!",
+        "cadastrarsuporte" => "Seu feedback foi enviado!",
 
         //Login
         "logar" => "Login realizado, você será redirecionado!"

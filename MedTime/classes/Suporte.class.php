@@ -11,7 +11,35 @@ class Suporte {
     public $situacao;
 
     public function Listar(){
-        $sql = "SELECT * FROM suportes";
+        $sql = "SELECT suportes.id AS 'id_suporte', suportes.id_cliente , usuarios.nome AS 'solicitante', suportes.assunto, suportes.mensagem,
+        IF(suportes.situacao>0, 'Pendente', 'Atendido') AS 'situacao'
+
+        FROM suportes
+
+        INNER JOIN usuarios ON
+        suportes.id_cliente = usuarios.id
+        ORDER BY suportes.situacao ASC";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        $comando->execute();
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+
+    }
+
+    public function ListarPendentes(){
+        $sql = "SELECT suportes.id AS 'id_suporte', suportes.id_cliente , usuarios.nome AS 'solicitante', suportes.assunto, suportes.mensagem,
+        IF(suportes.situacao>0, 'Pendente', 'Atendido') AS 'situacao'
+
+        FROM suportes
+
+        INNER JOIN usuarios ON
+        suportes.id_cliente = usuarios.id
+        
+        WHERE suportes.situacao > 0";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 
@@ -37,7 +65,7 @@ class Suporte {
 
     }
 
-    public function Solicitar(){
+    public function Cadastrar(){
 
         $sql = "INSERT INTO suportes(id_cliente, assunto, mensagem, situacao) 
         VALUES (?, ?, ?, ?)";

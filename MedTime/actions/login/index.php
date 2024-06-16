@@ -22,7 +22,7 @@
             <div class="col-4">
                 <!-- Título da página de login -->
                 <img src="../../img/logo.png" width="200px" alt="Logo" class="img-fluid mx-auto d-block">
-                <h1 class="text-white text-center mt-5" id="titulo">Login - Admin</h1>
+                <h1 class="text-white text-center mt-5" id="titulo">Login</h1>
             </div>
         </div>
         <div class="row justify-content-center mt-3">
@@ -31,7 +31,7 @@
                 <form class="" id="formLogin" action="validar_login.php" method="POST">
                     <!-- Div de email -->
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email - Funcionário</label>
+                        <label for="email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="email" name="email">
                         <div class="invalid-feedback">E-mail incorreto</div>
                     </div>

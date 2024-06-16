@@ -2,6 +2,10 @@
 
 session_start();
 
+require_once('classes/Exame.class.php');
+$exame = new Exame();
+
+$listarExames = $exame->Listar();
 
 ?>
 
@@ -45,54 +49,17 @@ session_start();
         </div>
         <div class="row mt-3">
             <div class="col-12">
+                <?php foreach($listarExames as $e) { ?>
                 <!-- CARD DO TIPO DE CONSULTA -->
                 <div class="card mb-4 ms-4 me-4 clicavelhover ">
                     <div class="card-body">
-                        <a href="agendamentos.php?nomeexame=Ginecologista" class="stretched-link text-decoration-none">
-                            <h5 class="card-title">Ginecologista</h5>
-                            <p class="card-text">Médico especializado na saúde do sistema reprodutor feminino</p>
+                        <a href="agendamentos.php?id=<?=$e['id'];?>" class="stretched-link text-decoration-none">
+                            <h5 class="card-title"><?=$e['nome'];?></h5>
+                            <p class="card-text">Médico responsável: <?=$e['funcionario_resp'];?></p>
                         </a>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-12">
-                <!-- CARD DO TIPO DE CONSULTA -->
-                <div class="card mb-4 ms-4 me-4 clicavelhover">
-                    <div class="card-body">
-                        <a href="agendamentos.phpnomeexame=Otorrinolaringologista" class="stretched-link text-decoration-none">
-                            <h5 class="card-title">Otorrinolaringologista</h5>
-                            <p class="card-text">Médico especializado no diagnóstico e tratamento de doenças do ouvido, nariz, garganta, e das estruturas da cabeça e pescoço.</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-12">
-                <!-- CARD DO TIPO DE CONSULTA -->
-                <div class="card mb-4 ms-4 me-4 clicavelhover">
-                    <div class="card-body">
-                        <a href="agendamentos.phpnomeexame=Oftalmologista" class="stretched-link text-decoration-none">
-                            <h5 class="card-title">Oftalmologista</h5>
-                            <p class="card-text">Médico especialista em prevenir e tratar problemas dos olhos e estruturas anexas.</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-3">
-            <div class="col-12">
-                <!-- CARD DO TIPO DE CONSULTA -->
-                <div class="card mb-4 ms-4 me-4 clicavelhover">
-                    <div class="card-body">
-                        <a href="agendamentos.phpnomeexame=Psiquiatra" class="stretched-link text-decoration-none">
-                            <h5 class="card-title">Psiquiatra </h5>
-                            <p class="card-text">Médico que trata da prevenção, diagnóstico e tratamento dos sofrimentos mentais de cunho orgânico ou funcional.</p>
-                        </a>
-                    </div>
-                </div>
+                <?php } ?>
             </div>
         </div>
 
@@ -136,6 +103,8 @@ session_start();
 
     <!-- puxar js -->
     <script src="CSS_e_JS/script.js"></script>
+
+    <?php include_once('includes/alertas.include.php'); ?>
 
 </body>
 

@@ -328,6 +328,7 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
     integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    <?php include_once('includes/alertas.include.php'); ?>
 
     <script>
         function mostrarCEP(){
@@ -521,5 +522,7 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
         }
 
     </script>
+
+    
 
 </body>

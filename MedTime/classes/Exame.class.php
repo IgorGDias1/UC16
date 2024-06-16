@@ -25,6 +25,25 @@ Class Exame {
         return $resultado;
     }
 
+    public function ListarPorID(){
+        $sql = "SELECT exames.id, exames.nome, exames.id_responsavel, 
+        usuarios.nome AS 'funcionario_resp' FROM exames
+        
+        INNER JOIN usuarios ON
+        exames.id_responsavel = usuarios.id
+        
+        WHERE exames.id = ?";
+        $banco = Banco::conectar();
+
+        $comando = $banco->prepare($sql);
+
+        $comando->execute([$this->id]);
+        $resultado = $comando->fetchAll(PDO::FETCH_ASSOC);
+        Banco::desconectar();
+
+        return $resultado;
+    }
+
     public function ListarExamePorMedico(){
         $sql = "SELECT * FROM exames WHERE id_responsavel = ?";
         $banco = Banco::conectar();

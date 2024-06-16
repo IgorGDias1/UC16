@@ -2,6 +2,10 @@
 
 session_start();
 
+if(!isset($_SESSION['usuario'])) {
+    header('Location: actions/login/index.php');
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -52,20 +56,34 @@ session_start();
             </div>
             <!-- Linha do envio de feedback -->
             <div class="col-md-6 rounded-3  mb-2 p-4">
-                <p class="h2 text-center">Deixe seu feedback sobre o site</p>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Nome completo</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Nome completo">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Email">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">Por favor deixe seu feedback a abaixo para que os desenvolvedores possam melhorar o site</label>
-                    <textarea class="form-control" id="deixe seu feedback aqui" rows="3"></textarea>
-                </div>
-                <button type="button" class="btn btn-primary">Enviar feedback</button>
+                <form action="actions/suporte/cadastrar_suporte.php" method="POST">
+                    <div class="mb-3 form-floating">
+                        <input type="hidden" value="<?=$_SESSION['usuario']['id'];?>" id="id_cliente" name="id_cliente">
+                        <input type="text" class="form-control" id="nomeCliente" name="nomeCliente" value="<?=$_SESSION['usuario']['nome'];?>">
+                        <label for="exampleFormControlInput1 floatingInput" class="form-label">Nome completo</label>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <input type="email" class="form-control" id="exampleFormControlInput1" 
+                            value="<?=$_SESSION['usuario']['email'];?>">
+                        <label for="exampleFormControlInput1 floatingInput" class="form-label">Email</label>
+                    </div>
+                    <div class="mb-3 form-floating">
+                        <select name="assunto" id="assunto" class="form-control">
+                            <option value="Experiencia Geral">Experiência Geral</option>
+                            <option value="Agendamento">Agendamento</option>
+                            <option value="Atendimento">Atendimento</option>
+                            <option value="Profissionais">Profissionais</option>
+                            <option value="Consulta">Consulta</option>
+                            <option value="Sugestao">Sugestão</option>
+                            <option value="Outros">Outros</option>
+                        </select>
+                        <label for="assunto" class="form-floating">Assunto</label>
+                    </div>
+                    <div class="mb-3">
+                        <textarea class="form-control" id="feedback" name="feedback" rows="3" placeholder="Por favor deixe seu feedback abaixo"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Enviar feedback</button>
+                </form>
             </div>
         </div>
 
@@ -111,6 +129,8 @@ session_start();
 
     <!-- puxar js -->
     <script src="CSS_e_JS/script.js"></script>
+
+    <?php include_once('includes/alertas.include.php'); ?>
 
 
 </body>

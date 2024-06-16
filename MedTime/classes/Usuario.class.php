@@ -55,7 +55,19 @@ class Usuario {
 
     public function ListarPorID(){
 
-        $sql = "SELECT * FROM usuarios WHERE id = ?";
+        $sql = "SELECT usuarios.id AS 'id_usuario', usuarios.nome, usuarios.email, usuarios.cpf, usuarios.data_nascimento, 
+        usuarios.telefone_celular, usuarios.telefone_residencial, usuarios.id_convenio, usuarios.id_localizacao AS 'id_local', localizacoes.cep,
+        convenios.nome AS 'convenio'
+ 
+        FROM usuarios
+
+        INNER JOIN localizacoes ON
+        usuarios.id_localizacao = localizacoes.id
+         
+        INNER JOIN convenios ON
+        usuarios.id_convenio = convenios.id
+         
+        WHERE usuarios.id_localizacao IS NOT NULL AND usuarios.id_cargo IS NULL AND usuarios.id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 

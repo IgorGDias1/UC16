@@ -1,7 +1,31 @@
 <?php
-
 session_start();
 
+if(!isset($_SESSION['usuario'])){
+    header('Location: actions/login/index.php');
+}
+
+if(!isset($_GET['id'])){
+    header('Location: consultas.php');
+}
+
+
+require_once('classes/Exame.class.php');
+$exame = new Exame();
+$exame->id = $_GET['id'];
+
+$listarExame = $exame -> ListarPorID();
+
+require_once('classes/Usuario.class.php');
+$usuario = new Usuario();
+$usuario->id = $_SESSION['usuario']['id'];
+
+$usuarioInfo = $usuario->ListarPorID();
+
+require_once('classes/Localizacao.class.php');
+$localizacao = new Localizacao();
+
+$listarClinicas = $localizacao->ListarClinicas();
 
 ?>
 
@@ -43,23 +67,66 @@ session_start();
         <!-- Linha da tabela de agendamentos -->
         <div class="row justify-content-center">
             <div class="col-md-6 rounded-3  mb-2 ">
-                <p class="h2 text-center">Agendamentos</p>
-                <input class="form-control form-control-lg mb-2 " 
-                name="nomepaciente" id="nomepaciente" type="text" 
-                placeholder="Nome do paciente" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " name="exame" id="exame" type="text" placeholder="Nome do Exame" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " 
-                name="nomemedico" id="nomemedico" 
-                type="text" placeholder="Nome do medico" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " 
-                name="convenio" id="convenio" type="text" placeholder="Convênio" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " 
-                name="dataagendamento" id="dataagendamento" type="text" placeholder="Data" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " 
-                name="localagendamento" id="localagendamento" type="text" placeholder="Local" aria-label=".form-control-lg example">
-                <input class="form-control form-control-lg mb-2 " 
-                name="situacaoagendamento" id="situacaoagendamento" type="text" placeholder="Situação" aria-label=".form-control-lg example">
-                <button type="button" class="btn btn-primary">Agendar Consuta</button>
+                <p class="h2 text-center mt-3">Agendamentos</p>
+                <form action="actions/agendamentos/cadastrar_agendamento_cliente.php" method="POST">
+                    <!-- foreach com as informações do exame -->
+                    <?php foreach($listarExame as $e) { ?>
+                        <!-- foreach com as informações do usuário -->
+                        <?php foreach($usuarioInfo as $u) { ?>
+
+                        <div class="form-floating">
+                            <input type="hidden" value="<?=$_SESSION['usuario']['id'];?>" id="id_cliente" name="id_cliente">
+                            <input class="form-control form-control-lg mb-2 "
+                            name="nomepaciente" id="nomepaciente" type="text" aria-label=".form-control-lg example"
+                            value="<?=$_SESSION['usuario']['nome']?>" readonly>
+                            <label for="floatingInput">Nome</label>
+                        </div>
+
+
+                        <div class="form-floating">
+                            <input type="hidden" value="<?=$e['id'];?>" id="id_exame" name="id_exame">
+                            <input class="form-control form-control-lg mb-2 " name="exame" id="exame" type="text" aria-label=".form-control-lg example" value="<?=$e['nome'];?>" readonly>
+                            <label for="floatingInput">Exame</label>
+                        </div>
+                        
+                        <div class="form-floating">
+                            <input type="hidden" value="<?=$e['id_responsavel'];?>" id="id_funcionario" name="id_funcionario">
+                            <input class="form-control form-control-lg mb-2 " 
+                            name="nomemedico" id="nomemedico" 
+                            type="text" aria-label=".form-control-lg example" value="<?=$e['funcionario_resp'];?>" readonly>
+                            <label for="floatingInput">Médico Responsável</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <input type="hidden" value="<?=$u['id_convenio'];?>" id="id_convenio" name="id_convenio">
+                            <input class="form-control form-control-lg mb-2 " 
+                            name="convenio" id="convenio" type="text" aria-label=".form-control-lg example" value="<?=$u['convenio'];?>" readonly>
+                            <label for="floatingInput">Convênio</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 mt-5" 
+                            name="dataagendamento" id="dataagendamento" type="date" placeholder="Data" aria-label=".form-control-lg example">
+                            <label for="floatingInput">Data de agendamento</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <?php foreach($listarClinicas as $clinica) { ?>
+                            <select name="clinica" id="clinica" class="form-control form-control-lg mb-2">
+                                <option value="<?=$clinica['id'];?>"><?=$clinica['complemento'];?></option>
+                            </select>
+                            <?php } ?>
+                            <label for="floatingInput">Clínica</label>
+                        </div>
+
+                        <!-- Fim do foreach do Usuario -->
+                        <?php } ?>
+                        <!-- Fim do foreach de Exame -->
+                    <?php } ?>
+                    
+                    <button type="submit" class="btn btn-primary mt-3">Agendar Consuta</button>
+                    <!-- Fim do form -->
+                </form>
             </div>
 
         </div>
@@ -98,6 +165,8 @@ session_start();
         </div>
 
     </div>
+
+    <?php include_once('includes/alertas.include.php'); ?>
 
 
     <!-- JS -->
