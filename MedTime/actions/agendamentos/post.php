@@ -1,18 +1,16 @@
 <?php
 
         header('Content-Type: application/json');
-        session_start();
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                require_once('../../classes/Usuario.Class.php');
-                $u = new Usuario();
 
-                $u->cpf = strip_tags($_GET['cpf']); 
+         if(isset($_GET['cpf'])){
+        require_once('../../classes/Usuario.Class.php');
+
+        $u = new Usuario();
+        $u -> cpf = $_GET['cpf'];
+        echo json_encode($u->ListarPorCPF());
         
-                $resultado = $u->ListarPorCPF();
-            
-                echo json_encode($resultado);
-        }else{
-                echo json_encode([]);
-        }
+    } else {
+        echo json_encode([]);
+    }
        
 ?>

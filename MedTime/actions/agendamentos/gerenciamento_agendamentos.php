@@ -331,6 +331,18 @@ $listar_exame = $exame->Listar();
       modal.find('.situacao').val(situacao)
 
     })
+
+    function buscarCPF(){
+  $.getJSON('post.php?cpf=' + cpf_buscar.value, function(dados){
+    console.log(dados)
+    corpo_tabela.innerHTML = "";  
+
+    $(dados).each(function(item){
+      $("#pacienteEdit").append("<option value='" + this.id + "'>" + this.nome + "</option>");
+    });
+    btnReload.hidden=false;
+  });
+  }
   </script>
 
   <!-- puxar js -->

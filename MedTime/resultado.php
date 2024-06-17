@@ -6,7 +6,7 @@ if (!isset($_SESSION['usuario'])) {
     die();
 }
 
-if(!isset($_GET['id'])){
+if (!isset($_GET['id'])) {
     header('Location: perfil.php');
 }
 
@@ -69,45 +69,47 @@ $resultadoListar = $resultado->ListarPorID();
 
 <body>
 
-    <?php
-    $paginaAtiva = "2";
-    include_once("includes/elementos.include.php");
-    ?>
+
 
     <div class="container-fluid ">
+        <?php
+        $paginaAtiva = "2";
+        include_once("includes/elementos.include.php");
+        ?>
+
         <p class="h4 mt-5 text-center"><b>Resultado</b></p>
         <div class="col-12">
-        <?php foreach($resultadoListar as $hR) { ?>
-        <div class="form-floating">
-            <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['paciente']; ?>">
-            <label for="floatingInput">Paciente</label>
-        </div>
+            <?php foreach ($resultadoListar as $hR) { ?>
+                <div class="form-floating">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['paciente']; ?>">
+                    <label for="floatingInput">Paciente</label>
+                </div>
 
-        <div class="form-floating">
-            <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['médico']; ?>">
-            <label for="floatingInput">Médico</label>
-        </div>
+                <div class="form-floating">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['médico']; ?>">
+                    <label for="floatingInput">Médico</label>
+                </div>
 
-        <div class="form-floating">
-            <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['data_realizacao']; ?>">
-            <label for="floatingInput">Data de Realização</label>
-        </div>
+                <div class="form-floating">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['data_realizacao']; ?>">
+                    <label for="floatingInput">Data de Realização</label>
+                </div>
 
-        <div class="form-floating">
-            <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['clinica']; ?>">
-            <label for="floatingInput">Clínica</label>
-        </div>
+                <div class="form-floating">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['clinica']; ?>">
+                    <label for="floatingInput">Clínica</label>
+                </div>
 
-        <div class="form-floating">
-            <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['resultado']; ?>">
-            <label for="floatingInput">Resultado</label>
-        </div>
+                <div class="form-floating">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['resultado']; ?>">
+                    <label for="floatingInput">Resultado</label>
+                </div>
 
-        <div class="form-floating">
-            <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['situacao']; ?>">
-            <label for="floatingInput">Situação</label>
-        </div>
-        <?php } ?>
+                <div class="form-floating">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $hR['situacao']; ?>">
+                    <label for="floatingInput">Situação</label>
+                </div>
+            <?php } ?>
         </div>
 
     </div>

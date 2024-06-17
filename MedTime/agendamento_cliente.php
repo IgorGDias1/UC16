@@ -6,7 +6,7 @@ if (!isset($_SESSION['usuario'])) {
     die();
 }
 
-if(!isset($_GET['id'])){
+if (!isset($_GET['id'])) {
     header('Location: perfil.php');
 }
 
@@ -68,59 +68,54 @@ $agendamentoListar = $agendamento->ListarPorID();
 
 <body>
 
-    <?php
-    $paginaAtiva = "2";
-    include_once("includes/elementos.include.php");
-    ?>
+
 
     <div class="container-fluid ">
+        <?php
+        $paginaAtiva = "2";
+        include_once("includes/elementos.include.php");
+        ?>
+        
         <p class="h4 mt-5 text-center"><b>Agendamento</b></p>
         <div class="col-12">
             <?php foreach ($agendamentoListar as $infoA) { ?>
                 <div class="form-floating">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" 
-                    value="<?= $infoA['paciente']; ?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $infoA['paciente']; ?>">
                     <label for="floatingInput">Paciente</label>
                 </div>
 
                 <div class="form-floating">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" 
-                    value="<?= $infoA['médico']; ?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $infoA['médico']; ?>">
                     <label for="floatingInput">Médico</label>
                 </div>
 
                 <div class="form-floating">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" 
-                    value="<?= $infoA['exame']; ?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $infoA['exame']; ?>">
                     <label for="floatingInput">Exame</label>
                 </div>
 
                 <div class="form-floating">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" 
-                    value="<?= $infoA['convenio']; ?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $infoA['convenio']; ?>">
                     <label for="floatingInput">Convênio</label>
                 </div>
 
                 <div class="form-floating">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" 
-                    value="<?= $infoA['clinica']; ?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $infoA['clinica']; ?>">
                     <label for="floatingInput">Clínica</label>
                 </div>
 
                 <div class="form-floating">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" 
-                    value="<?= $infoA['data consulta']; ?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $infoA['data consulta']; ?>">
                     <label for="floatingInput">Data da Consulta</label>
                 </div>
 
                 <div class="form-floating">
-                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" 
-                    value="<?= $infoA['situacao']; ?>">
+                    <input class="form-control form-control-lg mb-2 w-75" type="text" aria-label=".form-control-lg example" value="<?= $infoA['situacao']; ?>">
                     <label for="floatingInput">Situação</label>
                 </div>
 
-                <?php if($infoA['situacao'] == "Pendente") { ?>
-                <button class="btn btn-danger" onclick="cancelarAgendamento(<?=$_GET['id'];?>)">Cancelar Agendamento</button>
+                <?php if ($infoA['situacao'] == "Pendente") { ?>
+                    <button class="btn btn-danger" onclick="cancelarAgendamento(<?= $_GET['id']; ?>)">Cancelar Agendamento</button>
                 <?php } ?>
             <?php } ?>
         </div>
@@ -139,22 +134,22 @@ $agendamentoListar = $agendamento->ListarPorID();
     <?php include_once('includes/alertas.include.php'); ?>
 
     <script>
-    function cancelarAgendamento(id){
-        Swal.fire({
-        title: "Tem certeza?",
-        text: "Não será possível desfazer essa ação!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Sim, cancelar!"
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href='actions/agendamentos/cancelar_agendamento.php?id=' + id;
-            }
-        });
-    }
+        function cancelarAgendamento(id) {
+            Swal.fire({
+                title: "Tem certeza?",
+                text: "Não será possível desfazer essa ação!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Sim, cancelar!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'actions/agendamentos/cancelar_agendamento.php?id=' + id;
+                }
+            });
+        }
     </script>
 
 </body>
