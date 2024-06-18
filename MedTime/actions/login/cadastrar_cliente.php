@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario->cpf = strip_tags($_POST['cpfCadastro']);
     $usuario->data_nascimento = strip_tags($_POST['data_nascimentoCadastro']);
     $usuario->telefone_celular = strip_tags($_POST['telefoneCadastro']);
+    $usuario->id_convenio = 0;
 
 
     if ($usuario->CadastrarClienteSemLocalizacao() == 1) {

@@ -10,6 +10,7 @@ require_once('classes/Usuario.class.php');
 $usuario = new Usuario();
 $usuario->id = $_SESSION['usuario']['id'];
 
+
 $info = $usuario->ListarPorID();
 
 require_once('classes/Localizacao.class.php');

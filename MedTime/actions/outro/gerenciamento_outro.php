@@ -90,7 +90,7 @@ $listar_medicos = $u->ListarMedicos();
                     <i class="bi bi-pencil-square"></i> Editar</button>
                 </td>
                 <td>
-                  <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $convenio['id']; ?>)">
+                  <a href="#" class="btn btn-danger btn-sm" onclick="excluirConvenio(<?= $convenio['id']; ?>)">
                     <i class="bi bi-file-earmark-x"></i> Excluir Convênio
                   </a>
                 </td>
@@ -146,6 +146,23 @@ $listar_medicos = $u->ListarMedicos();
       }).then((result) => {
         if (result.isConfirmed) {
           window.location.href = '../especialidades/deletar_especialidade.php?id=' + id;
+        }
+      });
+    }
+
+    function excluirConvenio(id) {
+      Swal.fire({
+        title: "Tem certeza?",
+        text: "Não será possível desfazer essa ação!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "Cancelar",
+        confirmButtonText: "Sim, apagar!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = 'convenio/deletar_convenio.php?id=' + id;
         }
       });
     }

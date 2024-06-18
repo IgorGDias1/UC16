@@ -72,9 +72,9 @@ $lista_especialidade = $especialidade->Listar();
         ?>
 
 
-  <!-- Container de gerenciamento de clientes sem endereço cadastrado -->
+  <!-- Container de gerenciamento de clientes sem endereço cadastrado
   <div class="container mt-5">
-    <h2 class="text-center mb-4">Gerenciamento de Clientes</h2>
+
     <h6 class="text-center">Clientes sem endereço cadastrado</h6>
     <div class="row mb-3">
       <div class="col d-flex justify-content-end">
@@ -116,7 +116,7 @@ $lista_especialidade = $especialidade->Listar();
             <td><?= $usuario['convenio']; ?></td>
 
             <!-- Botão de informacoes -->
-            <td>
+            <!-- <td>
             <button type="submit" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modalInfoCliente" 
             data-id="<?=$usuario['id_usuario'];?>" 
             data-nome="<?=$usuario['nome'];?>" 
@@ -127,10 +127,10 @@ $lista_especialidade = $especialidade->Listar();
             data-telefone_residencial="<?=$usuario['telefone_residencial'];?>" 
             data-nome_convenio="<?=$usuario['convenio'];?>">
             <i class="bi bi-info-circle"></i> Info</button>
-          </td>
+          </td> -->
 
             <!-- Botão de edicao -->
-            <td>
+            <!-- <td>
             <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicaoCliente" 
             data-id="<?=$usuario['id_usuario'];?>" 
             data-nome="<?=$usuario['nome'];?>" 
@@ -141,10 +141,10 @@ $lista_especialidade = $especialidade->Listar();
             data-telefone_residencial="<?=$usuario['telefone_residencial'];?>" 
             data-id_convenio="<?=$usuario['id_convenio'];?>">
             <i class="bi bi-pencil-square"></i> Editar</button>
-          </td>
+          </td> -->
           
             <!-- Botao de exclusao -->
-            <td>
+            <!-- <td>
               <a href="#" class="btn btn-danger btn-sm"
               onclick="excluir(<?= $usuario['id_usuario']; ?>)">
               <i class="bi bi-file-earmark-x"></i> Excluir</a>
@@ -153,14 +153,14 @@ $lista_especialidade = $especialidade->Listar();
           </tr>
         <?php } ?>
       </tbody>
-    </table>
+    </table> -->
 
 
-  <br><br><br><hr>
+  <!-- <br><br><br><hr> -->
 
   <!-- Container de gerenciamento de clientes com endereço cadastrado -->
   <div class="container mt-5">
-    <h6 class="text-center">Clientes com endereço cadastrado</h6>
+  <h2 class="text-center mb-4">Gerenciamento de Clientes</h2>
     <table class="table table-striped table-hover table-primary ">
       <thead>
         <tr>
@@ -345,7 +345,7 @@ $lista_especialidade = $especialidade->Listar();
   <!-- Gerenciamento de funcionário sem especialidade -->
   <div class="container mt-5">
         <h6 class="text-center">Funcionários sem especialidade</h6>
-    </div>
+    
     <table class="table table-striped table-hover table-primary ">
       <thead>
         <tr>
