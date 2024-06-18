@@ -11,12 +11,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($suporte->Cadastrar() == 1){
         header('Location: ../../contate_nos.php?sucesso=cadastrarsuporte');
+        die();
     }else{
         header('Location: ../../contate_nos.php?falha=cadastrarsuporte');
+        die();
     }
 
 }else{
     header('Location: ../../contate_nos.php?falha=cadastrarsuporte');
+    die();
 }
 
 ?>

@@ -69,11 +69,8 @@ $resultadoListar = $resultado->ListarPorID();
 
 <body>
 
-
-
     <div class="container-fluid ">
         <?php
-        $paginaAtiva = "2";
         include_once("includes/elementos.include.php");
         ?>
 
@@ -111,8 +108,11 @@ $resultadoListar = $resultado->ListarPorID();
                 </div>
             <?php } ?>
         </div>
-
+        <?php
+        include_once("includes/rodape.include.php");
+        ?>
     </div>
+
 
 
 

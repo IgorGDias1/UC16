@@ -16,12 +16,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($exame->Editar() == 1){
         header('Location: gerenciamento_enderecos.php?sucesso=editarexame');
+        die();
     }else{
         header('Location: gerenciamento_enderecos.php?falha=editarexame');
+        die();
     }
 
 }else{  
     header('Location: gerenciamento_enderecos.php?falha=post');
+    die();
 }
 
 

@@ -48,11 +48,15 @@ if(!isset($_SESSION['usuario'])) {
         <div class="row">
             <div class="col-md-6 mt-3 p-4 ">
                 <p class="h2">Área de feedback:</p>
-                <p class="text-md-start"> Olá!<br>
+                <p class="text-md-start"> Bem-vindo à nossa central de suporte!<br>
 
-                    Agradecemos por dedicar seu tempo para nos fornecer seu feedback. Sua opinião é muito importante para nós e nos ajuda a melhorar continuamente nossos serviços. Seja um elogio, uma sugestão ou uma crítica, queremos ouvir de você.<br><br>
+                     <br>
 
-                    Por favor, compartilhe suas impressões, experiências e qualquer ideia que possa ter para que possamos tornar sua próxima visita ainda melhor. Estamos comprometidos em oferecer a melhor experiência possível e sua contribuição é essencial para isso. </p>
+                    Estamos aqui para garantir que sua experiência com nosso site de agendamento de consultas seja sempre a melhor possível. Se você tiver alguma dúvida, problema técnico ou sugestão para melhorar nossos serviços, não hesite em entrar em contato conosco. Nossa equipe dedicada está pronta para ajudar e garantir que suas consultas sejam agendadas de forma eficiente e conveniente.<br><br>
+
+                    Agradecemos por escolher nossos serviços de agendamento. Estamos comprometidos em proporcionar uma experiência tranquila e eficiente para todos os nossos usuários.
+                    
+                </p>
             </div>
             <!-- Linha do envio de feedback -->
             <div class="col-md-6 rounded-3  mb-2 p-4">
@@ -87,41 +91,10 @@ if(!isset($_SESSION['usuario'])) {
             </div>
         </div>
 
-
-        <!-- Linha do Rodapé -->
-        <div class="row rodape justify-content-center pb-3">
-            <div class="col-md-4 mt-4 ms-3">
-                <p class="h2">Contatos</p><br>
-                <p><i class="bi bi-instagram fs-5"></i>ﾠ@medtime</p>
-                <p><i class="bi bi-envelope fs-5"></i>ﾠmedtime@gmail.com</p>
-                <p><i class="bi bi-whatsapp fs-5"></i>ﾠ(12)98334-1234</p>
-            </div>
-
-            <div class="col-md-4 mt-4">
-                <p class="h2">Profissionais</p><br>
-                <p>Otorrinolaringologista</p>
-                <p>Oftalmologista</p>
-                <p>Psiquiatra</p>
-                <p>Entre outros</p>
-            </div>
-
-            <div class="col-md-2 mt-4">
-                <p class="h2">Institucional</p><br>
-                <p>Quem Somos</p>
-                <p>Sobre os Exames</p>
-                <p>Opiniões Médicas</p>
-                <p>Política de Privacidade</p>
-            </div>
-        </div>
-        <!-- Linha do Rodapé 2 -->
-        <div class="row bg-black">
-            <div class="col py-3 ms-2">
-                <span class="text-light ">Copyright MedTime Agendamentos Online-2032. Todos os direitos reservados</span>
-            </div>
-        </div>
-    </div>
-    
-
+        <?php
+            include_once("includes/rodape.include.php");
+            ?>
+            
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

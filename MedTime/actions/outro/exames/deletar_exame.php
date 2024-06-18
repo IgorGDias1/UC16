@@ -14,11 +14,14 @@ if(isset($_GET['id'])){
     if($exame -> Deletar() == 1){
 
         header('Location: ../outro/gerenciamento_outro.php?sucesso=removerexame');
+        die();
     }else{
         header('Location: ../outro/gerenciamento_outro.php?falha=removerexame');
+        die();
     }
 }else{
     header('Location: ../outro/gerenciamento_outro.php?falha=post');
+    die();
 }
 
 

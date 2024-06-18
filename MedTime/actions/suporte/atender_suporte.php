@@ -9,12 +9,15 @@ if($_SERVER['REQUEST_METHOD'] === 'GET'){
 
     if($suporte->Modificar_Situacao() == 1){
         header('Location: gerenciamento_suporte.php?sucesso=cadastrarsuporte');
+        die();
     }else{
         header('Location: gerenciamento_suporte.php?falha=cadastrarsuporte');
+        die();
     }
 
 }else{
     header('Location: gerenciamento_suporte.php?falha=cadastrarsuporte');
+    die();
 }
 
 ?>

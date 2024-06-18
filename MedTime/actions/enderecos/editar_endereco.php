@@ -22,12 +22,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($localizacao->Editar() == 1){
         header('Location: gerenciamento_enderecos.php?sucesso=editarlocalizacao');
+        die();
     }else{
         header('Location: gerenciamento_enderecos.php?falha=editarlocalizacao');
+        die();
     }
 
 }else{
     echo 'Erro. A página deve ser carregada por POST';
+    die();
 }
 
 

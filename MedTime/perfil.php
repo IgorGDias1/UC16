@@ -1,36 +1,34 @@
-<?php 
+<?php
 session_start();
 
-if(!isset($_SESSION['usuario'])){
+if (!isset($_SESSION['usuario'])) {
     header('Location: actions/login/index.php');
     die();
 }
 
 require_once('classes/Usuario.class.php');
 $usuario = new Usuario();
-$usuario->id=$_SESSION['usuario']['id'];
+$usuario->id = $_SESSION['usuario']['id'];
 
-$info = $usuario->ListarPorId();
+$info = $usuario->ListarPorID();
 
 require_once('classes/Localizacao.class.php');
 $localizacao = new Localizacao();
-$localizacao->id=$_SESSION['usuario']['id_localizacao'];
+$localizacao->id = $_SESSION['usuario']['id_localizacao'];
 
 $infoLocal = $localizacao->ListarPorID();
 
 require_once('classes/Resultado.class.php');
 $resultado = new Resultado();
-$resultado->id_cliente=$_SESSION['usuario']['id'];
+$resultado->id_cliente = $_SESSION['usuario']['id'];
 
 $historicoResultado = $resultado->ListarPorIDCliente();
 
 require_once('classes/Agendamento.class.php');
 $agendamento = new Agendamento();
-$agendamento->id_cliente=$_SESSION['usuario']['id'];
+$agendamento->id_cliente = $_SESSION['usuario']['id'];
 
 $infoAgendamento = $agendamento->ListarPorIDPaciente();
-
-
 
 
 ?>
@@ -43,8 +41,7 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MedTime</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -52,7 +49,7 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
 
     <!-- Link para o arquivo CSS externo -->
     <link rel="stylesheet" href="CSS_e_JS/style.css">
-    
+
     <!-- Movimento logo -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
@@ -61,11 +58,10 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
     <style>
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
+            -webkit-appearance: none;
+            margin: 0;
         }
     </style>
-
 
 
 
@@ -77,238 +73,221 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
 </head>
 
 <body>
+    
+<div class="container-fluid">
+    <?php
+    include_once("includes/elementos.include.php");
+    ?>
 
-<?php 
-       $paginaAtiva = "2";
-       include_once("includes/elementos.include.php");
-       ?>
-
-        <div class="container-fluid">
-            <div class="row mt-3 ms-4 me-3">
-                <div class="col-md-4">
-                    <img src="img/profile.png" class="rounded-circle border border-black img-fluid mx-auto d-block" width="200px" alt="...">
-                    <div class="d-grid gap-2 me-3">
-                        <div class="btn-group-vertical mt-5" role="group" aria-label="Vertical button group">
-                            <button type="button" class="btn btn-primary" id="btnAgendamentos" 
-                            onclick="mostrarInformacoesAgendamento()">Meus agendamentos</button>
-                        </div>
-                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                            <button type="button" class="btn btn-primary" id="btnPerfil" 
-                            onclick="mostrarInformacoesPerfil()" hidden>Meu perfil</button>
-                        </div>
-                        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-                            <button type="button" class="btn btn-primary" id="btnResultados" 
-                            onclick="mostrarInformacoesResultados()">Meus resultados</button>
-                        </div>
-                      </div>
-                   
-
+        <div class="row mt-3 ms-4 me-3">
+            <div class="col-md-4 mb-3">
+                <img src="img/profile.png" class="rounded-circle border border-black img-fluid mx-auto d-block" width="200px" alt="...">
+                <div class="d-grid gap-2 me-3">
+                    <div class="btn-group-vertical mt-5" role="group" aria-label="Vertical button group">
+                        <button type="button" class="btn btn-primary" id="btnAgendamentos" onclick="mostrarInformacoesAgendamento()">Meus agendamentos</button>
+                    </div>
+                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                        <button type="button" class="btn btn-primary" id="btnPerfil" onclick="mostrarInformacoesPerfil()" hidden>Meu perfil</button>
+                    </div>
+                    <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
+                        <button type="button" class="btn btn-primary" id="btnResultados" onclick="mostrarInformacoesResultados()">Meus resultados</button>
+                    </div>
                 </div>
 
-                <div class="col-7 mt-5 ms-5" id="agendamentosInfo" hidden>
+
+            </div>
+
+            <div class="col-7 mt-5 ms-5" id="agendamentosInfo" hidden>
                 <!-- Informações de agendamentos do usuário -->
-                 
-                <?php if(count($infoAgendamento) == 0){ ?>
+
+                <?php if (count($infoAgendamento) == 0) { ?>
                     <h6 class="text-center"><b>Nenhum Agendamento Encontrado</b></h6>
                 <?php } ?>
-                <?php foreach($infoAgendamento as $infoA) { ?>
+                <?php foreach ($infoAgendamento as $infoA) { ?>
                     <div class="card" id="cardAgendamento">
                         <div class="card-body">
-                            <h5 class="card-title">Data: <?=$infoA['data consulta'];?></h5>
+                            <h5 class="card-title">Data: <?= $infoA['data consulta']; ?></h5>
                             <hr>
-                            <p class="card-text fs-6"><b><?=$infoA['situacao'];?></b> - <?=$infoA['exame'];?></p>
-                            <a class="btn btn-primary btn-sm text-light" href="agendamento_cliente.php?id=<?=$infoA['id'];?>">Ver Agendamento</a>
+                            <p class="card-text fs-6"><b><?= $infoA['situacao']; ?></b> - <?= $infoA['exame']; ?></p>
+                            <a class="btn btn-primary btn-sm text-light" href="agendamento_cliente.php?id=<?= $infoA['id']; ?>">Ver Agendamento</a>
                             <!-- Fim do corpo do Card -->
                         </div>
                         <!-- Fim do Card -->
-                    </div> 
+                    </div>
 
                     <br>
                 <?php } ?>
-                </div>
+            </div>
 
 
-                <div class="col-7 mt-5 ms-5" id="resultadoInfos" hidden>
+            <div class="col-7 mt-5 ms-5" id="resultadoInfos" hidden>
                 <!-- Informações de resultados do usuário -->
-                <?php if(count($historicoResultado) == 0){ ?>
+                <?php if (count($historicoResultado) == 0) { ?>
                     <h6 class="text-center"><b>Nenhum Resultado Registrado</b></h6>
                 <?php } ?>
-                <?php foreach($historicoResultado as $hR) { ?>
+                <?php foreach ($historicoResultado as $hR) { ?>
                     <div class="card" id="cardResultado">
                         <div class="card-body">
-                            <h5 class="card-title"><?=$hR['resultado'];?></h5>
-                            <p class="card-text">Consulta realizada em: <?=$hR['data_realizacao'];?></p>
-                            <a class="btn btn-primary btn-sm text-light" href="resultado.php?id=<?=$hR['id_resultado'];?>">Ver Resultado</a>
+                            <h5 class="card-title"><?= $hR['resultado']; ?></h5>
+                            <p class="card-text">Consulta realizada em: <?= $hR['data_realizacao']; ?></p>
+                            <a class="btn btn-primary btn-sm text-light" href="resultado.php?id=<?= $hR['id_resultado']; ?>">Ver Resultado</a>
                             <!-- Fim do corpo do Card -->
                         </div>
                         <!-- Fim do Card -->
-                    </div> 
+                    </div>
 
                     <br>
-                    
+
                 <?php } ?>
-                </div>
+            </div>
 
 
-                <div class="col-md-8 rounded-3 border border-3 mb-2" hidden>
-                    <p class="h2 text-center">Meus Exames</p>
-                    <input class="form-control form-control-lg mb-2 w-75" name="nomeexame" id="nomexame" type="text" placeholder="Nome do exame"
-                        aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" name="dataexame" id="dataexame" type="text" placeholder="data da realização"
-                        aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" name="medicoexame" id="medicoexame" type="text" placeholder="Médico responsável"
-                        aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" name="resultadoexame" id="resultadoexame" type="text" placeholder="Resultado"
-                        aria-label=".form-control-lg example">
-                    <input class="form-control form-control-lg mb-2 w-75" name="situacaoexame" id="situacaoexame" type="text" placeholder="Situação"
-                        aria-label=".form-control-lg example">
-                </div>
+            <div class="col-md-8 rounded-3 border border-3 mb-2" hidden>
+                <p class="h2 text-center">Meus Exames</p>
+                <input class="form-control form-control-lg mb-2 w-75" name="nomeexame" id="nomexame" type="text" placeholder="Nome do exame" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 w-75" name="dataexame" id="dataexame" type="text" placeholder="data da realização" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 w-75" name="medicoexame" id="medicoexame" type="text" placeholder="Médico responsável" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 w-75" name="resultadoexame" id="resultadoexame" type="text" placeholder="Resultado" aria-label=".form-control-lg example">
+                <input class="form-control form-control-lg mb-2 w-75" name="situacaoexame" id="situacaoexame" type="text" placeholder="Situação" aria-label=".form-control-lg example">
+            </div>
 
-                <div class="col-md-8 rounded-3 border border-black mb-3" id="usuarioInfo">
-                    <!-- Informações do usuário -->
-                    <?php foreach($info as $i){?>
-                        <p class="h4 text-center mt-3 mb-3">Dados pessoais</p>
+            <div class="col-md-8 rounded-3 border border-black mb-3" id="usuarioInfo">
+                <!-- Informações do usuário -->
+                <?php foreach ($info as $i) { ?>
+                    <p class="h4 text-center mt-3 mb-3">Dados pessoais</p>
 
+                    <div class="form-floating">
+                        <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome Completo" aria-label=".form-control-lg example" value="<?= $i['nome']; ?>">
+                        <label for="floatingInput">Nome</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control form-control-lg mb-2 w-75" type="email" placeholder="Email" aria-label=".form-control-lg example" value="<?= $i['email']; ?>">
+                        <label for="floatingInput">Email</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control form-control-lg mb-2 w-75" type="date" placeholder="data de nascimento" aria-label=".form-control-lg example" value="<?= $i['data_nascimento']; ?>">
+                        <label for="floatingInput">Data de Nascimento</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Celular" aria-label=".form-control-lg example" value="<?= $i['telefone_celular']; ?>">
+                        <label for="floatingInput">Telefone Celular</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Residencial" aria-label=".form-control-lg example" value="<?= $i['telefone_residencial']; ?>">
+                        <label for="floatingInput">Telefone Residencial <i>(Opcional)</i></label>
+                    </div>
+
+                <?php } ?>
+
+                <br>
+                <hr><br>
+
+                <!-- Caso o usuário não possui um endereço cadastrado -->
+                <?php if ($_SESSION['usuario']['id_localizacao'] == "0") { ?>
+                    <!-- Botão para chamar o campo 'CEP' -->
+                    <button class="btn btn-success btn-sm mb-3" onclick="mostrarCEP()" id="btnAddEndereco">Adicionar Endereço</button>
+
+                    <p class="h4 text-center mt-3 mb-3" id="tituloEndereco" hidden>Informações de endereço</p>
+
+                    <!-- Começo do FORM -->
+                    <form action="actions/clientes/cadastrar_endereco_cliente.php" method="POST">
                         <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome Completo"
-                            aria-label=".form-control-lg example" value="<?=$i['nome'];?>">
-                            <label for="floatingInput">Nome</label>
+                            <!-- Input CEP que chama a função da API ViaCEP -->
+                            <input class="form-control form-control-lg mb-2 w-25" type="number" placeholder="CEP" aria-label=".form-control-lg example" id="cep" name="cep" hidden onkeyup="document.getElementById('btn_limpar').hidden=false" onblur="pesquisacep(this.value)">
+                            <label for="floatingInput" id="cepLabel" hidden>CEP</label>
                         </div>
 
                         <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-75" type="email" placeholder="Email"
-                            aria-label=".form-control-lg example" value="<?=$i['email'];?>">
-                            <label for="floatingInput">Email</label>
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Rua" aria-label=".form-control-lg example" id="rua" name="rua" hidden>
+                            <label for="floatingInput" id="ruaLabel" hidden>Rua</label>
                         </div>
 
                         <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-75" type="date" placeholder="data de nascimento"
-                            aria-label=".form-control-lg example" value="<?=$i['data_nascimento'];?>">
-                            <label for="floatingInput">Data de Nascimento</label>
-                        </div>
-                    
-                        <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Celular"
-                            aria-label=".form-control-lg example" value="<?=$i['telefone_celular'];?>">
-                            <label for="floatingInput">Telefone Celular</label>
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Complemento" aria-label=".form-control-lg example" id="complemento" name="complemento" hidden>
+                            <label for="floatingInput" id="complementoLabel" hidden>Complemento</label>
                         </div>
 
                         <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Residencial"
-                            aria-label=".form-control-lg example" value="<?=$i['telefone_residencial'];?>">
-                            <label for="floatingInput">Telefone Residencial <i>(Opcional)</i></label>
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Bairro" aria-label=".form-control-lg example" id="bairro" name="bairro" hidden>
+                            <label for="floatingInput" id="bairroLabel" hidden>Bairro</label>
                         </div>
-                     
-                    <?php } ?>
 
-                        <br><hr><br>
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Cidade" aria-label=".form-control-lg example" id="cidade" name="cidade" hidden>
+                            <label for="floatingInput" id="cidadeLabel" hidden>Cidade</label>
+                        </div>
 
-                    <!-- Caso o usuário não possui um endereço cadastrado -->
-                    <?php if($_SESSION['usuario']['id_localizacao'] == "") {?>
-                            <!-- Botão para chamar o campo 'CEP' -->
-                            <button class="btn btn-success btn-sm mb-3" onclick="mostrarCEP()" id="btnAddEndereco">Adicionar Endereço</button>  
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="UF" aria-label=".form-control-lg example" id="uf" name="uf" hidden>
+                            <label for="floatingInput" id="ufLabel" hidden>UF</label>
+                        </div>
 
-                            <p class="h4 text-center mt-3 mb-3" id="tituloEndereco" hidden>Informações de endereço</p>
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="DDD" aria-label=".form-control-lg example" id="ddd" name="ddd" hidden>
+                            <label for="floatingInput" id="dddLabel" hidden>DDD</label>
+                        </div>
 
-                        <!-- Começo do FORM -->
-                        <form action="actions/clientes/cadastrar_endereco_cliente.php" method="POST">
-                            <div class="form-floating">
-                                <!-- Input CEP que chama a função da API ViaCEP -->
-                                <input class="form-control form-control-lg mb-2 w-25" type="number" placeholder="CEP"
-                                aria-label=".form-control-lg example" id="cep" name="cep" hidden 
-                                onkeyup="document.getElementById('btn_limpar').hidden=false" onblur="pesquisacep(this.value)">
-                                <label for="floatingInput" id="cepLabel" hidden>CEP</label>
-                            </div>
-                    
-                            <div class="form-floating">
-                                <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Rua"
-                                aria-label=".form-control-lg example" id="rua" name="rua" hidden>
-                                <label for="floatingInput" id="ruaLabel" hidden>Rua</label>
-                            </div>
-                    
-                            <div class="form-floating">
-                                <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Complemento"
-                                aria-label=".form-control-lg example" id="complemento" name="complemento" hidden>
-                                <label for="floatingInput" id="complementoLabel" hidden>Complemento</label>
-                            </div>
+                        <input type="hidden" id=tipoLocal name=tipoLocal value="Residencial">
 
-                            <div class="form-floating">
-                                <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Bairro"
-                                aria-label=".form-control-lg example" id="bairro" name="bairro" hidden>
-                                <label for="floatingInput" id="bairroLabel" hidden>Bairro</label>
-                            </div>
-                    
-                            <div class="form-floating">
-                                <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Cidade"
-                                aria-label=".form-control-lg example" id="cidade" name="cidade" hidden>
-                                <label for="floatingInput" id="cidadeLabel" hidden>Cidade</label>
-                            </div>
-
-                            <div class="form-floating">
-                                <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="UF"
-                                aria-label=".form-control-lg example" id="uf" name="uf" hidden>
-                                <label for="floatingInput" id="ufLabel" hidden>UF</label>
-                            </div>
-
-                            <div class="form-floating">
-                                <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="DDD"
-                                aria-label=".form-control-lg example" id="ddd" name="ddd" hidden>
-                                <label for="floatingInput" id="dddLabel" hidden>DDD</label>
-                            </div>
-
-                            <input type="hidden" id=tipoLocal name=tipoLocal value="Residencial">
-                            
-                            <!-- Botões -->
-                            <div class="form-floating">
-                                <div class="col d-flex">
-                                    <div class="justify-content-start">
-                                        <!-- Botão para limpar todos os campos -->
-                                        <button class="btn btn-warning my-3" id="btn_limpar" onclick="limpar_formulario_inteiro()" hidden>Limpar</button>
-                                    </div>
-                                    <div class="justify-content-end mx-3 mt-3">
-                                        <!-- Botão para cadastrar o endereço e dar submit no formulário -->
-                                        <button class="btn btn-success" type="submit" id="btn_cadastrar" hidden>Salvar Endereço</button>
-                                    </div>
+                        <!-- Botões -->
+                        <div class="form-floating">
+                            <div class="col d-flex">
+                                <div class="justify-content-start">
+                                    <!-- Botão para limpar todos os campos -->
+                                    <button class="btn btn-warning my-3" id="btn_limpar" onclick="limpar_formulario_inteiro()" hidden>Limpar</button>
+                                </div>
+                                <div class="justify-content-end mx-3 mt-3">
+                                    <!-- Botão para cadastrar o endereço e dar submit no formulário -->
+                                    <button class="btn btn-success" type="submit" id="btn_cadastrar" hidden>Salvar Endereço</button>
                                 </div>
                             </div>
-                        </form> 
-                        <!-- Fim do form -->
-                    <?php } ?>
+                        </div>
+                    </form>
+                    <!-- Fim do form -->
+                <?php } ?>
 
-                    <!-- Informações do endereço do usuario -->
-                    <?php foreach($infoLocal as $iL){?>
+                <!-- Informações do endereço do usuario -->
+                <?php if ($_SESSION['usuario']['id_localizacao'] !=  0) { ?>
+                    <?php foreach ($infoLocal as $iL) { ?>
                         <p class="h4 text-center mt-3 mb-3">Informações de endereço</p>
 
                         <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-25" type="text" placeholder="CEP"
-                            aria-label=".form-control-lg example" value="<?=$iL['cep'];?>">
+                            <input class="form-control form-control-lg mb-2 w-25" type="text" placeholder="CEP" aria-label=".form-control-lg example" value="<?= $iL['cep']; ?>">
                             <label for="floatingInput">CEP</label>
                         </div>
-                    
+
                         <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="UF"
-                            aria-label=".form-control-lg example" value="<?=$iL['uf'];?>">
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="UF" aria-label=".form-control-lg example" value="<?= $iL['uf']; ?>">
                             <label for="floatingInput">UF</label>
                         </div>
-                    
+
                         <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Bairro"
-                            aria-label=".form-control-lg example" value="<?=$iL['bairro'];?>">
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Bairro" aria-label=".form-control-lg example" value="<?= $iL['bairro']; ?>">
                             <label for="floatingInput">Bairro</label>
                         </div>
-                    
+
                         <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Rua"
-                            aria-label=".form-control-lg example" value="<?=$iL['logradouro'];?>">
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Rua" aria-label=".form-control-lg example" value="<?= $iL['logradouro']; ?>">
                             <label for="floatingInput">Rua</label>
                         </div>
-                    
+
                     <?php } ?>
-                </div>
+                <?php } ?>
             </div>
         </div>
+
+        <?php
+        include_once("includes/rodape.include.php");
+        ?>
+
     </div>
-    </div>
+
+
+
 
 
 
@@ -318,211 +297,201 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
     <script src="CSS_e_JS/script.js"></script>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-    crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-    crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
-    integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA=="
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <?php include_once('includes/alertas.include.php'); ?>
 
     <script>
-        function mostrarCEP(){
-            document.getElementById('cep').hidden=false
+        function mostrarCEP() {
+            document.getElementById('cep').hidden = false
 
-            document.getElementById('cepLabel').hidden=false
+            document.getElementById('cepLabel').hidden = false
 
-            document.getElementById('btnAddEndereco').hidden=true
-            document.getElementById('tituloEndereco').hidden=false
+            document.getElementById('btnAddEndereco').hidden = true
+            document.getElementById('tituloEndereco').hidden = false
         }
     </script>
 
     <!-- Api ViaCEP -->
     <script>
-    function mostrarCampos(){
-        document.getElementById('rua').hidden=false;
-        document.getElementById('complemento').hidden=false;
-        document.getElementById('bairro').hidden=false;
-        document.getElementById('cidade').hidden=false;
-        document.getElementById('uf').hidden=false;
-        document.getElementById('ddd').hidden=false;
-        
-        document.getElementById('cepLabel').hidden=false
-        document.getElementById('ruaLabel').hidden=false
-        document.getElementById('complementoLabel').hidden=false
-        document.getElementById('bairroLabel').hidden=false
-        document.getElementById('cidadeLabel').hidden=false
-        document.getElementById('ufLabel').hidden=false
-        document.getElementById('dddLabel').hidden=false
+        function mostrarCampos() {
+            document.getElementById('rua').hidden = false;
+            document.getElementById('complemento').hidden = false;
+            document.getElementById('bairro').hidden = false;
+            document.getElementById('cidade').hidden = false;
+            document.getElementById('uf').hidden = false;
+            document.getElementById('ddd').hidden = false;
 
-        document.getElementById('btn_limpar').hidden=false;
-        document.getElementById('btn_cadastrar').hidden=false;
-    }
+            document.getElementById('cepLabel').hidden = false
+            document.getElementById('ruaLabel').hidden = false
+            document.getElementById('complementoLabel').hidden = false
+            document.getElementById('bairroLabel').hidden = false
+            document.getElementById('cidadeLabel').hidden = false
+            document.getElementById('ufLabel').hidden = false
+            document.getElementById('dddLabel').hidden = false
 
-    function esconderCampos(){
-       document.getElementById('rua').hidden=true;
-       document.getElementById('complemento').hidden=true;
-       document.getElementById('bairro').hidden=true;
-       document.getElementById('cidade').hidden=true;
-       document.getElementById('uf').hidden=true;
-       document.getElementById('ddd').hidden=true;
-       
-       document.getElementById('ruaLabel').hidden=true;
-       document.getElementById('complementoLabel').hidden=true;
-       document.getElementById('bairroLabel').hidden=true;
-       document.getElementById('cidadeLabel').hidden=true;
-       document.getElementById('ufLabel').hidden=true;
-       document.getElementById('dddLabel').hidden=true;
+            document.getElementById('btn_limpar').hidden = false;
+            document.getElementById('btn_cadastrar').hidden = false;
+        }
 
-       document.getElementById('btn_limpar').hidden=true;
-       document.getElementById('btn_cadastrar').hidden=true;
-   }
+        function esconderCampos() {
+            document.getElementById('rua').hidden = true;
+            document.getElementById('complemento').hidden = true;
+            document.getElementById('bairro').hidden = true;
+            document.getElementById('cidade').hidden = true;
+            document.getElementById('uf').hidden = true;
+            document.getElementById('ddd').hidden = true;
 
-    function limpar_formulario_cep() {
-        document.getElementById('rua').value=("");
-        document.getElementById('complemento').value=("");
-        document.getElementById('bairro').value=("");
-        document.getElementById('cidade').value=("");
-        document.getElementById('uf').value=("");
-        document.getElementById('ddd').value=("");
+            document.getElementById('ruaLabel').hidden = true;
+            document.getElementById('complementoLabel').hidden = true;
+            document.getElementById('bairroLabel').hidden = true;
+            document.getElementById('cidadeLabel').hidden = true;
+            document.getElementById('ufLabel').hidden = true;
+            document.getElementById('dddLabel').hidden = true;
 
-        esconderCampos();
-    }
+            document.getElementById('btn_limpar').hidden = true;
+            document.getElementById('btn_cadastrar').hidden = true;
+        }
 
-    function limpar_formulario_inteiro() {
-        document.getElementById('cep').value=("");
-        document.getElementById('complemento').value=("");
-        document.getElementById('rua').value=("");
-        document.getElementById('bairro').value=("");
-        document.getElementById('cidade').value=("");
-        document.getElementById('uf').value=("");
-        document.getElementById('ddd').value=("");
-        
-        esconderCampos();
-    }
+        function limpar_formulario_cep() {
+            document.getElementById('rua').value = ("");
+            document.getElementById('complemento').value = ("");
+            document.getElementById('bairro').value = ("");
+            document.getElementById('cidade').value = ("");
+            document.getElementById('uf').value = ("");
+            document.getElementById('ddd').value = ("");
 
-    function meu_callback(conteudo) {
-        if (!("erro" in conteudo)) {
-            //Atualiza os campos com os valores.
-            document.getElementById('rua').value=(conteudo.logradouro);
-            document.getElementById('complemento').value=(conteudo.complemento);
-            document.getElementById('bairro').value=(conteudo.bairro);
-            document.getElementById('cidade').value=(conteudo.localidade);
-            document.getElementById('uf').value=(conteudo.uf);
-            document.getElementById('ddd').value=(conteudo.ddd);
-
-            mostrarCampos();
-        } //end if.
-        else {
-            //CEP não Encontrado.
-            limpar_formulario_cep();
             esconderCampos();
         }
-    }
 
-    function pesquisacep(valor) {
+        function limpar_formulario_inteiro() {
+            document.getElementById('cep').value = ("");
+            document.getElementById('complemento').value = ("");
+            document.getElementById('rua').value = ("");
+            document.getElementById('bairro').value = ("");
+            document.getElementById('cidade').value = ("");
+            document.getElementById('uf').value = ("");
+            document.getElementById('ddd').value = ("");
 
-        //Nova variável "cep" somente com dígitos.
-        var cep = valor.replace(/\D/g, '');
+            esconderCampos();
+        }
 
-        //Verifica se campo cep possui valor informado.
-        if (cep != "") {
-
-            //Expressão regular para validar o CEP.
-            var validacep = /^[0-9]{8}$/;
-
-            //Valida o formato do CEP.
-            if(validacep.test(cep)) {
-
-                //Preenche os campos com "..." enquanto consulta webservice.
-                document.getElementById('rua').value=("...");
-                document.getElementById('complemento').value=("...");
-                document.getElementById('bairro').value=("...");
-                document.getElementById('cidade').value=("...");
-                document.getElementById('uf').value=("...");
-                document.getElementById('ddd').value=("...");
-
-                //Cria um elemento javascript.
-                var script = document.createElement('script');
-
-                //Sincroniza com o callback.
-                script.src = 'https://viacep.com.br/ws/'+ cep + '/json/?callback=meu_callback';
-
-                //Insere script no documento e carrega o conteúdo.
-                document.body.appendChild(script);
+        function meu_callback(conteudo) {
+            if (!("erro" in conteudo)) {
+                //Atualiza os campos com os valores.
+                document.getElementById('rua').value = (conteudo.logradouro);
+                document.getElementById('complemento').value = (conteudo.complemento);
+                document.getElementById('bairro').value = (conteudo.bairro);
+                document.getElementById('cidade').value = (conteudo.localidade);
+                document.getElementById('uf').value = (conteudo.uf);
+                document.getElementById('ddd').value = (conteudo.ddd);
 
                 mostrarCampos();
-
-            }
+            } //end if.
             else {
-                //cep é inválido.
+                //CEP não Encontrado.
                 limpar_formulario_cep();
                 esconderCampos();
             }
-        } //end if.
-        else {
-            //cep sem valor, limpa formulário.
-            limpar_formulario_cep();
-            esconderCampos();
         }
-    };
 
+        function pesquisacep(valor) {
+
+            //Nova variável "cep" somente com dígitos.
+            var cep = valor.replace(/\D/g, '');
+
+            //Verifica se campo cep possui valor informado.
+            if (cep != "") {
+
+                //Expressão regular para validar o CEP.
+                var validacep = /^[0-9]{8}$/;
+
+                //Valida o formato do CEP.
+                if (validacep.test(cep)) {
+
+                    //Preenche os campos com "..." enquanto consulta webservice.
+                    document.getElementById('rua').value = ("...");
+                    document.getElementById('complemento').value = ("...");
+                    document.getElementById('bairro').value = ("...");
+                    document.getElementById('cidade').value = ("...");
+                    document.getElementById('uf').value = ("...");
+                    document.getElementById('ddd').value = ("...");
+
+                    //Cria um elemento javascript.
+                    var script = document.createElement('script');
+
+                    //Sincroniza com o callback.
+                    script.src = 'https://viacep.com.br/ws/' + cep + '/json/?callback=meu_callback';
+
+                    //Insere script no documento e carrega o conteúdo.
+                    document.body.appendChild(script);
+
+                    mostrarCampos();
+
+                } else {
+                    //cep é inválido.
+                    limpar_formulario_cep();
+                    esconderCampos();
+                }
+            } //end if.
+            else {
+                //cep sem valor, limpa formulário.
+                limpar_formulario_cep();
+                esconderCampos();
+            }
+        };
     </script>
 
     <script>
-
-        function mostrarInformacoesResultados(){
+        function mostrarInformacoesResultados() {
             // Desoculta a div do resultados
-            document.getElementById('resultadoInfos').hidden=false
+            document.getElementById('resultadoInfos').hidden = false
 
             // Oculta as outras divs
-            document.getElementById('usuarioInfo').hidden=true
-            document.getElementById('agendamentosInfo').hidden=true
+            document.getElementById('usuarioInfo').hidden = true
+            document.getElementById('agendamentosInfo').hidden = true
 
             // Botões
             // Oculta o botão de resultados
-            document.getElementById('btnResultados').hidden=true
+            document.getElementById('btnResultados').hidden = true
 
             // Desoculta os outros botões
-            document.getElementById('btnPerfil').hidden=false
-            document.getElementById('btnAgendamentos').hidden=false
+            document.getElementById('btnPerfil').hidden = false
+            document.getElementById('btnAgendamentos').hidden = false
         }
 
-        function mostrarInformacoesPerfil(){
+        function mostrarInformacoesPerfil() {
             // Desoculta a div de informações do perfil
-            document.getElementById('usuarioInfo').hidden=false
+            document.getElementById('usuarioInfo').hidden = false
 
             // Oculta as outras divs
-            document.getElementById('resultadoInfos').hidden=true
-            document.getElementById('agendamentosInfo').hidden=true
+            document.getElementById('resultadoInfos').hidden = true
+            document.getElementById('agendamentosInfo').hidden = true
 
-            document.getElementById('btnPerfil').hidden=true
+            document.getElementById('btnPerfil').hidden = true
 
-            document.getElementById('btnResultados').hidden=false
-            document.getElementById('btnAgendamentos').hidden=false
+            document.getElementById('btnResultados').hidden = false
+            document.getElementById('btnAgendamentos').hidden = false
         }
 
-        function mostrarInformacoesAgendamento(){
+        function mostrarInformacoesAgendamento() {
             // Desoculta a div de agendamentos
-            document.getElementById('agendamentosInfo').hidden=false
+            document.getElementById('agendamentosInfo').hidden = false
 
             // Oculta as outras divs
-            document.getElementById('usuarioInfo').hidden=true
-            document.getElementById('resultadoInfos').hidden=true
+            document.getElementById('usuarioInfo').hidden = true
+            document.getElementById('resultadoInfos').hidden = true
 
 
-            document.getElementById('btnAgendamentos').hidden=true
+            document.getElementById('btnAgendamentos').hidden = true
 
-            document.getElementById('btnPerfil').hidden=false;
-            document.getElementById('btnResultados').hidden=false
+            document.getElementById('btnPerfil').hidden = false;
+            document.getElementById('btnResultados').hidden = false
         }
-
     </script>
 
-    
+
 
 </body>

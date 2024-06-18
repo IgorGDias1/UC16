@@ -14,11 +14,14 @@ if(isset($_GET['id'])){
     if($agendamento->Deletar() == 1){
 
         header('Location: gerenciamento_agendamentos.php?sucesso=removeragendamento');
+        die();
     }else{
         header('Location: gerenciamento_agendamentos.php?falha=removeragendamento');
+        die();
     }
 }else{
     header('Location: gerenciamento_agendamentos.php?falha=removeragendamento');
+    die();
 }
 
 

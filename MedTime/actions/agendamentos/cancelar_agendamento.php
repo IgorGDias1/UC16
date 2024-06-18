@@ -14,11 +14,14 @@ if(isset($_GET['id'])){
     if($agendamento->FinalizarAgendamento() == 1){
 
         header('Location: ../../perfil.php?sucesso=removeragendamento');
+        die();
     }else{
         header('Location: ../../perfil.php?falha=removeragendamento');
+        die();
     }
 }else{
     header('Location: ../../perfil.php?falha=removeragendamento');
+    die();
 }
 
 

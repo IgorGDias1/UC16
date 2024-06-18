@@ -14,11 +14,14 @@ if(isset($_GET['id'])){
     if($especialidade -> Deletar() == 1){
 
         header('Location: ../outro/gerenciamento_outro.php?sucesso=removerespecialidade');
+        die();
     }else{
         header('Location: ../outro/gerenciamento_outro.php?falha=removerespecialidade');
+        die();
     }
 }else{
     header('Location: ../outro/gerenciamento_outro.php?falha=post');
+    die();
 }
 
 

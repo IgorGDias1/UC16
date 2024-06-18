@@ -16,11 +16,14 @@
 
         if ($agendamento -> Agendar() == 1) {
             header('Location: ../../Consultas.php?sucesso=cadastraragendamento');
+            die();
         } else {
             header('Location: ../../Consultas.php?falha=cadastraragendamento');
+            die();
         }
     } else {
         header('Location: ../../Consultas.php?falha=cadastraragendamento');
+        die();
     }
 
 ?>

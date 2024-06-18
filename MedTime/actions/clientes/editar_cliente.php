@@ -22,12 +22,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($usuario->EditarUsuario() == 1){
         header('Location: gerenciamento_clientes.php?sucesso=editarcliente');
+        die();
     }else{
         header('Location: gerenciamento_clientes.php?falha=editarcliente');
+        die();
     }
 
 }else{
-    echo 'Erro. A página deve ser carregada por POST';
+    header('Location: gerenciamento_clientes.php?falha=post');
+    die();
 }
 
 

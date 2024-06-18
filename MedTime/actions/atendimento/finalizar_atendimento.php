@@ -16,11 +16,14 @@ if(isset($_GET['id'])){
     if($agendamento->FinalizarAgendamento() == 1){
 
         header('Location: atendimento.php?sucesso=finalizaratendimento');
+        die();
     }else{
         header('Location: gerenciamento_clientes.php?falha=finalizaratendimento');
+        die();
     }
 }else{
     header('Location: gerenciamento_clientes.php?falha=finalizaratendimento');
+    die();
 }
 
 

@@ -8,5 +8,6 @@
     session_regenerate_id(true);
     
     header('Location: ../login/index.php');
+    die();
 
 ?>

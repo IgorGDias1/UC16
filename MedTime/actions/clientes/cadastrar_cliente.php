@@ -20,9 +20,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         if($usuario -> CadastrarClienteSemLocalizacao() == 1){
             header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');
+            die();
         
         }else{
             header('Location: gerenciamento_clientes.php?falha=cadastrarcliente');
+            die();
         }
 
     // CEP != '' -> cadastrando um usuario com endereço
@@ -58,9 +60,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             if($usuario -> CadastrarClienteSemLocalizacao() == 1){
                 header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');
+                die();
             
             }else{
                 header('Location: gerenciamento_clientes.php?falha=cadastrarcliente');
+                die();
             }
         // Caso CEP não esteja cadastrado -> cadastrar usuario e localizacao
         } else {
@@ -88,9 +92,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         
             if($usuario -> CadastrarUsuarioLocalizacao() == 1){
                 header('Location: gerenciamento_clientes.php?sucesso=cadastrarcliente');
+                die();
             
             }else{
                 header('Location: gerenciamento_clientes.php?falha=cadastrarcliente');
+                die();
             }
         }
     }
@@ -116,6 +122,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 }else{
     header('Location: gerenciamento_clientes.php?falha=post');
+    die();
 }
 
 

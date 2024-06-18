@@ -16,8 +16,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($especialidade->Editar() == 1){
         header('Location: ../outro/gerenciamento_outro.php?sucesso=editarespecialidade');
+        die();
     }else{
         header('Location: ../outro/gerenciamento_outro.php?falha=editarespecialidade');
+        die();
     }
 
 }else{

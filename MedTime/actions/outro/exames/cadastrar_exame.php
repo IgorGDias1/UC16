@@ -9,13 +9,16 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($exame->Cadastrar() == 1){
         header('Location: ../gerenciamento_outro.php?sucesso=cadastrarexame');
+        die();
 
     }else{
         header('Location: ../gerenciamento_outro.php?falha=cadastrarexame');
+        die();
     }
 
 }else{
     header('Location: ../gerenciamento_outro.php?falha=post');
+    die();
 }
 
 ?>

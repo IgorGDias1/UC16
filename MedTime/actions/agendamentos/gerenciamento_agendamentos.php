@@ -106,11 +106,20 @@ $listar_exame = $exame->Listar();
             <td><?= $agendamento['data consulta']; ?></td>
             <td><?= $agendamento['situacao']; ?></td>
             <td>
-              <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" data-id="<?= $agendamento['id']; ?>" data-paciente="<?= $agendamento['paciente']; ?>" data-medico="<?= $agendamento['médico']; ?>" data-exame="<?= $agendamento['id_exame']; ?>" data-convenio="<?= $agendamento['id_convenio']; ?>" data-clinica="<?= $agendamento['id_clinica']; ?>" data-data_consulta="<?= $agendamento['data consulta']; ?>" data-situacao="<?= $agendamento['situacao']; ?>">
+              <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
+              data-id="<?= $agendamento['id']; ?>"
+              data-id_paciente="<?= $agendamento['id_paciente']; ?>"  
+              data-paciente="<?= $agendamento['paciente']; ?>" 
+              data-medico="<?= $agendamento['médico']; ?>" 
+              data-exame="<?= $agendamento['id_exame']; ?>" 
+              data-convenio="<?= $agendamento['id_convenio']; ?>" 
+              data-clinica="<?= $agendamento['id_clinica']; ?>" 
+              data-data_consulta="<?= $agendamento['data consulta']; ?>" 
+              data-situacao="<?= $agendamento['situacao']; ?>">
                 <i class="bi bi-pencil-square"></i> Editar</button>
             </td>
             <td>
-              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $agendamentos['id']; ?>)">
+              <a href="#" class="btn btn-danger btn-sm" onclick="excluir(<?= $agendamento['id']; ?>)">
                 <i class="bi bi-file-earmark-x"></i> Excluir
               </a>
             </td>
@@ -205,8 +214,8 @@ $listar_exame = $exame->Listar();
         </div>
         <div class="container-fluid">
           <form class="d-flex" role="search" action="post.php" method="GET">
-            <input class="form-control me-2" type="search" placeholder="CPF do Cliente" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit" name="cpf" id="cpf">Pesquisar</button>
+            <input class="form-control me-2" type="search" placeholder="CPF do Cliente" aria-label="Search" name="cpf" id="cpf">
+            <button class="btn btn-outline-success" type="button" onclick="buscarCPF()">Pesquisar</button>
           </form>
         </div>
         <form action="editar_agendamento.php" method="POST">
@@ -214,11 +223,8 @@ $listar_exame = $exame->Listar();
             <input type="hidden" class="id" name="id" id="id">
             <div class="form-group">
               <label for="paciente">Paciente</label>
-              <select class="form-control paciente" id="pacienteEdit" name="pacienteEdit" required>
-                <?php foreach ($listar_usuario as $u) { ?>
-                  <option value="<?= $u['id']; ?>"><?= $u['nome']; ?></option>
-                <?php } ?>
-              </select>
+              <input type="text" class="form-control paciente" id="pacienteEdit" name="pacienteEdit" required>
+              <input type="hidden" class="id_paciente" id="id_paciente" name="id_paciente">
             </div>
             <div class="form-group mt-3">
               <label for="medico">Médico</label>
@@ -311,6 +317,7 @@ $listar_exame = $exame->Listar();
       var button = $(event.relatedTarget)
 
       var id = button.data('id')
+      var id_paciente = button.data('id_paciente')
       var paciente = button.data('paciente')
       var medico = button.data('médico')
       var exame = button.data('exame')
@@ -322,6 +329,7 @@ $listar_exame = $exame->Listar();
       var modal = $(this)
 
       modal.find('.id').val(id)
+      modal.find('.id_paciente').val(id_paciente)
       modal.find('.paciente').val(paciente)
       modal.find('.medico').val(medico)
       modal.find('.exame').val(exame)
@@ -333,16 +341,16 @@ $listar_exame = $exame->Listar();
     })
 
     function buscarCPF(){
-  $.getJSON('post.php?cpf=' + cpf_buscar.value, function(dados){
+    $.getJSON('post.php?cpf=' + cpf.value, function(dados){
     console.log(dados)
-    corpo_tabela.innerHTML = "";  
-
-    $(dados).each(function(item){
-      $("#pacienteEdit").append("<option value='" + this.id + "'>" + this.nome + "</option>");
+    if(dados.length == 1){
+      pacienteEdit.value=dados[0].nome;
+      id_paciente.value=dados[0].id;
+    }else{
+      alert('CPF não encontrado')
+    }
     });
-    btnReload.hidden=false;
-  });
-  }
+    }
   </script>
 
   <!-- puxar js -->

@@ -44,8 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
             if ($funcionario->CadastrarFuncionario() == 1) {
                 header('Location: ../clientes/gerenciamento_clientes.php?sucesso=cadastrarfuncionario');
+                die();
             } else {
                 header('Location: ../clientes/gerenciamento_clientes.php?falha=cadastrarfuncionario');
+                die();
             }
         // Caso CEP não esteja cadastrado
         } else {
@@ -81,11 +83,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
             if ($funcionario->CadastrarFuncionarioLocalizacao() == 1) {
                 header('Location: ../clientes/gerenciamento_clientes.php?sucesso=cadastrarfuncionario');
+                die();
             } else {
                 header('Location: ../clientes/gerenciamento_clientes.php?falha=cadastrarfuncionario');
+                die();
             }
         }
     }
 } else {
     header('Location: ../clientes/gerenciamento_clientes.php?falha=cadastrarfuncionario');
+    die();
 }

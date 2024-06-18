@@ -14,11 +14,14 @@ if(isset($_GET['id'])){
     if($cargo -> Deletar() == 1){
 
         header('Location: ../outro/gerenciamento_outro.php?sucesso=removercargo');
+        die();
     }else{
         header('Location: ../outro/gerenciamento_outro.php?falha=removercargo');
+        die();
     }
 }else{
     header('Location: ../outro/gerenciamento_outro.php?falha=post');
+    die();
 }
 
 

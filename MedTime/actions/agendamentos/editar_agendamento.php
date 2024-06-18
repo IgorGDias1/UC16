@@ -12,7 +12,7 @@
         $agendamento = new Agendamento();
         $agendamento->id = strip_tags($_POST['id']);
         
-        $agendamento->id_cliente = strip_tags($_POST['pacienteEdit']); 
+        $agendamento->id_cliente = strip_tags($_POST['id_paciente']); 
         $agendamento->id_funcionario = strip_tags($_POST['medicoEdit']);
         $agendamento->id_exame = strip_tags($_POST['exameEdit']);
         $agendamento->id_convenio = strip_tags($_POST['convenioEdit']);
@@ -23,12 +23,15 @@
 
         if($agendamento->Editar() == 1){
             header('Location: gerenciamento_agendamentos.php?sucesso=editarcliente');
+            die();
         }else{
             header('Location: gerenciamento_agendamentos.php?falha=editarcliente');
+            die();
         }
 
     }else{
-        echo 'Erro. A página deve ser carregada por POST';
+        header('Location: gerenciamento_agendamentos.php?falha=post');
+        die();
     }
 
 

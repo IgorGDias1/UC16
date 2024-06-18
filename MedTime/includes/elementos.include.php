@@ -2,7 +2,7 @@
     <div class="col-12 col-md-3">
         <!-- Logotipo -->
         <img src="img/logo.png" width="100px" alt="Logo" class="img-fluid mx-auto d-block animate__animated animate__jackInTheBox">
-            <p class="container-fluid text-center mt-1 righteous-regular ">MedTime </br> Página Inicial</p>
+            <p class="container-fluid text-center mt-1 righteous-regular ">MedTime</p>
         
     </div>
 
@@ -45,11 +45,7 @@
                                                 } ?>" href="consultas.php">Consultas</a>
                         </li>
 
-                        <li class="nav-item px-3">
-                            <a class="nav-link <?php if ($paginaAtiva == "3") {
-                                                    echo "active";
-                                                } ?>" href="agendamentos.php">Agendamentos</a>
-                        </li>
+
                         <li class="nav-item px-3">
                             <a class="nav-link <?php if ($paginaAtiva == "4") {
                                                     echo "active";
@@ -129,22 +125,22 @@
                         </form>
 
                         <!-- Forms de cadastro -->
-                        <form id="formCadastro" action="actions/clientes/cadastrar_cliente.php" method="POST" style="display: none;">
+                        <form id="formCadastro" action="actions/login/cadastrar_cliente.php" method="POST" style="display: none;">
                             <!-- Div de Nome -->
                             <div class="mb-3">
                                 <label for="nomeCadastro" class="form-label">Nome
                                     Completo:</label>
-                                <input type="text" class="form-control" id="nomeCadastro" name="nome" placeholder="Digite seu nome completo" required>
+                                <input type="text" class="form-control" id="nomeCadastro" name="nomeCadastro" placeholder="Digite seu nome completo" required>
                             </div>
                             <!-- Div de Email Principal -->
                             <div class="mb-3 py-2">
                                 <label for="emailCadastro" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="emailCadastro" name="email" placeholder="Digite o e-mail que você deseja cadastrar" required>
+                                <input type="text" class="form-control" id="emailCadastro" name="emailCadastro" placeholder="Digite o e-mail que você deseja cadastrar" required>
                             </div>
                             <!-- Div de senha -->
                             <div class="mb-3 py-3">
                                 <label for="senhaCadastro" class="form-label">Senha</label>
-                                <input type="password" class="form-control" id="senhaCadastro" name="senha">
+                                <input type="password" class="form-control" id="senhaCadastro" name="senhaCadastro">
                                 <!-- Checkbocx se clicado ele executára um evento JS que mostra senha -->
                                 <input type="checkbox" id="senhaCheckBox" onclick="mostrarSenha()">
                                 Mostrar Senha
@@ -153,18 +149,18 @@
                             <div class="mb-3">
                                 <label for="telefoneCadastro" class="form-label">Telefone para
                                     contato</label>
-                                <input type="tel" class="form-control" id="telefoneCadastro" name="telefone" maxlength="11" placeholder="Exemplo: (DD) 9 9999-9999">
+                                <input type="tel" class="form-control" id="telefoneCadastro" name="telefoneCadastro" maxlength="11" placeholder="Exemplo: (DD) 9 9999-9999">
                             </div>
                             <!-- Div de CPF -->
                             <div class="mb-3 py-3">
                                 <label for="cpfCadastro" class="form-label">CPF</label>
-                                <input type="text" class="form-control" id="cpfCadastro" name="cpf" maxlength="11" placeholder="Exemplo: 000.000.000-00">
+                                <input type="text" class="form-control" id="cpfCadastro" name="cpfCadastro" maxlength="11" placeholder="Exemplo: 000.000.000-00">
                             </div>
                             <!-- Div de data de nascimento -->
                             <div class="mb-3">
                                 <label for="data_nascimentoCadastro" class="form-label">Data de
                                     nascimento</label>
-                                <input type="date" class="form-control" id="data_nascimentoCadastro" name="data_nascimento">
+                                <input type="date" class="form-control" id="data_nascimentoCadastro" name="data_nascimentoCadastro">
                             </div>
                             <!-- Botão de cadastro -->
                             <div class="form-group">

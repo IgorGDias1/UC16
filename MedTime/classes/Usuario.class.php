@@ -67,7 +67,7 @@ class Usuario {
         INNER JOIN convenios ON
         usuarios.id_convenio = convenios.id
          
-        WHERE usuarios.id_localizacao IS NOT NULL AND usuarios.id_cargo IS NULL AND usuarios.id = ?";
+        WHERE usuarios.id = ?";
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
 

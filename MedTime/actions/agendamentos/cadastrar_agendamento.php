@@ -16,11 +16,14 @@
 
         if ($agendamento -> Agendar() == 1) {
             header('Location: gerenciamento_agendamentos.php?sucesso=agendar');
+            die();
         } else {
             header('Location: gerenciamento_agendamentos.php?falha=agendar');
+            die();
         }
     } else {
         header('Location: gerenciamento_agendamentos.php?falha=agendar');
+        die();
     }
 
 ?>

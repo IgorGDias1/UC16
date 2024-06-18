@@ -119,7 +119,10 @@ $agendamentoListar = $agendamento->ListarPorID();
                 <?php } ?>
             <?php } ?>
         </div>
-
+        
+        <?php
+        include_once("includes/rodape.include.php");
+        ?>
     </div>
 
 

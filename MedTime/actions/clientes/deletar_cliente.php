@@ -14,11 +14,14 @@ if(isset($_GET['id'])){
     if($usuario->Deletar() == 1){
 
         header('Location: gerenciamento_clientes.php?sucesso=removercliente');
+        die();
     }else{
         header('Location: gerenciamento_clientes.php?falha=removercliente');
+        die();
     }
 }else{
     header('Location: gerenciamento_clientes.php?falha=removercliente');
+    die();
 }
 
 

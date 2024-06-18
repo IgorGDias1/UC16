@@ -15,12 +15,14 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($cargo->Editar() == 1){
         header('Location: ../outro/gerenciamento_outro.php?sucesso=editarcargo');
+        die();
     }else{
         header('Location: ../outro/gerenciamento_outro.php?falha=editarcargo');
+        die();
     }
 
 }else{
-    header('Location: gerenciamento_enderecos.php?falha=post');
+    header('Location: ../outro/gerenciamento_outro.php?falha=post');
 }
 
 

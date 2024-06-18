@@ -38,23 +38,29 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         // Método para editar o usuario e atribuir o id_localizacao
         if($usuario -> AdicionarLocalizacao()){
+            $_SESSION['usuario']['id_localizacao'] = $r['id']; 
             header('Location: ../../perfil.php?sucesso=cadastrar_localizacao');
+            die();
         } else {
             header('Location: ../../perfil.php?falha=cadastrar_localizacao');
+            die();
         }
         // Caso o CEP não exista no banco de dados
     } else {
         // Método para cadastrar uma localização e atribuir o LAST_INSERT_ID ao usuario
         if($usuario -> CadastrarLocalizacaoAtribuirAoUsuario() == 1){
+            $_SESSION['usuario']['id_localizacao'] = $usuario->id_localizacao;
             header('Location: ../../perfil.php?sucesso=cadastrar_localizacao');
-            session_reset();
+            die();
         }else{
             header('Location: ../../perfil.php?falha=cadastrar_localizacao');
+            die();
         }
     }
 
 }else{
     header('Location: ../../perfil.php?falha=cadastrar_localizacao');
+    die();
 }
 
 

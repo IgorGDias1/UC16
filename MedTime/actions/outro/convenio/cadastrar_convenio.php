@@ -12,11 +12,14 @@
 
         if ($c -> Cadastrar() == 1) {
             header('Location: ../gerenciamento_outro.php?sucesso=cadastrarconvenio');
+            die();
         } else {
             header('Location: ../gerenciamento_outro.php?falha=cadastrarconvenio');
+            die();
         }
     } else {
         header('Location: ../gerenciamento_outro.php?falha=cadastrarconvenio');
+        die();
     }
 
 ?>

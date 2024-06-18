@@ -16,6 +16,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 }else{
     header('Location: .../clientes/gerenciamento_clientes.php?falha=cadastrarespecialidade');
+    die();
 }
 
 ?>

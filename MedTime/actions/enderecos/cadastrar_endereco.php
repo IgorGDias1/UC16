@@ -15,12 +15,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if($localizacao -> Cadastrar() == 1){
         header('Location: gerenciamento_enderecos.php?sucesso=cadastrarlocalizacao');
+        die();
     }else{
         header('Location: gerenciamento_enderecos.php?falha=cadastrarlocalizacao');
+        die();
     }
 
 }else{
     header('Location: gerenciamento_enderecos.php?falha=cadastrarlocalizacao');
+    die();
 }
 
 

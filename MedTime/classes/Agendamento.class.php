@@ -15,6 +15,7 @@ class Agendamento {
 
     public function Listar(){
         $sql = "SELECT usuarios.nome AS 'paciente',
+        (SELECT usuarios.id FROM usuarios WHERE usuarios.id = agendamentos.id_cliente) AS 'id_paciente',
  
         (SELECT usuarios.nome 
         FROM usuarios WHERE usuarios.id = agendamentos.id_funcionario) AS 'médico',
@@ -241,7 +242,7 @@ class Agendamento {
 
     public function Deletar(){
 
-        $sql = "DELETE * FROM agendamentos WHERE id = ?";
+        $sql = "DELETE FROM agendamentos WHERE id = ?";
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);

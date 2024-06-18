@@ -41,7 +41,7 @@ $lista_agendamentos = $agendamento->ListarPendente();
     <!-- Container de gerenciamento / Endereços já cadastrados -->
     <?php date_default_timezone_set('America/Sao_Paulo') ?>
 
-    <h2 class="text-center mb-4 mt-4" sai vc inferno do capeta>Agendamentos do dia <?php echo date("d/m/y") ?></h2>
+    <h2 class="text-center mb-4 mt-4">Agendamentos do dia <?php echo date("d/m/y") ?></h2>
 
     <div class="container mt-5 me-3 ms-3">
       <div class="row justify-content-center table-responsive">
