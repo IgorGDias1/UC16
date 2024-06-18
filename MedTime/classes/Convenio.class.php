@@ -59,8 +59,26 @@ class Convenio {
         }
     }
 
+    public function Editar(){
+        $sql = "UPDATE convenios SET nome = ?, email = ?, telefone = ?  WHERE id = ?";
+        $banco = Banco::conectar();
+        $comando = $banco->prepare($sql);
+
+        try{
+            $comando->execute([$this->nome, $this->email, $this->telefone, $this->id]);
+
+            Banco::desconectar();
+
+            return $comando->rowCount();
+
+        }catch(PDOException $e){
+            Banco::desconectar();
+            return 0;
+        }   
+    }
+
     public function Deletar(){
-        $sql = "DELETE * FROM convenios WHERE id = ?";
+        $sql = "DELETE FROM convenios WHERE id = ?";
 
         $banco = Banco::conectar();
         $comando = $banco -> prepare($sql);

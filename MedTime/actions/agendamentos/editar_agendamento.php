@@ -22,10 +22,10 @@
         
 
         if($agendamento->Editar() == 1){
-            header('Location: gerenciamento_agendamentos.php?sucesso=editarcliente');
+            header('Location: gerenciamento_agendamentos.php?sucesso=editaragendamento');
             die();
         }else{
-            header('Location: gerenciamento_agendamentos.php?falha=editarcliente');
+            header('Location: gerenciamento_agendamentos.php?falha=editaragendamento');
             die();
         }
 

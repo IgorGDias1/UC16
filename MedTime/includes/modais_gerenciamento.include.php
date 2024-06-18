@@ -1,3 +1,11 @@
+ <?php
+
+    require_once('../../classes/Convenio.class.php');
+    $convenio = new Convenio();
+    $lista_convenios = $convenio->Listar();
+
+?>
+
  <!-- Modais -->
 
  <!-- Modal de cadastro de convênio -->
@@ -72,82 +80,33 @@
  </div>
 
 
- <!-- Modal de edição -->
+ <!-- Modal de edição Convênio-->
  <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
      <div class="modal-dialog" role="document">
          <div class="modal-content">
              <form action="editar_cliente.php" method="POST">
                  <div class="modal-header">
-                     <h5 class="modal-title" id="modalEdicaoLabel">Edição de cliente</h5>
+                     <h5 class="modal-title" id="modalEdicaoLabel">Edição de Convênio</h5>
                  </div>
-                 <nav class="navbar bg-body-tertiary">
-                     <div class="container-fluid">
-                         <form class="d-flex" role="search">
-                             <input class="form-control me-2" type="search" placeholder="CPF do Cliente" aria-label="Search">
-                             <button class="btn btn-outline-success" type="submit" name="cpf" id="cpf">Pesquisar</button>
-                         </form>
-                     </div>
-                 </nav>
                  <div class="modal-body">
                      <input type="hidden" class="id" name="id" id="id">
                      <div class="form-group">
-                         <label for="paciente">Paciente</label>
-                         <select class="form-control paciente" id="paciente" name="paciente">
-                             <?php foreach ($listar_cpf as $cpf) { ?>
-                                 <option value="<?= $cpf['id']; ?>"><?= $cpf['nome']; ?></option>
+                         <label for="covenio">Nome Convênio</label>
+                         <select class="form-control convenio" id="convenio" name="convenio">
+                             <?php foreach ($listar_convenio as $c) { ?>
+                                 <option value="<?= $c['id']; ?>"><?= $c['nome']; ?></option>
                              <?php } ?>
                          </select>
                      </div>
                      <div class="form-group mt-3">
-                         <label for="medico">Médico</label>
+                         <label for="email">Email</label>
                          <br>
-                         <select class="form-control medico" id="medico" name="medico" required>
-                             <?php foreach ($listar_medico as $medico) { ?>
-                                 <option value="<?= $medico['id']; ?>" name="id_medico"><?= $medico['nome']; ?></option>
-                             <?php } ?>
-                         </select>
+                         <input class="form-control email" id="email" name="email" required>
                      </div>
                      <div class="form-group mt-3">
-                         <label for="exame">Exame</label>
+                         <label for="telefone">Telefone</label>
                          <br>
-                         <select class="form-control exame" id="exames" name="exame" required>
-                             <?php foreach ($listar_exame as $exame) { ?>
-                                 <option value="<?= $exame['id']; ?>"><?= $exame['nome']; ?></option>
-                             <?php } ?>
-                         </select>
-                     </div>
-                     <div class="form-group mt-3">
-                         <label for="convenio">Convênio</label>
-                         <br>
-                         <select class="form-control convenio" name="convenio" id="convenios">
-                             <?php foreach ($lista_convenios as $convenio) { ?>
-                                 <option value="<?= $convenio['id']; ?>"><?= $convenio['nome']; ?></option>
-                             <?php } ?>
-                         </select><br>
-                     </div>
-                     <div class="form-group mt-3">
-                         <label for="endereco">Endereço Clinica</label>
-                         <br>
-                         <select class="form-control endereco" name="endereco" id="endereco">
-                             <?php foreach ($listar_clinica as $clinica) { ?>
-                                 <option value="<?= $clinica['id']; ?>"><?= $clinica['complemento']; ?></option>
-                             <?php } ?>
-                         </select><br>
-                     </div>
-                     <div class="form-group mt-3">
-                         <label for="data_consulta">Data Consulta</label>
-                         <input type="date" class="form-control data_consulta" id="data_consulta" name="data_consulta">
-                     </div>
-                     <div class="form-group mt-2">
-                         <label for="situacao">Situação</label>
-                         <input type="text" class="form-control situacao" id="situacao" name="situacao">
-                     </div>
-                     <div class="form-group">
-                         <label for="tipo">Tipo</label>
-                         <select name="tipo" id="tipo" class="form-control">
-                             <option value="Cliente">Cliente</option>
-                             <option value="Funcionario">Funcionario</option>
-                         </select>
+                         <input class="form-control telefone" id="telefone" name="telefone" required>
                      </div>
                  </div>
                  <div class="modal-footer">

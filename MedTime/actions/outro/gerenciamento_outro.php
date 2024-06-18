@@ -82,7 +82,11 @@ $listar_medicos = $u->ListarMedicos();
                 <td><?= $convenio['email']; ?></td>
                 <td><?= $convenio['telefone']; ?></td>
                 <td>
-                  <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" data-id="<?= $convenio['id']; ?>" data-convenio="<?= $convenio['nome']; ?>" data-email="<?= $convenio['email']; ?>" data-telefone="<?= $convenio['telefone']; ?>">
+                  <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
+                  data-id="<?= $convenio['id']; ?>" 
+                  data-convenio="<?= $convenio['nome']; ?>" 
+                  data-email="<?= $convenio['email']; ?>" 
+                  data-telefone="<?= $convenio['telefone']; ?>">
                     <i class="bi bi-pencil-square"></i> Editar</button>
                 </td>
                 <td>
@@ -91,7 +95,7 @@ $listar_medicos = $u->ListarMedicos();
                   </a>
                 </td>
                 <td>
-                  <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCadastroConvenio"><i class="bi bi-plus-circle"></i> Cadastrar Agendamento</button>
+                  <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCadastroConvenio"><i class="bi bi-plus-circle"></i> Cadastrar Convênio</button>
                 </td>
               </tr>
             <?php } ?>

@@ -15,14 +15,14 @@
         $agendamento->situacao = 1;
 
         if ($agendamento -> Agendar() == 1) {
-            header('Location: gerenciamento_agendamentos.php?sucesso=agendar');
+            header('Location: gerenciamento_agendamentos.php?sucesso=cadastraragendamento');
             die();
         } else {
-            header('Location: gerenciamento_agendamentos.php?falha=agendar');
+            header('Location: gerenciamento_agendamentos.php?falha=cadastraragendamento');
             die();
         }
     } else {
-        header('Location: gerenciamento_agendamentos.php?falha=agendar');
+        header('Location: gerenciamento_agendamentos.php?falha=cadastraragendamento');
         die();
     }
 

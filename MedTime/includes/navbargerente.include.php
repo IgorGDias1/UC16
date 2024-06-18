@@ -56,15 +56,14 @@
                             </li>
                         </ul>
                     </div>
-                    
                 </div>
             </nav>
-
         </div>
+        
         <!-- BOTAO DE LOGOUT -->
         <div class="col-12 col-md-2">
             <div class="d-flex justify-content-end mx-5">
-                <a class="btn btn-danger mx-1 text-white" href="logout.php">
+                <a class="btn btn-danger mx-1 text-white" href="../login/logout.php">
                     <i class="bi bi-box-arrow-right"></i>
                 </a>
             </div>

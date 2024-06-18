@@ -2,12 +2,12 @@
         $("#btnCadastroToggle").click(function () {
             $("#formLogin").hide();
             $("#formCadastro").fadeIn();
-            $("#titulo").text('Cadastro - "Nome do Projeto"');
+            $("#titulo").text('Cadastro');
         });
         $("#btnLoginToggle").click(function () {
             $("#formCadastro").hide();
             $("#formLogin").fadeIn();
-            $("#titulo").text('Login - "Nome do Projeto"');
+            $("#titulo").text('Login');
         });
 
         //Função para mostrar e ocultar a senha no campo de cadastro
