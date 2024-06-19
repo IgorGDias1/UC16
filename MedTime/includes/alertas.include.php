@@ -118,7 +118,8 @@
       "logout" => "Você foi desconectado(a)!",
       "logar" => "Você precisar estar logado para solicitar um agendamento",
       "suporte" => "Você precisa estar logado para solicitar um suporte ou enviar um feedback!",
-      "perfil" => "Faça login para entrar no seu perfil!"
+      "perfil" => "Faça login para entrar no seu perfil!",
+      "permissao" => "Você não tem permissão para acessar esta área"
     ];
 ?>
 

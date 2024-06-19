@@ -121,7 +121,6 @@ $listar_medicos = $u->ListarMedicos();
                             </div>
                             <div class="form-group mt-3">
                                 <label for="responsavel">Responsável</label>
-                                <br>
                                 <select class="form-control" id="responsavel" name="id_resp" required>
                                     <?php foreach ($listar_medicos as $med) { ?>
                                         <option value="<?= $med['id']; ?>"><?= $med['nome'];?></option>

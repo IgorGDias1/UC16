@@ -140,7 +140,7 @@ class Agendamento {
         INNER JOIN localizacoes ON
         agendamentos.id_localizacao = localizacoes.id
         
-        WHERE agendamentos.situacao = 1 AND agendamentos.data_agendado = CURRENT_DATE";
+        WHERE agendamentos.situacao = 1 AND agendamentos.data_agendado = '2024-06-19 20:00:00';";
         
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);

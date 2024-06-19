@@ -8,6 +8,10 @@ if (!isset($_SESSION['usuario']) || $_SESSION['usuario']['id_cargo'] == "") {
     die();
 }
 
+if($_SESSION['usuario']['id_cargo'] != 5) { 
+    header('Location: ../clientes/gerenciamento_clientes.php?neutro=permissao');
+}
+
 require_once('../../classes/Convenio.class.php');
 $convenio = new Convenio();
 $lista_convenios = $convenio->Listar();

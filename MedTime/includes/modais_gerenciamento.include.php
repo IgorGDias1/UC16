@@ -61,7 +61,7 @@
                      <div class="form-group mt-3">
                          <label for="responsavel">Responsável</label>
                          <br>
-                         <select class="form-control" id="responsavel" name="responsavel" multiple="multiple" style="width: 100%" required>
+                         <select class="form-control" id="responsavel" name="responsavel" required>
                              <?php foreach ($listar_medicos as $med) { ?>
                                  <option value="<?= $med['id']; ?>"><?= $med['nome']; ?></option>
                              <?php } ?>
