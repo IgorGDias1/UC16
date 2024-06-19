@@ -28,8 +28,7 @@ $lista_localizacao = $localizacao->Listar();
     <!-- Bootsstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-    <link rel="shortcut icon" type="image/png" href="../img/favico.png">
-
+    <link rel="shortcut icon" type="image/png" href="../../img/favico.png">
 </head>
 
 <body>
