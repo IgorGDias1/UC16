@@ -2,12 +2,16 @@
 session_start();
 
 if(!isset($_SESSION['usuario'])){
-    header('Location: actions/login/index.php');
+    header('Location: consultas.php?neutro=logar');
 }
 
 if(!isset($_GET['id'])){
     header('Location: consultas.php');
 }
+
+$data = new DateTime();
+$dataMin = new DateTime('2024-01-01');
+
 
 
 require_once('classes/Exame.class.php');
@@ -57,6 +61,8 @@ $listarClinicas = $localizacao->ListarClinicas();
 </head>
 
 <body>
+<?php date_default_timezone_set('America/Sao_Paulo') ?>
+
 
     <div class="container-fluid">
     <?php 
@@ -79,7 +85,7 @@ $listarClinicas = $localizacao->ListarClinicas();
                             <input class="form-control form-control-lg mb-2 "
                             name="nomepaciente" id="nomepaciente" type="text" aria-label=".form-control-lg example"
                             value="<?=$_SESSION['usuario']['nome']?>" readonly>
-                            <label for="floatingInput">Nome</label>
+                            <label for="floatingInput">Nome do Paciente</label>
                         </div>
 
 
@@ -106,14 +112,15 @@ $listarClinicas = $localizacao->ListarClinicas();
 
                         <div class="form-floating">
                             <input class="form-control form-control-lg mb-2 mt-5" 
-                            name="dataagendamento" id="dataagendamento" type="date" placeholder="Data" aria-label=".form-control-lg example">
-                            <label for="floatingInput">Data de agendamento</label>
+                            name="dataagendamento" id="dataagendamento" type="datetime-local" placeholder="Data" aria-label=".form-control-lg example" onclick="definirData()">
+                            <label for="floatingInput">Data e horário</label>
                         </div>
+                        <p class="ms-2"><i>Nosso horário de funcionamento é das 07:00h até as 21:00h</i></p>
 
                         <div class="form-floating">
                             <?php foreach($listarClinicas as $clinica) { ?>
-                            <select name="clinica" id="clinica" class="form-control form-control-lg mb-2">
-                                <option value="<?=$clinica['id'];?>"><?=$clinica['complemento'];?></option>
+                            <select name="clinica" id="clinica" class="form-control form-control-lg mb-2" disabled>
+                                <option value="<?=$clinica['id'];?>"><?=$clinica['complemento'];?> | <?=$clinica['logradouro'];?> - <?=$clinica['uf'];?></option>
                             </select>
                             <?php } ?>
                             <label for="floatingInput">Clínica</label>
@@ -143,6 +150,47 @@ $listarClinicas = $localizacao->ListarClinicas();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="CSS_e_JS/script.js"></script>
+
+    <script>
+        const dateControl = document.querySelector('input[type="datetime-local"]');
+        dateControl.value = "2024-06-19T07:00";
+
+        var dataAtual = new Date().toISOString().slice(0, 16);
+        document.getElementById('data').min = dataAtual
+    </script>
+
+    <script>
+        function definirData() {
+        const dateInput = document.getElementById('dataagendamento');
+
+        dateInput.addEventListener('input', function() {
+        const selectedDate = new Date(this.value);
+        const minimumDate = new Date('2024-06-19');
+
+        const selectedHour = selectedDate.getHours();
+
+            if (selectedDate < minimumDate) {
+                this.value = ''; // Limpa o valor do input se for anterior a 2024
+
+                Swal.fire({
+                    title: "Erro!",
+                    text: "Por favor selecione uma data válida",
+                    icon: "error"
+                });
+            } 
+            
+            else if (selectedHour < 7 || selectedHour >= 21) {
+                this.value = ''; // Limpa o valor do input se for anterior a 2024
+
+                Swal.fire({
+                title: "Erro!",
+                text: "Por favor selecione um horário entre 07:00h e 21:00h",
+                icon: "error"
+                });
+            }
+        });
+    }
+    </script>
 </body>
 
 </html>

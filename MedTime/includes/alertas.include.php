@@ -4,6 +4,7 @@
         "cadastrarcliente" => "Cadastro realizado com sucesso!",
         "removercliente" => "Usuário removido!",
         "editarcliente" => "Usuário editado!",
+        "editarusuario" => "Informações editadas!",
 
         //Funcionarios
         "cadastrarfuncionario" => "Cadastro realizado com sucesso!",
@@ -44,7 +45,7 @@
         "cadastrarsuporte" => "Seu feedback foi enviado!",
 
         //Login
-        "logar" => "Login realizado, você será redirecionado!"
+        "logar" => "Bem-vindo(a)!",
     ];
 
     $alertas_falha = [
@@ -52,6 +53,7 @@
         "cadastrarcliente" => "Ocorreu um erro!",
         "removercliente" => "Erro ao remover!",
         "editarcliente" => "Erro ao editar usuario",
+        "editarusuario" => "Ocorreu um erro!",
 
         //Funcionarios
         "cadastrarfuncionario" => "Erro! Tente novamente",
@@ -89,10 +91,18 @@
         "cadastrarsuporte" => "Erro ao cadastrar suporte!",
 
         //Login
-        "logar" => "Erro! Vefifique as informações e tente novamente!",
+        "logar" => "Email ou senha incorretos!",
 
         //Post
         "post" => "A página deve ser carregada por post"
+    ];
+
+    $alertas_neutro = [
+      //Logout
+      "logout" => "Você foi desconectado(a)!",
+      "logar" => "Você precisar estar logado para solicitar um agendamento",
+      "suporte" => "Você precisa estar logado para solicitar um suporte ou enviar um feedback!",
+      "perfil" => "Faça login para entrar no seu perfil!"
     ];
 ?>
 
@@ -117,5 +127,14 @@
           });
           window.history.replaceState(null, '', window.location.pathname);
         <?php }?>
+
+        <?php if(isset($_GET['neutro'])) { ?>
+          Swal.fire({
+            text: "<?=$alertas_neutro[$_GET['neutro']];?>",
+            icon: "warning"
+          });
+          //Redefinindo a URL
+          window.history.replaceState(null, '', window.location.pathname);
+        <?php } ?>
         
 </script>

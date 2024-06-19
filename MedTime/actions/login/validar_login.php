@@ -10,17 +10,22 @@
 
         $resultado = $usuario->Logar();
 
+        if(count($resultado) < 1) {
+            header('Location: ../../paginainicial.php?falha=logar');
+            die();
+        }
+
         if($resultado[0]['id_cargo'] == NULL && count($resultado) == 1){
             session_start();
 
             $_SESSION['usuario'] = $resultado[0];
-            header('Location: ../../paginainicial.php?sucesso=login');
+            header('Location: ../../paginainicial.php?sucesso=logar');
             die();
         } else {
             session_start();
 
             $_SESSION['usuario'] = $resultado[0];
-            header('Location: ../../paginainicial.php');
+            header('Location: ../../paginainicial.php?sucesso=logar');
             die();
         }
             

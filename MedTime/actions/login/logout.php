@@ -7,7 +7,7 @@
     setcookie(session_name(),'',0,'/');
     session_regenerate_id(true);
     
-    header('Location: ../../paginainicial.php');
+    header('Location: ../../paginainicial.php?neutro=logout');
     die();
 
 ?>

@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
-    header('Location: actions/login/index.php');
+    header('Location: consultas.php?neutro=logar');
     die();
 }
 

@@ -3,7 +3,7 @@
 session_start();
 
 if(!isset($_SESSION['usuario'])) {
-    header('Location: actions/login/index.php');
+    header('Location: paginainicial.php?neutro=suporte');
 }
 
 ?>
@@ -37,6 +37,8 @@ if(!isset($_SESSION['usuario'])) {
     
 </head>
 
+
+
 <body>
     <div class="container-fluid"> 
     <?php 
@@ -47,7 +49,7 @@ if(!isset($_SESSION['usuario'])) {
         <!-- Linha da imagem e da linha para contatos -->
         <div class="row">
             <div class="col-md-6 mt-3 p-4 ">
-                <p class="h2">Área de feedback:</p>
+                <p class="h2">Área de feedback / suporte:</p>
                 <p class="text-md-start"> Bem-vindo à nossa central de suporte!<br>
 
                      <br>

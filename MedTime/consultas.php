@@ -33,8 +33,13 @@ $listarExames = $exame->Listar();
     Start+2P&family=Righteous&family=Rubik+Doodle+Shadow&family=Uchen&display=swap" rel="stylesheet">
 </head>
 
-<body>
 
+    <?php if(isset($_GET['neutro'])) { ?>
+        <body onload="chamarModal()">
+    <?php } ?>
+
+
+    <body>
     <div class="container-fluid">
         <?php
         $paginaAtiva = "2";
@@ -78,6 +83,12 @@ $listarExames = $exame->Listar();
 
     <?php include_once('includes/alertas.include.php'); ?>
 
+
+    <script>
+        function chamarModal(){
+            document.getElementById('botaoLogin').click()
+        }
+    </script>
 </body>
 
 </html>

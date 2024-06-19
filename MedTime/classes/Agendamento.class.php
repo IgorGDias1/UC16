@@ -207,10 +207,10 @@ class Agendamento {
 
         $banco = Banco::conectar();
         $comando = $banco->prepare($sql);
-        $formato_data = date_format(date_create($this->data_agendado),"Y/m/d");
+        // $formato_data = date_format(date_create($this->data_agendado),"Y/m/d");
 
         try{
-        $comando->execute([$this->id_cliente, $this->id_funcionario, $this->id_exame, $this->id_convenio, $this->id_localizacao, $formato_data, $this->situacao]);
+        $comando->execute([$this->id_cliente, $this->id_funcionario, $this->id_exame, $this->id_convenio, $this->id_localizacao, $this->data_agendado, $this->situacao]);
             
         Banco::desconectar();
 

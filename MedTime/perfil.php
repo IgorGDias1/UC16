@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
-    header('Location: actions/login/index.php');
+    header('Location: paginainicial.php?neutro=perfil');
     die();
 }
 
@@ -143,6 +143,7 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
             </div>
 
 
+            <!-- WIP -->
             <div class="col-md-8 rounded-3 border border-3 mb-2" hidden>
                 <p class="h2 text-center">Meus Exames</p>
                 <input class="form-control form-control-lg mb-2 w-75" name="nomeexame" id="nomexame" type="text" placeholder="Nome do exame" aria-label=".form-control-lg example">
@@ -157,30 +158,50 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
                 <?php foreach ($info as $i) { ?>
                     <p class="h4 text-center mt-3 mb-3">Dados pessoais</p>
 
-                    <div class="form-floating">
-                        <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome Completo" aria-label=".form-control-lg example" value="<?= $i['nome']; ?>">
-                        <label for="floatingInput">Nome</label>
-                    </div>
+                    <form action="actions/login/editar_cliente.php" method="POST" onkeyup="habilitarEdicao()">
+                        <input type="hidden" value="<?=$i['id_usuario'];?>" name="idCliente">
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 w-75" type="text" placeholder="Nome Completo" aria-label=".form-control-lg example" value="<?= $i['nome']; ?>" name="nomeCliente" required>
+                            <label for="floatingInput">Nome</label>
+                        </div>
 
-                    <div class="form-floating">
-                        <input class="form-control form-control-lg mb-2 w-75" type="email" placeholder="Email" aria-label=".form-control-lg example" value="<?= $i['email']; ?>">
-                        <label for="floatingInput">Email</label>
-                    </div>
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 w-75" type="email" placeholder="Email" aria-label=".form-control-lg example" value="<?= $i['email']; ?>" name="emailCliente" required>
+                            <label for="floatingInput">Email</label>
+                        </div>
 
-                    <div class="form-floating">
-                        <input class="form-control form-control-lg mb-2 w-75" type="date" placeholder="data de nascimento" aria-label=".form-control-lg example" value="<?= $i['data_nascimento']; ?>">
-                        <label for="floatingInput">Data de Nascimento</label>
-                    </div>
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 w-75" type="number" placeholder="CPF" aria-label=".form-control-lg example" value="<?= $i['cpf']; ?>" name="cpfCliente" required>
+                            <label for="floatingInput">CPF</label>
+                        </div>
 
-                    <div class="form-floating">
-                        <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Celular" aria-label=".form-control-lg example" value="<?= $i['telefone_celular']; ?>">
-                        <label for="floatingInput">Telefone Celular</label>
-                    </div>
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 w-75" type="date" placeholder="data de nascimento" aria-label=".form-control-lg example" value="<?= $i['data_nascimento']; ?>" name="data_nasciCliente" required>
+                            <label for="floatingInput">Data de Nascimento</label>
+                        </div>
 
-                    <div class="form-floating">
-                        <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Residencial" aria-label=".form-control-lg example" value="<?= $i['telefone_residencial']; ?>">
-                        <label for="floatingInput">Telefone Residencial <i>(Opcional)</i></label>
-                    </div>
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Celular" aria-label=".form-control-lg example" value="<?= $i['telefone_celular']; ?>" name="telefone_celCliente">
+                            <label for="floatingInput">Telefone Celular</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Telefone Residencial" aria-label=".form-control-lg example" value="<?= $i['telefone_residencial']; ?>" name="telefone_resCliente">
+                            <label for="floatingInput">Telefone Residencial <i>(Opcional)</i></label>
+                        </div>
+                        
+                        <?php if($i['id_convenio'] > 0 ) { ?>
+                        <div class="form-floating mt-4">
+                            <input type="hidden" value="<?=$i['id_convenio'];?>" name="id_convenio">
+                            <input class="form-control form-control-lg mb-2 w-75" type="tel" placeholder="Convênio" aria-label=".form-control-lg example" value="<?= $i['convenio']; ?>" name="convenioCliente" readonly>
+                            <label for="floatingInput">Convênio</label>
+                        </div>
+                        <?php } else { ?>
+                            <a href="contate_nos.php" target="blank" class="btn btn-primary btn-sm mt-3">Adicionar um Convênio</a>
+                            <?php } ?>
+
+                        <button class="btn btn-primary btn-sm mt-3" type="submit" id="btnEditarInfo" disabled>Alterar Informações Pessoais</button>
+                    </form>
 
                 <?php } ?>
 
@@ -490,6 +511,12 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
 
             document.getElementById('btnPerfil').hidden = false;
             document.getElementById('btnResultados').hidden = false
+        }
+    </script>
+
+    <script>
+        function habilitarEdicao(){
+            document.getElementById('btnEditarInfo').disabled=false
         }
     </script>
 
