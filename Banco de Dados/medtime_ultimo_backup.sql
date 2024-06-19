@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 18/06/2024 às 03:00
+-- Tempo de geração: 19/06/2024 às 22:48
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -40,6 +40,24 @@ SET ultimo_id = LAST_INSERT_ID();
 INSERT INTO usuarios(nome, email, senha, cpf, data_nascimento, telefone_celular, telefone_residencial, id_localizacao, id_convenio, id_cargo, id_especialidade, situacao)
 VALUES (nomeCad, emailCad, senhaCad, cpfCad, data_nascimentoCad, telefone_celularCad, telefone_residencialCad, ultimo_id, id_convenioCad, id_cargoCad, id_especialidadeCad, situacaoCad);
  
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_localizacao_atribuir_usuario` (IN `cepCad` VARCHAR(10), IN `logradouroCad` VARCHAR(300), IN `complementoCad` VARCHAR(300), IN `bairroCad` VARCHAR(300), IN `localidadeCad` VARCHAR(300), IN `ufCad` VARCHAR(300), IN `dddCad` VARCHAR(300), IN `tipoLocal` VARCHAR(15), IN `idUsuarioEdit` INT(11))   BEGIN
+ 
+#Declarando a variaval para armazenar o id do insert
+DECLARE ultimo_id INT;
+ 
+#Cadastrando uma nova localização
+INSERT INTO localizacoes(cep, logradouro, complemento, bairro, localidade, uf, ddd, tipo)
+VALUES (cepCad, logradouroCad, complementoCad, bairroCad, localidadeCad, ufCad, dddCad, tipoLocal);
+ 
+#Armazenando o id na variavel
+SET ultimo_id = LAST_INSERT_ID();
+ 
+#Atribuindo a localização ao Usuário
+UPDATE usuarios SET id_localizacao = ultimo_id
+ 
+WHERE usuarios.id = idUsuarioEdit;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `cadastrar_usuario_localizacao` (IN `cepCad` VARCHAR(10), IN `logradouroCad` VARCHAR(300), IN `complementoCad` VARCHAR(300), IN `bairroCad` VARCHAR(300), IN `localidadeCad` VARCHAR(300), IN `ufCad` VARCHAR(300), IN `dddCad` VARCHAR(300), IN `tipoLocal` VARCHAR(15), IN `nomeCad` VARCHAR(300), IN `emailCad` VARCHAR(300), IN `senhaCad` VARCHAR(300), IN `cpfCad` VARCHAR(11), IN `data_nascimentoCad` DATE, IN `telefone_celularCad` VARCHAR(10), IN `telefone_residencialCad` VARCHAR(10), IN `id_convenioCad` INT(11))   BEGIN
@@ -82,8 +100,9 @@ CREATE TABLE `agendamentos` (
 --
 
 INSERT INTO `agendamentos` (`id`, `id_cliente`, `id_funcionario`, `id_exame`, `id_convenio`, `id_localizacao`, `data_agendado`, `situacao`) VALUES
-(4, 66, 64, 4, 2, 40, '0001-01-01 00:00:00', 0),
-(5, 65, 64, 4, 2, 40, '2024-12-11 00:00:00', 1);
+(18, 83, 89, 6, 0, 60, '2024-06-20 07:00:00', 1),
+(19, 84, 90, 8, 0, 61, '2024-06-19 20:00:00', 1),
+(20, 85, 85, 11, 0, 62, '2024-06-19 20:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -101,11 +120,19 @@ CREATE TABLE `cargos` (
 --
 
 INSERT INTO `cargos` (`id`, `nome`) VALUES
-(2, 'Atendente'),
-(3, 'Enfermeiro'),
 (4, 'Médico'),
 (5, 'Gerente'),
-(35, 'Psicólogo');
+(36, 'Administrador'),
+(37, 'Atendente'),
+(38, 'Enfermeiro'),
+(39, 'Segurança'),
+(40, 'Técnico de Enfermagem'),
+(41, 'Estagiário'),
+(42, 'Jovem Aprendiz'),
+(43, 'Recepcionista'),
+(44, 'Nutricionista'),
+(45, 'Psicólogo'),
+(46, 'Fisioterapeuta');
 
 -- --------------------------------------------------------
 
@@ -125,9 +152,10 @@ CREATE TABLE `convenios` (
 --
 
 INSERT INTO `convenios` (`id`, `nome`, `email`, `telefone`) VALUES
-(0, 'Sem convênio', 'medtime@gmail.com', '12876567558'),
-(1, 'Sorriso Seguro Saúde', 'sss@gmail.com', '40028922'),
-(2, 'Taubaté Saúde', 'taubatesaude@gmail.com', '12576478953');
+(0, 'Sem convênio', 'medtime@gmail.com', '12 3410-5424'),
+(6, 'Saúde Total', 'saudetotal@saude.com', '12 3206-8638'),
+(7, 'Vida Plena Assistência Médica', 'vpam@vidaplena.com', '12 2013-4292'),
+(8, 'Seguro Saúde Familiar', 'segurosaudefamiliar@seguro.com', '12 3275-2444');
 
 -- --------------------------------------------------------
 
@@ -146,9 +174,14 @@ CREATE TABLE `especialidades` (
 --
 
 INSERT INTO `especialidades` (`id`, `id_cargo`, `especificacao`) VALUES
-(1, 4, 'Otorrinolaringologista'),
-(2, 4, 'Psicanalista'),
-(8, 4, 'Oftalmologista');
+(9, 4, 'Oftalmologista'),
+(10, 4, 'Otorrinolaringologista'),
+(11, 4, 'Cardiologista'),
+(12, 4, 'Psiquiatra'),
+(13, 4, 'Neurologista'),
+(14, 4, 'Proctologista'),
+(15, 4, 'Dermatologista'),
+(16, 4, 'Endocrinologista');
 
 -- --------------------------------------------------------
 
@@ -167,9 +200,15 @@ CREATE TABLE `exames` (
 --
 
 INSERT INTO `exames` (`id`, `nome`, `id_responsavel`) VALUES
-(3, 'Audiometria', 59),
-(4, 'Psicanalista', 64),
-(5, 'Oftalmologista', 69);
+(6, 'Eletrocardiograma', 89),
+(7, 'Ecocardiograma', 89),
+(8, 'Hemograma', 90),
+(9, 'Glicemia', 90),
+(10, 'Colesterol', 90),
+(11, 'Radiografia', 85),
+(12, 'Ultrassonografia', 91),
+(13, 'Mamografia', 91),
+(14, 'Ressonância Magnética', 87);
 
 -- --------------------------------------------------------
 
@@ -194,16 +233,23 @@ CREATE TABLE `localizacoes` (
 --
 
 INSERT INTO `localizacoes` (`id`, `cep`, `logradouro`, `complemento`, `bairro`, `localidade`, `uf`, `ddd`, `tipo`) VALUES
-(0, '0', 'sem', 'sem', 'sem', 'sem', 'sem', 'sem', 'sem'),
-(32, '12440560', 'Rua Maria Augusta da Silva Pouza', '(Moreira Cesar)', 'Residencial e Comercial Laerte Asumpção', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
-(34, '12440410', 'Avenida das Orquídeas', '', 'Residencial Vale das Acácias', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
-(38, '58046470', 'Granja Esperança', '', 'Altiplano Cabo Branco', 'João Pessoa', 'PB', '83', 'Residencial'),
-(39, '59122490', 'Rua Rio Salgado', '', 'Redinha', 'Natal', 'RN', '84', 'Residencial'),
-(40, '12441400', 'Avenida Júlio de Paula Claro', 'Clinica Taubaté', 'Feital', 'Pindamonhangaba', 'SP', '12', 'Clinica'),
-(41, '12440400', 'Rua dos Crisântemos', '', 'Residencial Vale das Acácias', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
-(42, '12030383', 'Praça Taipei', '', 'Jardim das Nações', 'Taubaté', 'SP', '12', 'Residencial'),
-(43, '12440430', 'Praça Santa Rita de Cássia', '', 'Residencial Vale das Acácias', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
-(45, '', '', '', '', '', '', '', '');
+(0, '0', 'Sem', 'Sem', 'Sem', 'Sem', 'Sem', 'Sem', 'Sem'),
+(46, '12424080', 'Rua Synphronio de Castro Júnior', '', 'Conjunto Residencial Araretama', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(47, '12445610', 'Avenida Espanha', '', 'Residencial Pasin', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(48, '12421460', 'Rua dos Manacás', '', 'Nossa Senhora do Perpétuo Socorro', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(49, '12403200', 'Rua São Vicente de Paulo', '', 'Jardim Dom Bosco', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(50, '12412670', 'Rua José Tineo Viva', '', 'Residencial e Comercial Vila Verde', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(51, '12423816', 'Rua Palermo', '', 'Residencial Village Splendore', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(52, '12410260', 'Rua João Gama', '', 'Parque São Benedito', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(53, '12441010', 'Avenida Doutor José Monteiro Machado César', '', 'Loteamento João Tamborindeguy Fernandes', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(54, '12414418', 'Rua Iria Correa Leite Moreira', '', 'Vitória Vale III', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(55, '12401080', 'Rua Frei Maurício', '', 'Jardim Boa Vista', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(57, '12440410', 'Avenida das Orquídeas', '', 'Residencial Vale das Acácias', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(58, '12402520', 'Rua Benedito Leite de Abreu', '', 'Loteamento Residencial Andrade', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(59, '12424170', 'Rua Samanta Smith', '', 'Residencial e Comercial Cidade Jardim', 'Pindamonhangaba', 'SP', '12', 'Residencial'),
+(60, '12400610', 'Avenida Atílio Amadei', 'Vida e Saúde', 'Residencial Campo Belo', 'Pindamonhangaba', 'SP', '12', 'Clinica'),
+(61, '12400150', 'Rua Capitão Alfredo César', 'Bem-Estar', 'Centro', 'Pindamonhangaba', 'SP', '12', 'Clinica'),
+(62, '12401355', 'Rua Dirce Glória Bueno Ferreira', 'Nova Esperança', 'Bosque da Princesa', 'Pindamonhangaba', 'SP', '12', 'Clinica');
 
 -- --------------------------------------------------------
 
@@ -262,22 +308,21 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `cpf`, `data_nascimento`, `telefone_celular`, `telefone_residencial`, `id_localizacao`, `id_convenio`, `id_cargo`, `id_especialidade`, `situacao`) VALUES
-(43, 'teste', 'teste@teste.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '21312837218', '2000-01-01', '', '', 43, 0, NULL, NULL, 0),
-(44, 'a', 'a@a.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '29313123193', '2000-01-01', '', '', 34, 1, 2, NULL, 0),
-(58, 'b', 'b@b.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3 ', '42147182481', '1888-02-20', '', '', 39, 1, 3, NULL, 0),
-(59, 'cauebr', 'c@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '', '2000-01-01', '', '', 32, 1, 4, NULL, 1),
-(63, 'd', 'd@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '421412412', '2000-01-01', NULL, NULL, 34, 0, 5, NULL, 1),
-(64, 'Guilherme', 'gui@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '54354354354', '2002-02-10', '1298574784', '', 41, 1, 4, 2, 1),
-(65, 'Juninho', 'juninho@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '5932i95829', '2000-01-01', '', '', 0, 1, NULL, NULL, 1),
-(66, 'Pedrinho', 'pedrinho@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '5893589', '2000-01-01', '', '', 0, 2, NULL, NULL, 1),
-(67, 'Zézinho', 'zezinho@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '53928529', '2000-01-01', '', '', 42, 2, NULL, NULL, 1),
-(68, 'Tikomia Nakama', 'tk@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48271', '2000-01-01', '', '', 34, 1, 35, 2, 1),
-(69, 'Simas Turbo', 'st@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '5883258', '2000-01-01', '', '', 43, 1, 4, 8, 1),
-(70, 'Mih Enrrabah', 'mih@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48718471', '2000-01-01', '', '', 0, 0, NULL, NULL, 1),
-(71, 'Kevin Mamar', 'kevin@hotmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '948194892', '2000-02-01', '', '', 34, 0, 2, NULL, 1),
-(72, 'Jahlin Rahbei', 'jjjg@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '48329', '2000-02-01', '', '', 34, 2, 5, NULL, 1),
-(77, 'Jacinto Pinto Aquino Rego', 'jpar@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '643683', '2000-01-01', '', NULL, 0, NULL, NULL, NULL, 1),
-(78, 'Thomas Turbando', 'toto@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '5835', '2000-01-01', '', NULL, 0, NULL, NULL, NULL, 1);
+(82, 'Administrador', 'admin@admin.com', '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', '0', '0000-00-00', NULL, NULL, 0, 0, 5, NULL, 1),
+(83, 'Ana Carolina Silva', 'anacarol@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '25243569062', '1992-03-31', '', '', 46, 0, 4, NULL, 1),
+(84, 'Bruno Henrique Souza', 'bhs@hotmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '06419566061', '2001-05-06', '(12) 99867', '', 47, 0, 46, NULL, 1),
+(85, 'Carlos Eduardo Oliveira', 'cadu@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '26557542044', '1999-01-01', '', '', 48, 0, 4, NULL, 1),
+(86, 'Daniela Ferreira Santos', 'dani@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '43989218000', '2000-12-12', '', '', 49, 0, 37, NULL, 1),
+(87, 'Eduardo Costa Pereira', 'educosta@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '05646396050', '1998-04-22', '', '', 50, 0, 4, NULL, 1),
+(88, 'Fernanda Lima Mendes', 'fer@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '76565340080', '2006-06-26', '', '', 51, 0, 42, NULL, 1),
+(89, 'Gabriel Rocha Almeida', 'gbral@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '72447932006', '1996-07-02', '', '', 52, 0, 4, 11, 1),
+(90, 'Heloísa Martins Barbosa', 'helo@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '01945263059', '1996-05-08', '', '', 53, 0, 4, 13, 1),
+(91, 'Isabela Vieira Gomes', 'isavieira@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '14387083000', '1999-09-05', '', '', 54, 0, 4, NULL, 1),
+(92, 'João Paulo Nogueira', 'jpnogueira@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '42045586073', '1991-06-09', '', '', 55, 0, 4, NULL, 1),
+(93, 'Larissa Rodrigues Silva', 'laridrigues@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '43520958007', '2000-04-05', '', '', 0, 0, NULL, NULL, 1),
+(95, 'Natália Azevedo Pinto', 'nathy@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '01989414044', '2000-05-25', '', '', 57, 8, NULL, NULL, 1),
+(96, 'Ricardo Lima Tavares', 'ricardolima@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '02144328072', '1969-04-30', '', '', 58, 8, NULL, NULL, 1),
+(97, 'Viviane Oliveira Machado', 'vivianeoliveira@gmail.com', 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '06026158014', '1989-03-04', '', '', 59, 0, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -495,37 +540,37 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de tabela `agendamentos`
 --
 ALTER TABLE `agendamentos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de tabela `cargos`
 --
 ALTER TABLE `cargos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT de tabela `convenios`
 --
 ALTER TABLE `convenios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de tabela `especialidades`
 --
 ALTER TABLE `especialidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `exames`
 --
 ALTER TABLE `exames`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de tabela `localizacoes`
 --
 ALTER TABLE `localizacoes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT de tabela `resultados`
@@ -537,13 +582,13 @@ ALTER TABLE `resultados`
 -- AUTO_INCREMENT de tabela `suportes`
 --
 ALTER TABLE `suportes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- Restrições para tabelas despejadas
