@@ -7,7 +7,7 @@ if(!isset($_SESSION['usuario'])){
 }
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    require_once('../../classes/Exame.class.php');
+    require_once('../../../classes/Exame.class.php');
 
     $exame = new Exame();
     $exame -> id = strip_tags($_POST['id']);
@@ -15,15 +15,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $exame -> id_responsavel = strip_tags($_POST['id_resp']);
 
     if($exame->Editar() == 1){
-        header('Location: gerenciamento_enderecos.php?sucesso=editarexame');
+        header('Location: ../ger_exames.php?sucesso=editarexame');
         die();
     }else{
-        header('Location: gerenciamento_enderecos.php?falha=editarexame');
+        header('Location: ../ger_exames.php?falha=editarexame');
         die();
     }
 
 }else{  
-    header('Location: gerenciamento_enderecos.php?falha=post');
+    header('Location: ../ger_exames.php?falha=post');
     die();
 }
 

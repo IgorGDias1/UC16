@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $c = new Convenio();
     $c -> id = strip_tags($_POST['id']);
-    $c -> nome = strip_tags($_POST['covenio']);
+    $c -> nome = strip_tags($_POST['nome']);
     $c -> email = strip_tags($_POST['email']);
     $c -> telefone = strip_tags($_POST['telefone']);
 

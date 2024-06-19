@@ -85,7 +85,7 @@ $listar_medicos = $u->ListarMedicos();
                                         <td hidden><?= $exame['id_responsavel']; ?></td>
                                         <td><?= $exame['funcionario_resp']; ?></td>
                                         <td>
-                                            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" data-id="<?= $exame['id']; ?>" data-nome="<?= $exame['nome']; ?>" data-id_resp="<?= $exame['id_responsavel']; ?>" data-funcionario_resp="<?= $exame['funcionario_resp']; ?>">
+                                            <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicaoExame" data-id="<?= $exame['id']; ?>" data-nome="<?= $exame['nome']; ?>" data-id_resp="<?= $exame['id_responsavel']; ?>" data-funcionario_resp="<?= $exame['funcionario_resp']; ?>">
                                                 <i class="bi bi-pencil-square"></i> Editar</button>
                                         </td>
                                         <td>
@@ -106,6 +106,37 @@ $listar_medicos = $u->ListarMedicos();
         </div>
     </div>
 
+
+    <div class="modal fade" id="modalEdicaoExame" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="exames/editar_exame.php" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalEdicaoLabel">Edição de Exame</h5>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="id" name="id" id="id">
+                            <div class="form-group">
+                                <input type="text" class="form-control cargo" id="nome" name="nome">
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="responsavel">Responsável</label>
+                                <br>
+                                <select class="form-control" id="responsavel" name="id_resp" required>
+                                    <?php foreach ($listar_medicos as $med) { ?>
+                                        <option value="<?= $med['id']; ?>"><?= $med['nome'];?></option>
+                                    <?php } ?>
+                                </select>
+                     </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     <!-- PUXAR INCLUDE DOS MODAIS DE GERENCIAMENTO -->
     <?php include_once('../../includes/modais_gerenciamento.include.php') ?>
 
@@ -125,14 +156,9 @@ $listar_medicos = $u->ListarMedicos();
     <script src="../cargos/script.js"></script>
     <script src="../exames/script.js"></script>
 
-    <script>
-        $('#responsavel').select2({
-            dropdownParent: $('#modalCadastroExame')
-        });
-    </script>
 
     <script>
-        function excluirEspecialidade(id) {
+        function excluirExame(id) {
             Swal.fire({
                 title: "Tem certeza?",
                 text: "Não será possível desfazer essa ação!",
@@ -144,27 +170,24 @@ $listar_medicos = $u->ListarMedicos();
                 confirmButtonText: "Sim, apagar!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = '../especialidades/deletar_especialidade.php?id=' + id;
+                    window.location.href = 'exames/deletar_exame.php?id=' + id;
                 }
             });
         }
 
-        function excluirCargo(id) {
-            Swal.fire({
-                title: "Tem certeza?",
-                text: "Não será possível desfazer essa ação!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "Cancelar",
-                confirmButtonText: "Sim, apagar!"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '../cargos/deletar_cargo.php?id=' + id;
-                }
-            });
-        }
+        $('#modalEdicaoExame').on('show.bs.modal', function(event) {
+
+            var button = $(event.relatedTarget)
+
+            var id = button.data('id')
+            var cargo = button.data('nome')
+
+            var modal = $(this)
+
+            modal.find('.id').val(id)
+            modal.find('.cargo').val(cargo)
+
+            })
     </script>
 
 

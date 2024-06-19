@@ -14,15 +14,15 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $cargo -> nome = strip_tags($_POST['nome']);
 
     if($cargo->Editar() == 1){
-        header('Location: ../outro/gerenciamento_outro.php?sucesso=editarcargo');
+        header('Location: ../outro/ger_especialidade_cargo.php?sucesso=editarcargo');
         die();
     }else{
-        header('Location: ../outro/gerenciamento_outro.php?falha=editarcargo');
+        header('Location: ../outro/ger_especialidade_cargo.php?falha=editarcargo');
         die();
     }
 
 }else{
-    header('Location: ../outro/gerenciamento_outro.php?falha=post');
+    header('Location: ../outro/ger_especialidade_cargo.php?falha=post');
 }
 
 

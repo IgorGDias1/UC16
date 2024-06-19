@@ -26,20 +26,28 @@
 
         //Cargos
         "cadastrarcargo" => "Cargo cadastrado",
+        "editarcargo" => "Cargo editado",
         "removercargo" => "Cargo removido!",
 
         //Convenio
         "cadastrarconvenio" => "Cadastro realizado",
+        "editarconvenio" => "Edição realizada",
         "removerconvenio" => "Convenio removido",
 
         //Especialidade
         "cadastrarespecialidade" => "Cadastro realizado",
         "removerespecialidade" => "Especialidade removida",
+        "editarespecialidade" => "Editado!",
 
         //Resultado
         "cadastrarresultado" => "Resultado adicionado",
         "removerresultado" => "Resultado removido",
         "editarresultado" => "Informações editadas",
+
+        //Exame
+        "cadastrarexame" => "Exame adicionado",
+        "editarexame" => "Exame editado",
+        "deletarexame" => "Exame removido",
 
         //Suporte
         "cadastrarsuporte" => "Seu feedback foi enviado!",
@@ -75,17 +83,25 @@
 
         //Cargos
         "cadastrarcargo" => "Erro!",
+        "editarcargo" => "Falha",
         "removercargo" => "Erro ao remover cargo",
 
         //Convenio
+        "editarconvenio" => "Ocorre um erro",
         "cadastrarconvenio" => "Erro ao cadastrar convenio",
 
         //Especialidade
         "cadastrarespecialidade" => "Ocorreu um erro",
+        "editarespecialidade" => "Falha",
 
         //Resultado
         "cadastrarresultado" => "Ocorreu um erro ao cadastrar o resultado",
         "editarresultado" => "Ocorreu um erro ao editar as informações",
+
+        //Exame
+        "cadastrarexame" => "Erro",
+        "editarexame" => "Falha",
+        "deletarexame" => "Ocorreu um erro",
 
         //Suporte
         "cadastrarsuporte" => "Erro ao cadastrar suporte!",

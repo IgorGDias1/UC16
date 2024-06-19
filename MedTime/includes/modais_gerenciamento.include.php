@@ -34,7 +34,6 @@
                          <input type="tel" class="form-control" id="telefone" name="telefone"></input>
                      </div>
                  </div>
-                 <button type="button" class="btn btn-warning mt-3" onclick="limpar_formulario_inteiro();" id="btn_limpar" hidden>Limpar campos</button>
                  <div class="modal-footer mt-5">
                      <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
                      <button type="submit" class="btn btn-success">Salvar</button>

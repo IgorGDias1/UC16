@@ -106,9 +106,42 @@ $listar_medicos = $u->ListarMedicos();
   </div>
 
 
+  <div class="modal fade" id="modalEdicaoConvenio" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form action="convenio/editar_convenio.php" method="POST">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalEdicaoLabel">Edição de Convênio</h5>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" class="id" name="id" id="id">
+                            <div class="form-group mt-2">
+                                <label for="nome">Nome do Convênio</label>
+                                <input type="text" class="form-control nome" id="nome" name="nome">
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="email">E-mail do convênio</label>
+                                <input type="email" class="form-control email" id="email" name="email">
+                            </div>
+                            <div class="form-group mt-2">
+                                <label for="telefone">Telefone de contato</label>
+                                <input type="tel" class="form-control telefone" id="telefone" name="telefone">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
   <!-- PUXAR INCLUDE DOS MODAIS DE GERENCIAMENTO -->
   <?php include_once('../../includes/modais_gerenciamento.include.php') ?>
+
+  <?php include_once('../../includes/alertas.include.php') ?>
 
 
 
@@ -119,7 +152,7 @@ $listar_medicos = $u->ListarMedicos();
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-  <?php include_once('../../includes/alertas.include.php') ?>
+
 
   <script src="script.js"></script>
   <script src="../especialidades/script.js"></script>

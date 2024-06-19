@@ -123,7 +123,7 @@ $listar_medicos = $u->ListarMedicos();
                                             <td hidden><?= $especialidade['id_cargo']; ?></td>
                                             <td><?= $especialidade['nome']; ?></td>
                                             <td>
-                                                <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicaoEspecialidade" data-id="<?= $especialidade['id']; ?>" data-especificacao="<?= $especialidade['especificacao']; ?>" data-id_cargo="<?= $especialidade['id_cargo']; ?>" data-nome_cargo="<?= $especialidade['nome']; ?>">
+                                                <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicaoEspecialidade" data-id_especialidade="<?= $especialidade['id']; ?>" data-especificacao="<?= $especialidade['especificacao']; ?>" data-id_cargo="<?= $especialidade['id_cargo']; ?>">
                                                     <i class="bi bi-pencil-square"></i> Editar</button>
                                             </td>
                                             <td>
@@ -140,23 +140,18 @@ $listar_medicos = $u->ListarMedicos();
                 </div>
             <?php } ?>
         </div>
-        <!-- Modal de edição Convênio-->
+
         <div class="modal fade" id="modalEdicaoCargo" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="editar_cliente.php" method="POST">
+                    <form action="../cargos/editar_cargo.php" method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalEdicaoLabel">Edição de Cargo</h5>
                         </div>
                         <div class="modal-body">
                             <input type="hidden" class="id" name="id" id="id">
                             <div class="form-group">
-                                <label for="cargo">Nome Cargo</label>
-                                <select class="form-control cargo" id="cargo" name="cargo">
-                                    <?php foreach ($lista_cargos as $c) { ?>
-                                        <option value="<?= $c['id']; ?>"><?= $c['nome']; ?></option>
-                                    <?php } ?>
-                                </select>
+                                <input type="text" class="form-control cargo" id="nome" name="nome">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -167,23 +162,20 @@ $listar_medicos = $u->ListarMedicos();
                 </div>
             </div>
         </div>
-        <!-- Modal de edição Convênio-->
+        
+
         <div class="modal fade" id="modalEdicaoEspecialidade" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form action="editar_cliente.php" method="POST">
+                    <form action="../especialidades/editar_especialidade.php" method="POST">
                         <div class="modal-header">
                             <h5 class="modal-title" id="modalEdicaoLabel">Edição de Especialidade</h5>
                         </div>
                         <div class="modal-body">
-                            <input type="hidden" class="id" name="id" id="id">
+                            <input type="hidden" class="id_especialidade" name="id_especialidade" id="id_especialidade">
                             <div class="form-group">
                                 <label for="especialidade">Nome Especialidade</label>
-                                <select class="form-control especialidade" id="especialidade" name="especialdade">
-                                    <?php foreach ($lista_especialidades as $e) { ?>
-                                        <option value="<?= $e['id']; ?>"><?= $e['especificacao']; ?></option>
-                                    <?php } ?>
-                                </select>
+                                <input type="text" class="form-control especificacao" id="especificacao" name="especificacao">
                             </div>
                             <div class="form-group mt-3">
                                 <label for="cargo">Cargo da especialidade</label>
@@ -273,6 +265,22 @@ $listar_medicos = $u->ListarMedicos();
 
             modal.find('.id').val(id)
             modal.find('.cargo').val(cargo)
+
+        })
+
+        $('#modalEdicaoEspecialidade').on('show.bs.modal', function(event) {
+
+            var button = $(event.relatedTarget)
+
+            var id = button.data('id_especialidade')
+            var especificacao = button.data('especificacao')
+            var id_cargo = button.data('id_cargo')
+
+            var modal = $(this)
+
+            modal.find('.id_especialidade').val(id)
+            modal.find('.especificacao').val(especificacao)
+            modal.find('.id_cargo').val(id_cargo)
 
         })
     </script>
