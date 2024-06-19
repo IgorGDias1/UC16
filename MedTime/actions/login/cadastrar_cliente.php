@@ -15,18 +15,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if ($usuario->CadastrarClienteSemLocalizacao() == 1) {
-        header('Location: ../../paginainicial.php?sucesso=cadastrarcliente');
+        header('Location: ../../index.php?sucesso=cadastrarcliente');
 
         $resultado = $usuario->Logar();
 
         session_start();
 
         $_SESSION['usuario'] = $resultado[0];
-        header('Location: ../../paginainicial.php?sucesso=logar');
+        header('Location: ../../index.php?sucesso=logar');
         die();
         
     } else {
-        header('Location: ../../paginainicial.php?falha=cadastrarcliente');
+        header('Location: ../../index.php?falha=cadastrarcliente');
         die();
     }
 }

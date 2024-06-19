@@ -36,7 +36,7 @@
                         <li class="nav-item px-3">
                             <a class="nav-link <?php if ($paginaAtiva == "1") {
                                                     echo "active";
-                                                } ?>" aria-current="page" href="paginainicial.php">Página
+                                                } ?>" aria-current="page" href="index.php">Página
                                 Inicial</a>
                         </li>
                         <li class="nav-item px-3">

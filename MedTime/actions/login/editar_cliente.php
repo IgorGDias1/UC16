@@ -2,7 +2,7 @@
 
 session_start();
 if(!isset($_SESSION['usuario'])){
-    header('Location: ../../paginainicial.php?falha=editarusuario');
+    header('Location: ../../index.php?falha=editarusuario');
     die();
 }
 

@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['usuario'])) {
-    header('Location: paginainicial.php?neutro=perfil');
+    header('Location: index.php?neutro=perfil');
     die();
 }
 

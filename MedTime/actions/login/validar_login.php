@@ -11,7 +11,7 @@
         $resultado = $usuario->Logar();
 
         if(count($resultado) < 1) {
-            header('Location: ../../paginainicial.php?falha=logar');
+            header('Location: ../../index.php?falha=logar');
             die();
         }
 
@@ -19,18 +19,18 @@
             session_start();
 
             $_SESSION['usuario'] = $resultado[0];
-            header('Location: ../../paginainicial.php?sucesso=logar');
+            header('Location: ../../index.php?sucesso=logar');
             die();
         } else {
             session_start();
 
             $_SESSION['usuario'] = $resultado[0];
-            header('Location: ../../paginainicial.php?sucesso=logar');
+            header('Location: ../../index.php?sucesso=logar');
             die();
         }
             
     }else{
-        header('Location: ../../paginainicial.php?falha=post');
+        header('Location: ../../index.php?falha=post');
         die();
     }
 

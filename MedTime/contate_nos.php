@@ -3,7 +3,7 @@
 session_start();
 
 if(!isset($_SESSION['usuario'])) {
-    header('Location: paginainicial.php?neutro=suporte');
+    header('Location: index.php?neutro=suporte');
 }
 
 ?>
