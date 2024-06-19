@@ -94,7 +94,7 @@ $listar_medicos = $u->ListarMedicos();
                                             </a>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCadastroExame"><i class="bi bi-plus-circle"></i> Cadastrar Agendamento</button>
+                                            <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modalCadastroExame"><i class="bi bi-plus-circle"></i> Cadastrar Exame</button>
                                         </td>
                                     </tr>
                                 <?php } ?>
