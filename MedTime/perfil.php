@@ -107,7 +107,7 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
                 <?php foreach ($infoAgendamento as $infoA) { ?>
                     <div class="card" id="cardAgendamento">
                         <div class="card-body">
-                            <h5 class="card-title">Data: <?= $infoA['data consulta']; ?></h5>
+                            <h5 class="card-title">Data e horário: <?= $infoA['data consulta']; ?></h5>
                             <hr>
                             <p class="card-text fs-6"><b><?= $infoA['situacao']; ?></b> - <?= $infoA['exame']; ?></p>
                             <a class="btn btn-primary btn-sm text-light" href="agendamento_cliente.php?id=<?= $infoA['id']; ?>">Ver Agendamento</a>
@@ -176,7 +176,7 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
                         </div>
 
                         <div class="form-floating">
-                            <input class="form-control form-control-lg mb-2 w-75" type="date" placeholder="data de nascimento" aria-label=".form-control-lg example" value="<?= $i['data_nascimento']; ?>" name="data_nasciCliente" required>
+                            <input class="form-control form-control-lg mb-2 w-75" type="date" placeholder="data de nascimento" aria-label=".form-control-lg example" value="<?= $i['data_nascimento']; ?>" name="data_nasciCliente" onclick="habilitarEdicao()" required>
                             <label for="floatingInput">Data de Nascimento</label>
                         </div>
 

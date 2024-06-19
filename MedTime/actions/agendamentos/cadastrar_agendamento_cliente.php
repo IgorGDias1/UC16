@@ -7,7 +7,7 @@
         $agendamento = new Agendamento();
 
         date_default_timezone_set('America/Sao_Paulo');
-        
+
         $date = date('Y-m-d H:i', strtotime(strip_tags($_POST['dataagendamento'])));
 
         $agendamento->id_cliente = strip_tags($_POST['id_cliente']);

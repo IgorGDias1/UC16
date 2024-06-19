@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_start();
 
         $_SESSION['usuario'] = $resultado[0];
-        header('Location: ../../paginainicial.php?sucesso=login');
+        header('Location: ../../paginainicial.php?sucesso=logar');
         die();
         
     } else {

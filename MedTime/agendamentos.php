@@ -112,17 +112,21 @@ $listarClinicas = $localizacao->ListarClinicas();
 
                         <div class="form-floating">
                             <input class="form-control form-control-lg mb-2 mt-5" 
-                            name="dataagendamento" id="dataagendamento" type="datetime-local" placeholder="Data" aria-label=".form-control-lg example" onclick="definirData()">
+                            name="dataagendamento" id="dataagendamento" type="datetime-local" placeholder="Data" aria-label=".form-control-lg example" onclick="definirData()" required>
                             <label for="floatingInput">Data e horário</label>
                         </div>
                         <p class="ms-2"><i>Nosso horário de funcionamento é das 07:00h até as 21:00h</i></p>
 
                         <div class="form-floating">
+                            
+                            <select name="clinica" id="clinica" class="form-control form-control-lg mb-2">
                             <?php foreach($listarClinicas as $clinica) { ?>
-                            <select name="clinica" id="clinica" class="form-control form-control-lg mb-2" disabled>
-                                <option value="<?=$clinica['id'];?>"><?=$clinica['complemento'];?> | <?=$clinica['logradouro'];?> - <?=$clinica['uf'];?></option>
-                            </select>
+                                <option value="<?=$clinica['id'];?>"><?=$clinica['complemento'];?> | 
+                                <?=$clinica['logradouro'];?> - <?=$clinica['uf'];?>
+                            </option>
                             <?php } ?>
+                            </select>
+
                             <label for="floatingInput">Clínica</label>
                         </div>
 
@@ -153,7 +157,7 @@ $listarClinicas = $localizacao->ListarClinicas();
 
     <script>
         const dateControl = document.querySelector('input[type="datetime-local"]');
-        dateControl.value = "2024-06-19T07:00";
+        dateControl.value = "2024-06-20T07:00";
 
         var dataAtual = new Date().toISOString().slice(0, 16);
         document.getElementById('data').min = dataAtual
@@ -163,13 +167,16 @@ $listarClinicas = $localizacao->ListarClinicas();
         function definirData() {
         const dateInput = document.getElementById('dataagendamento');
 
+
         dateInput.addEventListener('input', function() {
         const selectedDate = new Date(this.value);
         const minimumDate = new Date('2024-06-19');
+        const maximumDate = new Date('2028-01-01');
 
         const selectedHour = selectedDate.getHours();
+        const selectedDay = selectedDate.getDay();
 
-            if (selectedDate < minimumDate) {
+            if (selectedDate < minimumDate || selectedDate > maximumDate) {
                 this.value = ''; // Limpa o valor do input se for anterior a 2024
 
                 Swal.fire({
@@ -180,11 +187,20 @@ $listarClinicas = $localizacao->ListarClinicas();
             } 
             
             else if (selectedHour < 7 || selectedHour >= 21) {
-                this.value = ''; // Limpa o valor do input se for anterior a 2024
+                this.value = '';
 
                 Swal.fire({
                 title: "Erro!",
                 text: "Por favor selecione um horário entre 07:00h e 21:00h",
+                icon: "error"
+                });
+            }
+            else if (selectedDay === 0 || selectedDay === 6) {
+                this.value = ''; 
+
+                Swal.fire({
+                title: "Erro!",
+                text: "Por favor selecione um dia entre Segunda-feira e Sexta-Feira",
                 icon: "error"
                 });
             }
