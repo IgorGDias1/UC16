@@ -2,9 +2,9 @@
 
     require_once('../../classes/Convenio.class.php');
     $convenio = new Convenio();
-    $lista_convenios = $convenio->Listar();
+    $listar_convenios = $convenio->Listar();
 
-?>
+    ?>
 
  <!-- Modais -->
 
@@ -81,10 +81,10 @@
 
 
  <!-- Modal de edição Convênio-->
- <div class="modal fade" id="modalEdicao" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
+ <div class="modal fade" id="modalEdicaoConvenio" tabindex="-1" role="dialog" aria-labelledby="modalEdicaoLabel" aria-hidden="true">
      <div class="modal-dialog" role="document">
          <div class="modal-content">
-             <form action="editar_cliente.php" method="POST">
+             <form action="convenio/editar_convenio.php" method="POST">
                  <div class="modal-header">
                      <h5 class="modal-title" id="modalEdicaoLabel">Edição de Convênio</h5>
                  </div>
@@ -92,8 +92,8 @@
                      <input type="hidden" class="id" name="id" id="id">
                      <div class="form-group">
                          <label for="covenio">Nome Convênio</label>
-                         <select class="form-control convenio" id="convenio" name="convenio">
-                             <?php foreach ($listar_convenio as $c) { ?>
+                         <select class="form-control nome" id="convenio" name="convenio">
+                             <?php foreach ($listar_convenios as $c) { ?>
                                  <option value="<?= $c['id']; ?>"><?= $c['nome']; ?></option>
                              <?php } ?>
                          </select>

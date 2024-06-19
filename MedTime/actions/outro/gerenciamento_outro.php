@@ -82,9 +82,9 @@ $listar_medicos = $u->ListarMedicos();
                 <td><?= $convenio['email']; ?></td>
                 <td><?= $convenio['telefone']; ?></td>
                 <td>
-                  <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicao" 
+                  <button type="submit" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modalEdicaoConvenio" 
                   data-id="<?= $convenio['id']; ?>" 
-                  data-convenio="<?= $convenio['nome']; ?>" 
+                  data-nome="<?= $convenio['nome']; ?>" 
                   data-email="<?= $convenio['email']; ?>" 
                   data-telefone="<?= $convenio['telefone']; ?>">
                     <i class="bi bi-pencil-square"></i> Editar</button>
@@ -125,6 +125,7 @@ $listar_medicos = $u->ListarMedicos();
   <script src="../especialidades/script.js"></script>
   <script src="../cargos/script.js"></script>
   <script src="../exames/script.js"></script>
+  
 
   <script>
     $('#responsavel').select2({
@@ -133,23 +134,6 @@ $listar_medicos = $u->ListarMedicos();
   </script>
 
   <script>
-    function excluirEspecialidade(id) {
-      Swal.fire({
-        title: "Tem certeza?",
-        text: "Não será possível desfazer essa ação!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Sim, apagar!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = '../especialidades/deletar_especialidade.php?id=' + id;
-        }
-      });
-    }
-
     function excluirConvenio(id) {
       Swal.fire({
         title: "Tem certeza?",
@@ -167,22 +151,24 @@ $listar_medicos = $u->ListarMedicos();
       });
     }
 
-    function excluirCargo(id) {
-      Swal.fire({
-        title: "Tem certeza?",
-        text: "Não será possível desfazer essa ação!",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        cancelButtonText: "Cancelar",
-        confirmButtonText: "Sim, apagar!"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.href = '../cargos/deletar_cargo.php?id=' + id;
-        }
-      });
-    }
+     $('#modalEdicaoConvenio').on('show.bs.modal', function(event) {
+
+         var button = $(event.relatedTarget)
+
+         var id = button.data('id')
+         var nome = button.data('nome')
+         var email = button.data('email')
+         var telefone = button.data('telefone')
+
+         var modal = $(this)
+
+         modal.find('.id').val(id)
+         modal.find('.nome').val(nome)
+         modal.find('.email').val(email)
+         modal.find('.telefone').val(telefone)
+
+     })
+ 
   </script>
 
 </body>
