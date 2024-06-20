@@ -37,7 +37,7 @@
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu px-2">
                                     <li><a class="dropdown-item" href="../enderecos/gerenciamento_enderecos.php">Endereços</a></li>
-                                    <li><a class="dropdown-item" href="#">Resultados</a></li>
+                                    <li><a class="dropdown-item" href="#" hidden>Resultados</a></li>
                                     <li><a class="dropdown-item" href="../outro/gerenciamento_outro.php">Convênios</a></li>
                                     <li><a class="dropdown-item" href="../outro/ger_especialidade_cargo.php">Cargos/Especialidade</a></li>
                                     <li><a class="dropdown-item" href="../outro/ger_exames.php">Exames</a></li>

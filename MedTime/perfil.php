@@ -327,12 +327,12 @@ $infoAgendamento = $agendamento->ListarPorIDPaciente();
 
     <script>
         function mostrarCEP() {
-            document.getElementById('cep').hidden = false
+            document.getElementById('cep').hidden = false;
 
-            document.getElementById('cepLabel').hidden = false
+            document.getElementById('cepLabel').hidden = false;
 
-            document.getElementById('btnAddEndereco').hidden = true
-            document.getElementById('tituloEndereco').hidden = false
+            document.getElementById('btnAddEndereco').hidden = true;
+            document.getElementById('tituloEndereco').hidden = false;
         }
     </script>
 
